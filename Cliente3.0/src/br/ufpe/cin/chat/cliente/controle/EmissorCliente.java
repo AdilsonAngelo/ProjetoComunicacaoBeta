@@ -3,6 +3,8 @@ package br.ufpe.cin.chat.cliente.controle;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import br.ufpe.cin.chat.cliente.dados.Cliente;
+
 public class EmissorCliente implements Runnable {
 
 	private Cliente cliente;

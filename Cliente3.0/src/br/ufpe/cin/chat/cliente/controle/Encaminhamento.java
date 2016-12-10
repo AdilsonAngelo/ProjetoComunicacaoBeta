@@ -1,6 +1,7 @@
 package br.ufpe.cin.chat.cliente.controle;
 
 import br.ufpe.cin.chat.cliente.dados.ACK;
+import br.ufpe.cin.chat.cliente.dados.Cliente;
 import br.ufpe.cin.chat.cliente.dados.Mensagem;
 
 public class Encaminhamento implements Runnable {

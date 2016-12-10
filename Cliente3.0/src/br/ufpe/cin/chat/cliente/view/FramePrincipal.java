@@ -5,16 +5,23 @@
  */
 package br.ufpe.cin.chat.cliente.view;
 
+import java.net.Socket;
+
+import br.ufpe.cin.chat.cliente.dados.Cliente;
+
 /**
  *
  * @author Adilson
  */
 public class FramePrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FramePrincipal
-     */
-    public FramePrincipal() {
+	private Socket socket;
+	private Cliente cliente;
+	private static final long serialVersionUID = -1413926017169968935L;
+
+	public FramePrincipal(Socket socket, Cliente cliente) {
+		this.socket = socket;
+		this.cliente = cliente;
         initComponents();
     }
 
@@ -112,7 +119,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FramePrincipal().setVisible(true);
+                new FramePrincipal(null, null).setVisible(true);
             }
         });
     }

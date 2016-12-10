@@ -1,23 +1,21 @@
-package br.ufpe.cin.chat.cliente.controle;
+package br.ufpe.cin.chat.cliente.dados;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
-import br.ufpe.cin.chat.cliente.dados.ACK;
-import br.ufpe.cin.chat.cliente.dados.Mensagem;
-import br.ufpe.cin.chat.cliente.dados.RepositorioConversas;
-import br.ufpe.cin.chat.cliente.dados.Usuario;
+import java.util.Vector;
 
 public class Cliente {
-
+	
 	private Queue<Object> filaEnvio;
 	private RepositorioConversas conversas;
 	private Usuario selfUser;
+	private Vector<String> listaUsuarios;
 
 	public Cliente(String login, String senha, String IP){
 		this.filaEnvio = new LinkedList<Object>();
 		this.conversas = new RepositorioConversas();
 		this.selfUser = new Usuario(login, senha, IP);
+		this.setListaUsuarios(new Vector<String>());
 	}
 
 	public void encaminharMsg(Mensagem msg){
@@ -39,7 +37,7 @@ public class Cliente {
 	public void addFilaEnvio(Mensagem mensagem){
 		filaEnvio.add(mensagem);
 	}
-	
+
 	public RepositorioConversas getConversas() {
 		return conversas;
 	}
@@ -50,5 +48,13 @@ public class Cliente {
 
 	public Queue<Object> getFilaEnvio() {
 		return filaEnvio;
+	}
+
+	public Vector<String> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+	public void setListaUsuarios(Vector<String> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
 	}
 }

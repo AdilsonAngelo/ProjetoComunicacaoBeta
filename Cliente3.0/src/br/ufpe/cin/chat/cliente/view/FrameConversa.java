@@ -11,10 +11,9 @@ package br.ufpe.cin.chat.cliente.view;
  */
 public class FrameConversa extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrameConversa
-     */
-    public FrameConversa() {
+	private static final long serialVersionUID = -6059384211484294031L;
+   
+	public FrameConversa() {
         initComponents();
     }
 

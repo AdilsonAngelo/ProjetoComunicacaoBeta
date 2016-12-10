@@ -2,6 +2,9 @@ package br.ufpe.cin.chat.cliente.controle;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Vector;
+
+import br.ufpe.cin.chat.cliente.dados.Cliente;
 
 public class ReceptorCliente implements Runnable {
 
@@ -12,12 +15,18 @@ public class ReceptorCliente implements Runnable {
 		this.entradaObjetos = entradaObjetos;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		try{
 			while(true){
 				Object objetoRecebido = entradaObjetos.readObject();
-				(new Thread(new Encaminhamento(cliente, objetoRecebido))).start();
+				if (objetoRecebido instanceof Vector<?>){
+					cliente.setListaUsuarios((Vector<String>) objetoRecebido);
+				}
+				else{
+					(new Thread(new Encaminhamento(cliente, objetoRecebido))).start();
+				}
 			}
 
 		}
@@ -25,11 +34,7 @@ public class ReceptorCliente implements Runnable {
 			// perdeu conexao com servidor
 		} 
 		catch (ClassNotFoundException e) {
-			
+
 		}
 	}
-
-
-
-
 }
