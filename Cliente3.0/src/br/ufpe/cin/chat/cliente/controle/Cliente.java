@@ -9,17 +9,17 @@ import br.ufpe.cin.chat.cliente.dados.RepositorioConversas;
 import br.ufpe.cin.chat.cliente.dados.Usuario;
 
 public class Cliente {
-	
-	private Queue<Object> filaTransm;
+
+	private Queue<Object> filaEnvio;
 	private RepositorioConversas conversas;
 	private Usuario selfUser;
-	
+
 	public Cliente(String login, String senha, String IP){
-		this.filaTransm = new LinkedList<Object>();
+		this.filaEnvio = new LinkedList<Object>();
 		this.conversas = new RepositorioConversas();
 		this.selfUser = new Usuario(login, senha, IP);
 	}
-	
+
 	public void encaminharMsg(Mensagem msg){
 		if(msg.getDestinatario().equals(selfUser.getLogin())){
 			conversas.addMsgRecebida(msg);
@@ -27,12 +27,28 @@ public class Cliente {
 			conversas.addMsgEnviada(msg);
 		}
 	}
-	
+
 	public void encaminharACK(ACK ack){
 		conversas.tratarACK(ack, ack.getDestinatario());
 	}
-	
+
 	public void iniciarConversa(String conversandoCom){
 		conversas.criarConversa(selfUser.getLogin(), conversandoCom);
+	}
+
+	public void addFilaEnvio(Mensagem mensagem){
+		filaEnvio.add(mensagem);
+	}
+	
+	public RepositorioConversas getConversas() {
+		return conversas;
+	}
+
+	public Usuario getSelfUser() {
+		return selfUser;
+	}
+
+	public Queue<Object> getFilaEnvio() {
+		return filaEnvio;
 	}
 }

@@ -46,4 +46,8 @@ public class Conversa {
 			}
 		}
 	}
+
+	public LinkedList<Mensagem> getMensagens(){
+		return listaMensagens;
+	}
 }
