@@ -3,6 +3,7 @@ package br.ufpe.cin.chat.cliente.controle;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.ufpe.cin.chat.cliente.dados.Cliente;
 import br.ufpe.cin.chat.cliente.dados.Conversa;
 import br.ufpe.cin.chat.cliente.dados.Mensagem;
 
