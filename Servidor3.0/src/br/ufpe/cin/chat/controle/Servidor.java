@@ -12,6 +12,7 @@ import java.util.Vector;
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Mensagem;
 import br.ufpe.cin.chat.dados.Usuario;
+import br.ufpe.cin.chat.view.PainelUsuario;
 
 public class Servidor {
 
@@ -19,12 +20,14 @@ public class Servidor {
 	private Map<String, ObjectOutputStream> mapaSaidas;
 	private Map<String, ObjectInputStream> mapaEntradas;
 	private LinkedList<Object> listaSaida;
+	private Map<String, PainelUsuario> listaPanel;
 
 	public Servidor(){
 		this.usuarios = new Vector<Usuario>();
 		this.mapaEntradas = new HashMap<String, ObjectInputStream>();
 		this.mapaSaidas = new HashMap<String, ObjectOutputStream>();
 		this.listaSaida = new LinkedList<Object>();
+		this.setListaPanel(new HashMap<String, PainelUsuario>());
 	}
 
 	public void addUsuario(Usuario usuario, ObjectInputStream entrada, ObjectOutputStream saida){
@@ -36,6 +39,10 @@ public class Servidor {
 	public void addListaSaida(Object objeto){
 		synchronized (listaSaida) {
 			System.out.println("(servidor) objeto inserido na lista de saida");
+			if (objeto instanceof Mensagem){
+				String destinatario = ((Mensagem) objeto).getDestinatario();
+				listaPanel.get(destinatario).setPendente(true);
+			}
 			this.listaSaida.add(objeto);
 			System.out.println(listaSaida);
 		}
@@ -43,7 +50,12 @@ public class Servidor {
 
 	public Object retiraListaSaida(){
 		synchronized (listaSaida) {
-			return listaSaida.poll();
+			Object objeto = listaSaida.poll();
+			if (objeto instanceof Mensagem){
+				String destinatario = ((Mensagem) objeto).getDestinatario();
+				listaPanel.get(destinatario).setPendente(false);
+			}
+			return objeto;
 		}
 	}
 
@@ -86,67 +98,81 @@ public class Servidor {
 		this.listaSaida = listaSaida;
 	}
 
-	public void logaUsuario(Usuario usuario, ObjectInputStream entrada, ObjectOutputStream saida){
-		Iterator<Usuario> iterator = usuarios.iterator();
-		while (iterator.hasNext()){
-			Usuario usuario1 = iterator.next();
-			if (usuario1.getLogin().equals(usuario.getLogin())){
-				usuarios.remove(usuario1);
-				usuario1.setLogado(true);
-				usuarios.add(usuario1);
+	public synchronized void logaUsuario(Usuario usuario, ObjectInputStream entrada, ObjectOutputStream saida){
+		synchronized (usuarios) {
+			Iterator<Usuario> iterator = usuarios.iterator();
+			while (iterator.hasNext()){
+				Usuario usuario1 = iterator.next();
+				if (usuario1.getLogin().equals(usuario.getLogin())){
+					usuarios.remove(usuario1);
+					usuario1.setLogado(true);
+					usuarios.add(usuario1);
+					listaPanel.get(usuario1.getLogin()).setConectado(true);
+				}
+			}
+		}
+
+	}
+
+	public synchronized void deslogaUsuario(String username){
+		synchronized (usuarios) {
+			Iterator<Usuario> iterator = usuarios.iterator();
+			while (iterator.hasNext()){
+				Usuario usuario = iterator.next();
+				if (usuario.getLogin().equals(username)){
+					usuarios.remove(usuario);
+					mapaEntradas.remove(usuario.getLogin());
+					mapaSaidas.remove(usuario.getLogin());
+					listaPanel.get(usuario.getLogin()).setConectado(false);
+					usuario.setLogado(false);
+					usuarios.add(usuario);
+					break;
+				}
 			}
 		}
 	}
 
-	public void deslogaUsuario(String username){
-		Iterator<Usuario> iterator = usuarios.iterator();
-		while (iterator.hasNext()){
-			Usuario usuario = iterator.next();
-			if (usuario.getLogin().equals(username)){
-				usuarios.remove(usuario);
-				mapaEntradas.remove(usuario.getLogin());
-				mapaSaidas.remove(usuario.getLogin());
-				usuario.setLogado(false);
-				usuarios.add(usuario);
+	public synchronized boolean contemUsuario(String username){
+		synchronized (usuarios) {
+			Iterator<Usuario> iterator = usuarios.iterator();
+			while (iterator.hasNext()){
+				Usuario usuario = iterator.next();
+				if (usuario.getLogin().equals(username)){
+					return true;
+				}
 			}
+			return false;
 		}
 	}
 
-	public boolean contemUsuario(String username){
-		Iterator<Usuario> iterator = usuarios.iterator();
-		while (iterator.hasNext()){
-			Usuario usuario = iterator.next();
-			if (usuario.getLogin().equals(username)){
-				return true;
+	public synchronized boolean isConectado(String username){
+		synchronized (usuarios) {
+			Iterator<Usuario> iterator = usuarios.iterator();
+			while (iterator.hasNext()){
+				Usuario usuario = iterator.next();
+				if (usuario.getLogin().equals(username) && usuario.isLogado()){
+					return true;
+				}
 			}
+			return false;
 		}
-		return false;
 	}
 
-	public boolean isConectado(String username){
-		Iterator<Usuario> iterator = usuarios.iterator();
-		while (iterator.hasNext()){
-			Usuario usuario = iterator.next();
-			if (usuario.getLogin().equals(username) && usuario.isLogado()){
-				return true;
+	public synchronized Vector<String> getUsuariosOnline(){
+		synchronized (usuarios) {
+			Vector<String> usuariosOnline = new Vector<String>();
+			Iterator<Usuario> iterator = usuarios.iterator();
+			while (iterator.hasNext()){
+				Usuario usuario = iterator.next();
+				if (usuario.isLogado()){
+					usuariosOnline.add(usuario.getLogin());
+				}
 			}
+			return usuariosOnline;
 		}
-		return false;
 	}
 
-	public Vector<String> getUsuariosOnline(){
-		Vector<String> usuariosOnline = new Vector<String>();
-		Iterator<Usuario> iterator = usuarios.iterator();
-		while (iterator.hasNext()){
-			Usuario usuario = iterator.next();
-			if (usuario.isLogado()){
-				usuariosOnline.add(usuario.getLogin());
-			}
-		}
-		return usuariosOnline;
-	}
-
-	public Vector<ObjectOutputStream> getAllSaidas(){
+	public synchronized Vector<ObjectOutputStream> getAllSaidas(){
 		Vector<ObjectOutputStream> saidas = new Vector<ObjectOutputStream>();
 		Set<String> usuariosOnline = mapaSaidas.keySet();
 		Iterator<String> iterator = usuariosOnline.iterator();
@@ -154,5 +180,17 @@ public class Servidor {
 			saidas.add(mapaSaidas.get(iterator.next()));
 		}
 		return saidas;
+	}
+
+	public Map<String, PainelUsuario> getListaPanel() {
+		return listaPanel;
+	}
+
+	public void setListaPanel(Map<String, PainelUsuario> listaPanel) {
+		this.listaPanel = listaPanel;
+	}
+
+	public void addPanelMap(String usuario, PainelUsuario painel){
+		this.listaPanel.put(usuario, painel);
 	}
 }

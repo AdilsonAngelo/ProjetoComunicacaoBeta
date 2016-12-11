@@ -9,10 +9,12 @@ public class Armazenador implements Runnable {
 
 	private Servidor servidor;
 	private ObjectInputStream entrada;
+	private String fonte;
 
-	public Armazenador(Servidor servidor, ObjectInputStream entrada){
+	public Armazenador(Servidor servidor, ObjectInputStream entrada, String fonte){
 		this.servidor = servidor;
 		this.entrada = entrada;
+		this.fonte = fonte;
 	}
 
 	@Override
@@ -29,7 +31,7 @@ public class Armazenador implements Runnable {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-				e.printStackTrace();
+				servidor.deslogaUsuario(fonte);
 			}
 		}
 	}

@@ -51,8 +51,9 @@ public class MainServidor implements Runnable {
 						servidor.addUsuario(usuario, entrada, saida);
 						PainelUsuario painelUsuario = new PainelUsuario(usuario.getLogin(), usuario.getIP(), true);
 						painelAbas.add(usuario.getLogin(), painelUsuario);
+						servidor.addPanelMap(usuario.getLogin(), painelUsuario);
 					}
-					(new Thread(new Armazenador(servidor, entrada))).start();
+					(new Thread(new Armazenador(servidor, entrada, usuario.getLogin()))).start();
 					ack.setTipo(3);
 				}
 				else{
