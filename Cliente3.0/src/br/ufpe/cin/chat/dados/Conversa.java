@@ -57,7 +57,10 @@ public class Conversa {
 	}
 
 	public LinkedList<Mensagem> getListaMensagens() {
-		return listaMensagens;
+		synchronized (listaMensagens) {
+			return listaMensagens;
+		}
+
 	}
 
 	public String getMeuLogin() {
