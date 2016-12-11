@@ -34,13 +34,7 @@ public class Apresentador implements Runnable {
 				Iterator<Mensagem> iterator = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().iterator();
 				while(iterator.hasNext()){
 					Mensagem mensagem = iterator.next();
-					
-					if(!mensagem.getRemetente().equals(cliente.getSelfUser().getLogin())){
-						mensagem.setRead(false);
-						mensagem.setReceived(false);
-						mensagem.setSent(false);
-					}
-					
+										
 					if (mensagem.isRead() && !mensagem.getRemetente().equals(conversandoCom)){
 						status = "*** ";
 					}
