@@ -7,11 +7,13 @@ public class Conversa {
 	private LinkedList<Mensagem> listaMensagens;
 	private String meuLogin;
 	private String conversandoCom;
-	
+	private boolean atualiza;
+
 	public Conversa(String meuLogin, String conversandoCom){
 		this.listaMensagens = new LinkedList<Mensagem>();
 		this.conversandoCom = conversandoCom;
 		this.setMeuLogin(meuLogin);
+		this.atualiza = false;
 	}
 	
 	public void inserirMensagem(Mensagem msg){
@@ -28,6 +30,7 @@ public class Conversa {
 				Mensagem msg = listaMensagens.get(i);
 				if(msg.getDestinatario().equals(conversandoCom) && msg.getToken() == ack.getToken()){
 					msg.setRead(true);
+					this.atualiza = true;
 				}
 			}
 		}else if(ack.getTipo() == 1){
@@ -35,6 +38,7 @@ public class Conversa {
 				Mensagem msg = listaMensagens.get(i);
 				if(msg.getDestinatario().equals(conversandoCom) && msg.getToken() == ack.getToken()){
 					msg.setReceived(true);
+					this.atualiza = true;
 				}
 			}
 		}else if(ack.getTipo() == 0){
@@ -42,6 +46,7 @@ public class Conversa {
 				Mensagem msg = listaMensagens.get(i);
 				if(msg.getDestinatario().equals(conversandoCom) && msg.getToken() == ack.getToken()){
 					msg.setSent(true);
+					this.atualiza = true;
 				}
 			}
 		}
@@ -61,5 +66,13 @@ public class Conversa {
 
 	public void setMeuLogin(String meuLogin) {
 		this.meuLogin = meuLogin;
+	}	
+	
+	public boolean getAtualiza() {
+		return atualiza;
+	}
+
+	public void setAtualiza(boolean atualiza) {
+		this.atualiza = atualiza;
 	}
 }

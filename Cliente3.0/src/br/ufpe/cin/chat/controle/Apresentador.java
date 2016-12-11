@@ -26,16 +26,25 @@ public class Apresentador implements Runnable {
 		String status = "";
 		String temp = "";
 		while(true){
-			if (cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().size() > tamanhoAnterior){
+			if (cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().size() > tamanhoAnterior
+					|| cliente.getConversas().procurarConversa(conversandoCom).getAtualiza()){
+				cliente.getConversas().procurarConversa(conversandoCom).setAtualiza(false);
 				tamanhoAnterior = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().size();
 				temp = "";
 				Iterator<Mensagem> iterator = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().iterator();
 				while(iterator.hasNext()){
 					Mensagem mensagem = iterator.next();
-					if (mensagem.isRead()){
+					
+					if(!mensagem.getRemetente().equals(cliente.getSelfUser().getLogin())){
+						mensagem.setRead(false);
+						mensagem.setReceived(false);
+						mensagem.setSent(false);
+					}
+					
+					if (mensagem.isRead() && !mensagem.getRemetente().equals(conversandoCom)){
 						status = "*** ";
 					}
-					else if (mensagem.isReceived()){
+					else if (mensagem.isReceived() && !mensagem.getRemetente().equals(conversandoCom)){
 						status = "** ";
 					}
 					else if (mensagem.isSent() && !mensagem.getRemetente().equals(conversandoCom)){
