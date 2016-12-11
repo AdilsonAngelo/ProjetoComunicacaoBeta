@@ -46,6 +46,7 @@ public class MainServidor implements Runnable {
 					else{
 						if(first){
 							painelAbas.removeTabAt(0);
+							first = false;
 						}
 						servidor.addUsuario(usuario, entrada, saida);
 						PainelUsuario painelUsuario = new PainelUsuario(usuario.getLogin(), usuario.getIP(), true);
