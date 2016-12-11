@@ -19,11 +19,13 @@ public class Encaminhador implements Runnable{
 		ObjectOutputStream saida = null;
 		while(true){
 			if (!servidor.getListaSaida().isEmpty()){
-				Object objeto = servidor.getListaSaida().poll();
+				System.out.println("(servidor) objeto detectado");
+				Object objeto = servidor.retiraListaSaida();
 				if (objeto instanceof ACK){
 					ACK ack = (ACK) objeto;
 					if (servidor.isConectado(ack.getDestinatario())){
 						saida = servidor.getMapaSaidas().get(ack.getDestinatario());
+						System.out.println("(servidor) saida encontrada");
 					}
 					else{
 						servidor.addListaSaida(objeto);
@@ -34,14 +36,17 @@ public class Encaminhador implements Runnable{
 					Mensagem mensagem = (Mensagem) objeto;
 					if (servidor.isConectado(mensagem.getDestinatario())){
 						saida = servidor.getMapaSaidas().get(mensagem.getDestinatario());
+						System.out.println("(servidor) saida encontrada");
 					}
 					else{
+						System.out.println("(servidor) usuario destino deslogado");
 						servidor.addListaSaida(objeto);
 						continue;
 					}
 				}
 				try {
 					saida.writeObject(objeto);
+					System.out.println("(servidor) objeto encaminhado");
 				} catch (IOException e) {
 					servidor.addListaSaida(objeto);
 					if (objeto instanceof ACK){

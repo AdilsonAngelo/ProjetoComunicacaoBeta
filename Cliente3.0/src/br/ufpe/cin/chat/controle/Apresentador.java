@@ -41,7 +41,7 @@ public class Apresentador implements Runnable {
 					else if (mensagem.isSent() && !mensagem.getRemetente().equals(conversandoCom)){
 						status = "* ";
 					}
-					temp += (status+mensagem.getRemetente()+" diz:"+mensagem.getContent() + "\n");
+					temp += (status+mensagem.getRemetente()+" diz: "+mensagem.getContent() + "\n");
 				}
 				campoConversa.setText(temp);
 			}

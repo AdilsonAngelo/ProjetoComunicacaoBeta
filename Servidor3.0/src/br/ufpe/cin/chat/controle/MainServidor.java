@@ -38,6 +38,8 @@ public class MainServidor implements Runnable {
 					else{
 						servidor.addUsuario(usuario, entrada, saida);
 					}
+					(new Thread(new Armazenador(servidor, entrada))).start();
+					(new Thread(new Encaminhador(servidor))).start();
 					ack.setTipo(3);
 				}
 				else{
