@@ -25,6 +25,7 @@ public class Cliente {
 			if(msg.getDestinatario().equals(selfUser.getLogin())){
 				conversas.addMsgRecebida(msg);
 			}else if(msg.getRemetente().equals(selfUser.getLogin())){
+				addFilaEnvio(msg);
 				conversas.addMsgEnviada(msg);
 			}
 		}
