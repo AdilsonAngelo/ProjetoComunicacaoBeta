@@ -35,6 +35,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 	private static final long serialVersionUID = -1413926017169968935L;
 
 	public FramePrincipal(Socket socket, Cliente cliente, ObjectInputStream entradaObjetos, ObjectOutputStream saidaObjetos) {
+		super(cliente.getSelfUser().getLogin());
 		this.socket = socket;
 		this.cliente = cliente;
 		this.entradaObjetos = entradaObjetos;

@@ -19,7 +19,7 @@ public class Atualizador implements Runnable {
 		while(true){
 			listaUsuarios.setListData(cliente.getListaUsuarios());
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(2500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
