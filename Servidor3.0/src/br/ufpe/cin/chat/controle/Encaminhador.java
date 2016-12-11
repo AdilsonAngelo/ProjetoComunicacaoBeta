@@ -56,6 +56,7 @@ public class Encaminhador implements Runnable{
 				try {
 					saida.writeObject(objeto);
 					System.out.println("(servidor) objeto encaminhado");
+					Thread.sleep(100);
 				} catch (IOException e) {
 					servidor.addListaSaida(objeto);
 					if (objeto instanceof ACK){
@@ -64,6 +65,8 @@ public class Encaminhador implements Runnable{
 					else if (objeto instanceof Mensagem){
 						servidor.deslogaUsuario(((Mensagem)objeto).getDestinatario());
 					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}
