@@ -31,7 +31,9 @@ public class RepositorioConversas {
 	}
 
 	public void tratarACK(ACK ack, String conversandoCom) {
-		mapaConversas.get(conversandoCom).tratarACK(ack);
+		synchronized (mapaConversas) {
+			mapaConversas.get(conversandoCom).tratarACK(ack);
+		}
 	}
 
 	public List<Conversa> getAllConversas(){
