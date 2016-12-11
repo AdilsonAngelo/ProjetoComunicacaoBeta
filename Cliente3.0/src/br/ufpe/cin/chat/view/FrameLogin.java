@@ -8,6 +8,7 @@ package br.ufpe.cin.chat.view;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -161,13 +162,14 @@ public class FrameLogin extends javax.swing.JFrame {
 			Socket socket = new Socket(ip, porta);
 			ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-			Autenticador autenticador = new Autenticador(login, senha, ip);
+			Autenticador autenticador = new Autenticador(login, senha, getLanIP());
 			output.writeObject(autenticador);
 			ACK ack = (ACK) input.readObject();
 			int status = ack.getTipo();
 			if(status == 3){
 				JOptionPane.showMessageDialog(this, "Autenticado com sucesso!");
-				Cliente cliente = new Cliente(login, senha, ip);
+				Cliente cliente = new Cliente(login, senha, getLanIP(), socket.getPort());
+				cliente.setIpServer(ip);
 				FramePrincipal frame = new FramePrincipal(socket, cliente, input, output);
 				frame.setVisible(true);
 				this.dispose();
@@ -222,6 +224,16 @@ public class FrameLogin extends javax.swing.JFrame {
 				new FrameLogin().setVisible(true);
 			}
 		});
+	}
+	
+	private String getLanIP(){
+		String retorno = new String();
+		try {
+			retorno = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		return retorno;
 	}
 
 	// Variables declaration - do not modify                     

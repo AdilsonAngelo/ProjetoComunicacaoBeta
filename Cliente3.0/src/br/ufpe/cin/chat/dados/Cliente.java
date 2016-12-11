@@ -1,10 +1,12 @@
 package br.ufpe.cin.chat.dados;
 
+import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Vector;
 
 import br.ufpe.cin.chat.view.FrameConversa;
+import br.ufpe.cin.chat.view.FramePrincipal;
 
 public class Cliente {
 
@@ -12,12 +14,16 @@ public class Cliente {
 	private RepositorioConversas conversas;
 	private Usuario selfUser;
 	private Vector<String> listaUsuarios;
+	private String ipServer;
+	private int portaServer;
+	private FramePrincipal frame;
 
-	public Cliente(String login, String senha, String IP){
+	public Cliente(String login, String senha, String IP, int portaServer){
 		this.filaEnvio = new LinkedList<Object>();
 		this.conversas = new RepositorioConversas();
 		this.selfUser = new Usuario(login, senha, IP);
 		this.setListaUsuarios(new Vector<String>());
+		this.setPortaServer(portaServer);
 	}
 
 	public synchronized void encaminharMsg(Mensagem msg){
@@ -67,5 +73,33 @@ public class Cliente {
 
 	public synchronized void setListaUsuarios(Vector<String> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
+	}
+
+	public int getPortaServer() {
+		return portaServer;
+	}
+
+	public void setPortaServer(int portaServer) {
+		this.portaServer = portaServer;
+	}
+
+	public String getIpServer() {
+		return ipServer;
+	}
+
+	public void setIpServer(String ipServer) {
+		this.ipServer = ipServer;
+	}
+	
+	public void atualizarConexao(Socket socket){
+		frame.atualizaConexao(socket);
+	}
+
+	public FramePrincipal getFrame() {
+		return frame;
+	}
+
+	public void setFrame(FramePrincipal frame) {
+		this.frame = frame;
 	}
 }

@@ -20,6 +20,10 @@ public class EmissorCliente implements Runnable {
 		Object objeto = null;
 		while(true){
 			try{
+				if (Thread.currentThread().isInterrupted()){
+					System.out.println("interrompeu emissor");
+					return;
+				}
 				if (!cliente.getFilaEnvio().isEmpty()){
 					objeto = cliente.getFilaEnvio().poll();
 					saidaObjetos.writeObject(objeto);
@@ -27,6 +31,7 @@ public class EmissorCliente implements Runnable {
 			}
 			catch(IOException e){
 				cliente.getFilaEnvio().add(objeto);
+				Thread.currentThread().interrupt();
 				e.printStackTrace();
 			}
 		}

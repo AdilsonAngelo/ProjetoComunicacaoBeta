@@ -7,15 +7,19 @@ package br.ufpe.cin.chat.view;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import br.ufpe.cin.chat.controle.Atualizador;
 import br.ufpe.cin.chat.controle.EmissorCliente;
 import br.ufpe.cin.chat.controle.ReceptorCliente;
+import br.ufpe.cin.chat.dados.ACK;
+import br.ufpe.cin.chat.dados.Autenticador;
 import br.ufpe.cin.chat.dados.Cliente;
 
 /**
@@ -105,9 +109,9 @@ public class FramePrincipal extends javax.swing.JFrame {
 		getContentPane().add(botaoConversa, gridBagConstraints);
 
 		pack();
-		(new Thread(new EmissorCliente(cliente, saidaObjetos))).start();
-		(new Thread(new ReceptorCliente(cliente, entradaObjetos))).start();
 		(new Thread(new Atualizador(cliente, jList1))).start();
+		initThreads();
+		cliente.setFrame(this);
 	}// </editor-fold>                        
 
 	private void botaoConversaActionPerformed(java.awt.event.ActionEvent evt) {                                              
@@ -147,6 +151,35 @@ public class FramePrincipal extends javax.swing.JFrame {
 				new FramePrincipal(null, null, null, null).setVisible(true);
 			}
 		});
+	}
+
+	private void initThreads(){
+		(new Thread(new EmissorCliente(cliente, saidaObjetos))).start();
+		(new Thread(new ReceptorCliente(cliente, entradaObjetos))).start();
+	}
+
+	public void atualizaConexao(Socket socket) {
+		try{
+			this.socket = socket;
+			ObjectOutputStream saida = new ObjectOutputStream(socket.getOutputStream());
+			ObjectInputStream entrada = new ObjectInputStream(socket.getInputStream());
+			Autenticador autenticador = new Autenticador(cliente.getSelfUser().getLogin(), cliente.getSelfUser().getSenha(), cliente.getSelfUser().getIP());
+			saida.writeObject(autenticador);
+			ACK ack = (ACK) entrada.readObject();
+			if (ack.getTipo() == 3){
+				initThreads();
+				JOptionPane.showMessageDialog(this, "Reconectado ao servidor com sucesso");
+			}
+			else{
+				JOptionPane.showMessageDialog(this, "Erro fatal (Usuario já conectado)");
+				System.exit(0);
+			}
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Variables declaration - do not modify                     

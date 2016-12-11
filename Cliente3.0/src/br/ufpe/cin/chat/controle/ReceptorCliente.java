@@ -21,6 +21,10 @@ public class ReceptorCliente implements Runnable {
 	public void run() {
 		try{
 			while(true){
+				if (Thread.currentThread().isInterrupted()){
+					System.out.println("interrompeu receptor");
+					return;
+				}
 				Object objetoRecebido = entradaObjetos.readObject();
 				if (objetoRecebido instanceof Vector<?>){
 					Vector<String> lista = (Vector<String>) objetoRecebido;
@@ -34,10 +38,11 @@ public class ReceptorCliente implements Runnable {
 		}
 		catch(IOException e){
 			System.out.println("perdeu conexao com servidor");
-			e.printStackTrace();
+			(new Thread(new Reconector(cliente))).start();
+			Thread.currentThread().interrupt();
 		} 
 		catch (ClassNotFoundException e) {
-
+			e.printStackTrace();
 		}
 	}
 }
