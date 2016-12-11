@@ -28,7 +28,11 @@ public class Encaminhador implements Runnable{
 				Object objeto = servidor.retiraListaSaida();
 				if (objeto instanceof ACK){
 					ACK ack = (ACK) objeto;
-					if (servidor.isConectado(ack.getDestinatario())){
+					if (ack.getTipo() == 0){
+						saida = servidor.getMapaSaidas().get(ack.getRemetente());
+						System.out.println("(servidor) saida encontrada");
+					}
+					else if (servidor.isConectado(ack.getDestinatario())){
 						saida = servidor.getMapaSaidas().get(ack.getDestinatario());
 						System.out.println("(servidor) saida encontrada");
 					}
