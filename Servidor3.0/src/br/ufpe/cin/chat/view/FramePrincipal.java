@@ -44,21 +44,41 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Servidor");
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.columnWidths = new int[]{102, 364, 0};
+        gridBagLayout.rowHeights = new int[]{20, 398, 0};
+        gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+        getContentPane().setLayout(gridBagLayout);
         
                 labelPorta = new javax.swing.JLabel();
                 
                         labelPorta.setText("Porta deste servidor:");
+                        GridBagConstraints gbc_labelPorta = new GridBagConstraints();
+                        gbc_labelPorta.anchor = GridBagConstraints.WEST;
+                        gbc_labelPorta.fill = GridBagConstraints.VERTICAL;
+                        gbc_labelPorta.insets = new Insets(0, 0, 5, 5);
+                        gbc_labelPorta.gridx = 0;
+                        gbc_labelPorta.gridy = 0;
+                        getContentPane().add(labelPorta, gbc_labelPorta);
         
         campoPorta = new JTextField();
         campoPorta.setEditable(false);
         campoPorta.setColumns(10);
+        GridBagConstraints gbc_campoPorta = new GridBagConstraints();
+        gbc_campoPorta.anchor = GridBagConstraints.NORTHWEST;
+        gbc_campoPorta.insets = new Insets(0, 0, 5, 0);
+        gbc_campoPorta.gridx = 1;
+        gbc_campoPorta.gridy = 0;
+        getContentPane().add(campoPorta, gbc_campoPorta);
         painelPrincipal = new javax.swing.JTabbedPane();
         painelPrincipal.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        
-     //   getContentPane().setLayout(new MigLayout("", "[102px][5px][370px]", "[20px][400px]"));
-        getContentPane().add(labelPorta, "cell 0 0,alignx left,growy");
-        getContentPane().add(campoPorta, "cell 2 0,alignx left,aligny top");
-        getContentPane().add(painelPrincipal, "cell 0 1 3 1,alignx left,aligny top");
+        GridBagConstraints gbc_painelPrincipal = new GridBagConstraints();
+        gbc_painelPrincipal.anchor = GridBagConstraints.NORTHWEST;
+        gbc_painelPrincipal.gridwidth = 2;
+        gbc_painelPrincipal.gridx = 0;
+        gbc_painelPrincipal.gridy = 1;
+        getContentPane().add(painelPrincipal, gbc_painelPrincipal);
         
         FirstPanel first = new FirstPanel();
         painelPrincipal.addTab("Início", first);
