@@ -27,10 +27,12 @@ public class FramePrincipal extends javax.swing.JFrame {
 	
 	private static final long serialVersionUID = 6325280011615059594L;
 	private ServerSocket server;
-
+	private int porta;
+	
     public FramePrincipal(int porta) throws IOException {
     	setResizable(false);
     	server = new ServerSocket(porta);
+    	this.porta = porta;
         initComponents();
     }
 
@@ -84,6 +86,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         painelPrincipal.addTab("Início", first);
           	
         pack();
+        this.campoPorta.setText(""+this.porta);
         (new Thread(new MainServidor(server, painelPrincipal))).start();
     }// </editor-fold> 
     
