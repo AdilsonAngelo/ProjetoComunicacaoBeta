@@ -101,34 +101,36 @@ public class Servidor {
 	public synchronized void logaUsuario(Usuario usuario, ObjectInputStream entrada, ObjectOutputStream saida){
 		synchronized (usuarios) {
 			Iterator<Usuario> iterator = usuarios.iterator();
+			Usuario usuario1 = null;
 			while (iterator.hasNext()){
-				Usuario usuario1 = iterator.next();
+				usuario1 = iterator.next();
 				if (usuario1.getLogin().equals(usuario.getLogin())){
-					usuarios.remove(usuario1);
-					usuario1.setLogado(true);
-					usuarios.add(usuario1);
-					listaPanel.get(usuario1.getLogin()).setConectado(true);
+					break;
 				}
 			}
+			usuarios.remove(usuario1);
+			usuarios.add(usuario);
+			listaPanel.get(usuario.getLogin()).setConectado(true);
+			mapaEntradas.put(usuario.getLogin(), entrada);
+			mapaSaidas.put(usuario.getLogin(), saida);
 		}
-
 	}
 
 	public synchronized void deslogaUsuario(String username){
 		synchronized (usuarios) {
 			Iterator<Usuario> iterator = usuarios.iterator();
+			Usuario usuario = null;
 			while (iterator.hasNext()){
-				Usuario usuario = iterator.next();
+				usuario = iterator.next();
 				if (usuario.getLogin().equals(username)){
-					usuarios.remove(usuario);
-					mapaEntradas.remove(usuario.getLogin());
-					mapaSaidas.remove(usuario.getLogin());
-					listaPanel.get(usuario.getLogin()).setConectado(false);
-					usuario.setLogado(false);
-					usuarios.add(usuario);
 					break;
 				}
 			}
+			mapaEntradas.remove(usuario.getLogin());
+			mapaSaidas.remove(usuario.getLogin());
+			listaPanel.get(usuario.getLogin()).setConectado(false);
+			usuario.setLogado(false);
+			usuarios.add(usuario);
 		}
 	}
 

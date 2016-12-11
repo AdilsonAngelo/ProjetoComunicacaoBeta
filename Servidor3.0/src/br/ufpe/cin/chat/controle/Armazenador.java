@@ -32,6 +32,7 @@ public class Armazenador implements Runnable {
 				e.printStackTrace();
 			} catch (IOException e) {
 				servidor.deslogaUsuario(fonte);
+				break;
 			}
 		}
 	}
