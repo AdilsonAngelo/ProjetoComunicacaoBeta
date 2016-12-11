@@ -5,8 +5,13 @@
  */
 package br.ufpe.cin.chat.cliente.view;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import br.ufpe.cin.chat.cliente.controle.Atualizador;
+import br.ufpe.cin.chat.cliente.controle.EmissorCliente;
+import br.ufpe.cin.chat.cliente.controle.ReceptorCliente;
 import br.ufpe.cin.chat.cliente.dados.Cliente;
 
 /**
@@ -17,11 +22,15 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 	private Socket socket;
 	private Cliente cliente;
+	private ObjectInputStream entradaObjetos;
+	private ObjectOutputStream saidaObjetos;
 	private static final long serialVersionUID = -1413926017169968935L;
 
-	public FramePrincipal(Socket socket, Cliente cliente) {
+	public FramePrincipal(Socket socket, Cliente cliente, ObjectInputStream entradaObjetos, ObjectOutputStream saidaObjetos) {
 		this.socket = socket;
 		this.cliente = cliente;
+		this.entradaObjetos = entradaObjetos;
+		this.saidaObjetos = saidaObjetos;
         initComponents();
     }
 
@@ -83,6 +92,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().add(botaoConversa, gridBagConstraints);
 
         pack();
+        (new Thread(new EmissorCliente(cliente, saidaObjetos))).start();
+        (new Thread(new ReceptorCliente(entradaObjetos))).start();
+        (new Thread(new Atualizador(cliente, jList1))).start();
     }// </editor-fold>                        
 
     private void botaoConversaActionPerformed(java.awt.event.ActionEvent evt) {                                              
@@ -119,7 +131,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FramePrincipal(null, null).setVisible(true);
+                new FramePrincipal(null, null, null, null).setVisible(true);
             }
         });
     }

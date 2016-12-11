@@ -50,4 +50,8 @@ public class Conversa {
 	public LinkedList<Mensagem> getMensagens(){
 		return listaMensagens;
 	}
+
+	public LinkedList<Mensagem> getListaMensagens() {
+		return listaMensagens;
+	}
 }

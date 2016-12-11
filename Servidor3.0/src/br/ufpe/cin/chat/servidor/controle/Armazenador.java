@@ -1,17 +1,38 @@
 package br.ufpe.cin.chat.servidor.controle;
 
-import java.net.Socket;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
-public class Armazenador implements Runnable{
+import br.ufpe.cin.chat.servidor.dados.Mensagem;
 
-	public Armazenador(Socket socket){
-		
+public class Armazenador implements Runnable {
+
+	private Servidor servidor;
+	private ObjectInputStream entrada;
+
+	public Armazenador(Servidor servidor){
+		this.servidor = servidor;
 	}
-	
+
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		Object objetoRecebido = null;
+		while(true){
+			try {
+				objetoRecebido = entrada.readObject();
+				if (objetoRecebido instanceof Mensagem){
+					servidor.gerarAck(((Mensagem) objetoRecebido).getToken());
+				}
+				else{
+					
+				}
+				servidor.addListaSaida(objetoRecebido);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

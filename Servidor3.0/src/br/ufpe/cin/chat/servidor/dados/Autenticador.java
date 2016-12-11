@@ -1,4 +1,4 @@
-package br.ufpe.cin.chat.cliente.dados;
+package br.ufpe.cin.chat.servidor.dados;
 
 import java.io.Serializable;
 
