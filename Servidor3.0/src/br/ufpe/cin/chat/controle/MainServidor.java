@@ -17,6 +17,7 @@ public class MainServidor implements Runnable {
 
 	public MainServidor(ServerSocket server) {
 		this.server = server;
+		this.servidor = new Servidor();
 	}
 
 	@Override

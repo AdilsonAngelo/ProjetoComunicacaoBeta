@@ -2,6 +2,7 @@ package br.ufpe.cin.chat.controle;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -18,6 +19,10 @@ public class Servidor {
 	private LinkedList<Object> listaSaida;
 
 	public Servidor(){
+		this.usuarios = new Vector<Usuario>();
+		this.mapaEntradas = new HashMap<String, ObjectInputStream>();
+		this.mapaSaidas = new HashMap<String, ObjectOutputStream>();
+		this.listaSaida = new LinkedList<Object>();
 	}
 
 	public void addUsuario(Usuario usuario, ObjectInputStream entrada, ObjectOutputStream saida){
