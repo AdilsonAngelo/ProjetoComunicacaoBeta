@@ -63,16 +63,6 @@ public class FramePrincipal extends javax.swing.JFrame {
                         gbc_labelPorta.gridx = 0;
                         gbc_labelPorta.gridy = 0;
                         getContentPane().add(labelPorta, gbc_labelPorta);
-        
-        campoPorta = new JTextField();
-        campoPorta.setEditable(false);
-        campoPorta.setColumns(10);
-        GridBagConstraints gbc_campoPorta = new GridBagConstraints();
-        gbc_campoPorta.anchor = GridBagConstraints.NORTHWEST;
-        gbc_campoPorta.insets = new Insets(0, 0, 5, 0);
-        gbc_campoPorta.gridx = 1;
-        gbc_campoPorta.gridy = 0;
-        getContentPane().add(campoPorta, gbc_campoPorta);
         painelPrincipal = new javax.swing.JTabbedPane();
         painelPrincipal.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         GridBagConstraints gbc_painelPrincipal = new GridBagConstraints();
@@ -84,9 +74,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         
         FirstPanel first = new FirstPanel();
         painelPrincipal.addTab("Início", first);
-          	
+        
+        
+        this.labelPorta.setText(this.labelPorta.getText() + " " + this.porta);
+        
         pack();
-        this.campoPorta.setText(""+this.porta);
         (new Thread(new MainServidor(server, painelPrincipal))).start();
     }// </editor-fold> 
     
@@ -133,6 +125,5 @@ public class FramePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JLabel labelPorta;
     private javax.swing.JTabbedPane painelPrincipal;
-    private JTextField campoPorta;
     // End of variables declaration                   
 }
