@@ -109,10 +109,10 @@ public class Servidor {
 				}
 			}
 			usuarios.remove(usuario1);
-			usuarios.add(usuario);
 			listaPanel.get(usuario.getLogin()).setConectado(true);
 			mapaEntradas.put(usuario.getLogin(), entrada);
 			mapaSaidas.put(usuario.getLogin(), saida);
+			usuarios.add(usuario);
 		}
 	}
 

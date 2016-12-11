@@ -27,17 +27,19 @@ public class Cliente {
 	}
 
 	public synchronized void encaminharMsg(Mensagem msg){
-		try{
-			if(msg.getDestinatario().equals(selfUser.getLogin())){
-				conversas.addMsgRecebida(msg);
-			}else if(msg.getRemetente().equals(selfUser.getLogin())){
-				addFilaEnvio(msg);
-				conversas.addMsgEnviada(msg);
+		synchronized(conversas){
+			try{
+				if(msg.getDestinatario().equals(selfUser.getLogin())){
+					conversas.addMsgRecebida(msg);
+				}else if(msg.getRemetente().equals(selfUser.getLogin())){
+					addFilaEnvio(msg);
+					conversas.addMsgEnviada(msg);
+				}
 			}
-		}
-		catch (NullPointerException e){
-			iniciarConversa(msg.getRemetente());
-			encaminharMsg(msg);
+			catch (NullPointerException e){
+				iniciarConversa(msg.getRemetente());
+				encaminharMsg(msg);
+			}
 		}
 	}
 
