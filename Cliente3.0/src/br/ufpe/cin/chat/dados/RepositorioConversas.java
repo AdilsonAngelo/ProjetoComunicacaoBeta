@@ -18,31 +18,31 @@ public class RepositorioConversas {
 		mapaConversas.put(conversandoCom, new Conversa(meuLogin, conversandoCom));
 	}
 
-	public void addMsgRecebida(Mensagem msg){
-		mapaConversas.get(msg.getRemetente()).inserirMensagem(msg);
+	public synchronized void addMsgRecebida(Mensagem msg){
+		synchronized (mapaConversas) {
+			mapaConversas.get(msg.getRemetente()).inserirMensagem(msg);	
+		}
 	}
 
-	public void addMsgEnviada(Mensagem msg){
-		mapaConversas.get(msg.getDestinatario()).inserirMensagem(msg);
+	public synchronized void addMsgEnviada(Mensagem msg){
+		synchronized (mapaConversas){
+			mapaConversas.get(msg.getDestinatario()).inserirMensagem(msg);
+		}
 	}
 
-	public Conversa procurarConversa(String conversandoCom){
-		return mapaConversas.get(conversandoCom);
+	public synchronized Conversa procurarConversa(String conversandoCom){
+		synchronized (mapaConversas) {
+			return mapaConversas.get(conversandoCom);
+		}
 	}
 
-	public void tratarACK(ACK ack, String conversandoCom) {
+	public synchronized void tratarACK(ACK ack, String conversandoCom) {
 		synchronized (mapaConversas) {
 			mapaConversas.get(conversandoCom).tratarACK(ack);
 		}
 	}
 
-	public List<Conversa> getAllConversas(){
-		List<Conversa> retorno = new ArrayList<Conversa>();
-		Set<String> allKeys = mapaConversas.keySet();
-		for (String key : allKeys){
-			retorno.add(mapaConversas.get(key));
-		}
-		return retorno;
-	}
-
+	/**
+	 * rip arauto
+	 */
 }

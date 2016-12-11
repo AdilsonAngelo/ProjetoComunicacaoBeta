@@ -18,7 +18,7 @@ public class Arauto implements Runnable {
 	@Override
 	public void run() {
 		while(true){
-			List<Conversa> listaConversas = cliente.getConversas().getAllConversas();
+			/** SDDS List<Conversa> listaConversas = cliente.getConversas().getAllConversas();
 			for(int i = listaConversas.size()-1; i >= 0; i--){
 				Conversa conversa = listaConversas.get(i);
 				LinkedList<Mensagem> listaMensagem = conversa.getMensagens();
@@ -29,7 +29,7 @@ public class Arauto implements Runnable {
 						break;
 					}
 				}
-			}
+			}*/
 		}
 	}
 }

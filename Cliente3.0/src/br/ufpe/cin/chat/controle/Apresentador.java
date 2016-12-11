@@ -31,20 +31,23 @@ public class Apresentador implements Runnable {
 				cliente.getConversas().procurarConversa(conversandoCom).setAtualiza(false);
 				tamanhoAnterior = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().size();
 				temp = "";
-				Iterator<Mensagem> iterator = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().iterator();
-				while(iterator.hasNext()){
-					Mensagem mensagem = iterator.next();
-										
-					if (mensagem.isRead() && !mensagem.getRemetente().equals(conversandoCom)){
-						status = "*** ";
+				Iterator<Mensagem> iterator;
+				synchronized (cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens()){
+					iterator = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().iterator();
+					while(iterator.hasNext()){
+						Mensagem mensagem =  iterator.next();
+
+						if (mensagem.isRead() && !mensagem.getRemetente().equals(conversandoCom)){
+							status = "*** ";
+						}
+						else if (mensagem.isReceived() && !mensagem.getRemetente().equals(conversandoCom)){
+							status = "** ";
+						}
+						else if (mensagem.isSent() && !mensagem.getRemetente().equals(conversandoCom)){
+							status = "* ";
+						}
+						temp += (status+mensagem.getRemetente()+" diz: "+mensagem.getContent() + "\n");
 					}
-					else if (mensagem.isReceived() && !mensagem.getRemetente().equals(conversandoCom)){
-						status = "** ";
-					}
-					else if (mensagem.isSent() && !mensagem.getRemetente().equals(conversandoCom)){
-						status = "* ";
-					}
-					temp += (status+mensagem.getRemetente()+" diz: "+mensagem.getContent() + "\n");
 				}
 				campoConversa.setText(temp);
 			}
