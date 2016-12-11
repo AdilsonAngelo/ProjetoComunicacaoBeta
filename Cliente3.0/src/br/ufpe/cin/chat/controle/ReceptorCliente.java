@@ -34,6 +34,7 @@ public class ReceptorCliente implements Runnable {
 		}
 		catch(IOException e){
 			System.out.println("perdeu conexao com servidor");
+			e.printStackTrace();
 		} 
 		catch (ClassNotFoundException e) {
 

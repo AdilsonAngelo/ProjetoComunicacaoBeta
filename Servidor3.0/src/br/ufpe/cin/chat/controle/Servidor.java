@@ -37,6 +37,7 @@ public class Servidor {
 		synchronized (listaSaida) {
 			System.out.println("(servidor) objeto inserido na lista de saida");
 			this.listaSaida.add(objeto);
+			System.out.println(listaSaida);
 		}
 	}
 

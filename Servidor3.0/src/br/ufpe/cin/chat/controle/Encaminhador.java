@@ -9,15 +9,20 @@ import br.ufpe.cin.chat.dados.Mensagem;
 public class Encaminhador implements Runnable{
 
 	private Servidor servidor;
-	
+
 	public Encaminhador(Servidor servidor) {
 		this.servidor = servidor;
 	}
-	
+
 	@Override
 	public void run() {
 		ObjectOutputStream saida = null;
 		while(true){
+			try {
+				Thread.sleep(0);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 			if (!servidor.getListaSaida().isEmpty()){
 				System.out.println("(servidor) objeto detectado");
 				Object objeto = servidor.retiraListaSaida();

@@ -18,6 +18,7 @@ public class MainServidor implements Runnable {
 	public MainServidor(ServerSocket server) {
 		this.server = server;
 		this.servidor = new Servidor();
+		(new Thread(new Encaminhador(servidor))).start();
 	}
 
 	@Override
@@ -39,7 +40,6 @@ public class MainServidor implements Runnable {
 						servidor.addUsuario(usuario, entrada, saida);
 					}
 					(new Thread(new Armazenador(servidor, entrada))).start();
-					(new Thread(new Encaminhador(servidor))).start();
 					ack.setTipo(3);
 				}
 				else{

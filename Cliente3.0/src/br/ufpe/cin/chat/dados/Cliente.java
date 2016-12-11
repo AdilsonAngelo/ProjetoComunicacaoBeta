@@ -20,7 +20,7 @@ public class Cliente {
 		this.setListaUsuarios(new Vector<String>());
 	}
 
-	public void encaminharMsg(Mensagem msg){
+	public synchronized void encaminharMsg(Mensagem msg){
 		try{
 			if(msg.getDestinatario().equals(selfUser.getLogin())){
 				conversas.addMsgRecebida(msg);
@@ -35,41 +35,37 @@ public class Cliente {
 		}
 	}
 
-	public void encaminharACK(ACK ack){
+	public synchronized void encaminharACK(ACK ack){
 		conversas.tratarACK(ack, ack.getDestinatario());
 	}
 
-	public void iniciarConversa(String conversandoCom){
+	public synchronized void iniciarConversa(String conversandoCom){
 		conversas.criarConversa(selfUser.getLogin(), conversandoCom);
 		FrameConversa frame = new FrameConversa(this, conversandoCom);
 		frame.setVisible(true);
 	}
 
-	public void addFilaEnvio(Mensagem mensagem){
-		synchronized (filaEnvio) {
-			filaEnvio.add(mensagem);
-		}
+	public synchronized void addFilaEnvio(Mensagem mensagem){
+		filaEnvio.add(mensagem);
 	}
 
-	public RepositorioConversas getConversas() {
+	public synchronized RepositorioConversas getConversas() {
 		return conversas;
 	}
 
-	public Usuario getSelfUser() {
+	public synchronized Usuario getSelfUser() {
 		return selfUser;
 	}
 
-	public Queue<Object> getFilaEnvio() {
-		synchronized (filaEnvio) {
-			return filaEnvio;
-		}
+	public synchronized Queue<Object> getFilaEnvio() {
+		return filaEnvio;
 	}
 
-	public Vector<String> getListaUsuarios() {
+	public synchronized Vector<String> getListaUsuarios() {
 		return listaUsuarios;
 	}
 
-	public void setListaUsuarios(Vector<String> listaUsuarios) {
+	public synchronized void setListaUsuarios(Vector<String> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
 	}
 }
