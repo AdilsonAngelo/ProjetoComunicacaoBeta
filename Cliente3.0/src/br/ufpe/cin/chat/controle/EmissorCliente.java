@@ -32,7 +32,6 @@ public class EmissorCliente implements Runnable {
 			catch(IOException e){
 				cliente.getFilaEnvio().add(objeto);
 				Thread.currentThread().interrupt();
-				e.printStackTrace();
 			}
 		}
 	}
