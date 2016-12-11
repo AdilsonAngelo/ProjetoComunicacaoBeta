@@ -31,7 +31,7 @@ public class PainelUsuario extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        statusConexao = new javax.swing.JLabel();
+        labelConexao = new javax.swing.JLabel();
         nomeUsuario = new javax.swing.JTextField();
         ipUsuario = new javax.swing.JTextField();
 
@@ -40,9 +40,9 @@ public class PainelUsuario extends javax.swing.JPanel {
         progressoEnvio.setForeground(new java.awt.Color(0, 153, 204));
         progressoEnvio.setEnabled(false);
 
-        labelNome.setText("Nome: ");
+        labelNome.setText("Nome");
 
-        labelIP.setText("IP: ");
+        labelIP.setText("IP");
 
         jLabel3.setText("Envio para cliente");
 
@@ -51,10 +51,10 @@ public class PainelUsuario extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Conectado:");
 
-        statusConexao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        statusConexao.setForeground(new java.awt.Color(0, 204, 51));
-        statusConexao.setText("SIM");
-        statusConexao.setToolTipText("");
+        labelConexao.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelConexao.setForeground(new java.awt.Color(0, 204, 51));
+        labelConexao.setText("SIM");
+        labelConexao.setToolTipText("");
 
         nomeUsuario.setEditable(false);
 
@@ -86,7 +86,7 @@ public class PainelUsuario extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statusConexao, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(labelConexao, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(86, 86, 86))
         );
         layout.setVerticalGroup(
@@ -103,7 +103,7 @@ public class PainelUsuario extends javax.swing.JPanel {
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(statusConexao, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelConexao, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,6 +127,26 @@ public class PainelUsuario extends javax.swing.JPanel {
     private javax.swing.JTextField nomeUsuario;
     private javax.swing.JProgressBar progressoEnvio;
     private javax.swing.JProgressBar progressoRecebimento;
-    private javax.swing.JLabel statusConexao;
+    private javax.swing.JLabel labelConexao;
     // End of variables declaration                   
+    
+	public javax.swing.JTextField getIpUsuario() {
+		return ipUsuario;
+	}
+
+	public javax.swing.JTextField getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public javax.swing.JProgressBar getProgressoEnvio() {
+		return progressoEnvio;
+	}
+
+	public javax.swing.JProgressBar getProgressoRecebimento() {
+		return progressoRecebimento;
+	}
+
+	public javax.swing.JLabel getLabelConexao() {
+		return labelConexao;
+	}
 }

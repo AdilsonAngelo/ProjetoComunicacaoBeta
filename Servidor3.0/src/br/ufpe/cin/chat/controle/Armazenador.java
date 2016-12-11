@@ -22,6 +22,7 @@ public class Armazenador implements Runnable {
 				objetoRecebido = entrada.readObject();
 				if (objetoRecebido instanceof Mensagem){
 					servidor.gerarAck(((Mensagem) objetoRecebido).getToken());
+					// modificar gerarAck para settar o remetente/dest do ack resposta
 				}
 				else{
 					

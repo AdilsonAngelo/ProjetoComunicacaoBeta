@@ -4,10 +4,21 @@
  * and open the template in the editor.
  */
 package br.ufpe.cin.chat.view;
+import java.awt.Color;
 import java.io.IOException;
 import java.net.ServerSocket;
 
 import br.ufpe.cin.chat.controle.MainServidor;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JTextField;
+import javax.swing.GroupLayout;
+import javax.swing.JPanel;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JTabbedPane;
 
 /**
  *
@@ -19,6 +30,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 	private ServerSocket server;
 
     public FramePrincipal(int porta) throws IOException {
+    	setResizable(false);
     	server = new ServerSocket(porta);
         initComponents();
     }
@@ -31,41 +43,30 @@ public class FramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        painelPrincipal = new javax.swing.JTabbedPane();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Servidor");
-        setResizable(false);
-
-        jLabel1.setText("Porta deste servidor:");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelPrincipal)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 360, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
+        
+                labelPorta = new javax.swing.JLabel();
+                
+                        labelPorta.setText("Porta deste servidor:");
+        
+        campoPorta = new JTextField();
+        campoPorta.setEditable(false);
+        campoPorta.setColumns(10);
+        painelPrincipal = new javax.swing.JTabbedPane();
+        painelPrincipal.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+        
+        getContentPane().setLayout(new MigLayout("", "[102px][5px][370px]", "[20px][400px]"));
+        getContentPane().add(labelPorta, "cell 0 0,alignx left,growy");
+        getContentPane().add(campoPorta, "cell 2 0,alignx left,aligny top");
+        getContentPane().add(painelPrincipal, "cell 0 1 3 1,alignx left,aligny top");
+        
+        FirstPanel first = new FirstPanel();
+        painelPrincipal.addTab("Início", first);
+          	
         pack();
         (new Thread(new MainServidor(server))).start();
-    }// </editor-fold>                        
+    }// </editor-fold> 
     
     /**
      * @param args the command line arguments
@@ -108,7 +109,8 @@ public class FramePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel labelPorta;
     private javax.swing.JTabbedPane painelPrincipal;
+    private JTextField campoPorta;
     // End of variables declaration                   
 }
