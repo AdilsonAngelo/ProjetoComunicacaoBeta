@@ -20,12 +20,9 @@ public class Armazenador implements Runnable {
 		while(true){
 			try {
 				objetoRecebido = entrada.readObject();
+				System.out.println("(servidor) objeto recebido");
 				if (objetoRecebido instanceof Mensagem){
-					servidor.gerarAck(((Mensagem) objetoRecebido).getToken());
-					// modificar gerarAck para settar o remetente/dest do ack resposta
-				}
-				else{
-					
+					servidor.gerarAck((Mensagem) objetoRecebido);
 				}
 				servidor.addListaSaida(objetoRecebido);
 			} catch (ClassNotFoundException e) {
@@ -35,5 +32,4 @@ public class Armazenador implements Runnable {
 			}
 		}
 	}
-
 }

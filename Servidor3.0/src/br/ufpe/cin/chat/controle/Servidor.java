@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import br.ufpe.cin.chat.dados.ACK;
+import br.ufpe.cin.chat.dados.Mensagem;
 import br.ufpe.cin.chat.dados.Usuario;
 
 public class Servidor {
@@ -36,15 +38,17 @@ public class Servidor {
 			this.listaSaida.add(objeto);
 		}
 	}
-	
+
 	public Object retiraListaSaida(){
 		synchronized (listaSaida) {
 			return listaSaida.poll();
 		}
 	}
-	
-	public void gerarAck(int token){
-		ACK ack = new ACK(token, 1);
+
+	public void gerarAck(Mensagem mensagem){
+		ACK ack = new ACK(mensagem.getToken(), 0);
+		ack.setDestinatario(mensagem.getDestinatario());
+		ack.setRemetente(mensagem.getRemetente());
 		addListaSaida(ack);
 	}
 
@@ -91,13 +95,15 @@ public class Servidor {
 			}
 		}
 	}
-	
+
 	public void deslogaUsuario(String username){
 		Iterator<Usuario> iterator = usuarios.iterator();
 		while (iterator.hasNext()){
 			Usuario usuario = iterator.next();
 			if (usuario.getLogin().equals(username)){
 				usuarios.remove(usuario);
+				mapaEntradas.remove(usuario.getLogin());
+				mapaSaidas.remove(usuario.getLogin());
 				usuario.setLogado(false);
 				usuarios.add(usuario);
 			}
@@ -124,5 +130,27 @@ public class Servidor {
 			}
 		}
 		return false;
+	}
+
+	public Vector<String> getUsuariosOnline(){
+		Vector<String> usuariosOnline = new Vector<String>();
+		Iterator<Usuario> iterator = usuarios.iterator();
+		while (iterator.hasNext()){
+			Usuario usuario = iterator.next();
+			if (usuario.isLogado()){
+				usuariosOnline.add(usuario.getLogin());
+			}
+		}
+		return usuariosOnline;
+	}
+
+	public Vector<ObjectOutputStream> getAllSaidas(){
+		Vector<ObjectOutputStream> saidas = new Vector<ObjectOutputStream>();
+		Set<String> usuariosOnline = mapaSaidas.keySet();
+		Iterator<String> iterator = usuariosOnline.iterator();
+		while (iterator.hasNext()){
+			saidas.add(mapaSaidas.get(iterator.next()));
+		}
+		return saidas;
 	}
 }

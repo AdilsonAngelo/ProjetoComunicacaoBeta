@@ -18,7 +18,7 @@ public class Apresentador implements Runnable {
 		this.cliente = cliente;
 		this.campoConversa = campoConversa;
 		this.conversandoCom = conversandoCom;
-		this.tamanhoAnterior = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().size();
+		this.tamanhoAnterior = 0;
 	}
 
 	@Override
@@ -27,6 +27,7 @@ public class Apresentador implements Runnable {
 		String temp = "";
 		while(true){
 			if (cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().size() > tamanhoAnterior){
+				tamanhoAnterior = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().size();
 				temp = "";
 				Iterator<Mensagem> iterator = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().iterator();
 				while(iterator.hasNext()){
@@ -46,5 +47,4 @@ public class Apresentador implements Runnable {
 			}
 		}
 	}
-
 }

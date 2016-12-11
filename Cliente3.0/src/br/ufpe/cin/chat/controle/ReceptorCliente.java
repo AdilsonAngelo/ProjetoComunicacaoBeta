@@ -11,7 +11,8 @@ public class ReceptorCliente implements Runnable {
 	private Cliente cliente;
 	private ObjectInputStream entradaObjetos;
 
-	public ReceptorCliente(ObjectInputStream entradaObjetos){
+	public ReceptorCliente(Cliente cliente, ObjectInputStream entradaObjetos){
+		this.cliente = cliente;
 		this.entradaObjetos = entradaObjetos;
 	}
 
@@ -22,16 +23,17 @@ public class ReceptorCliente implements Runnable {
 			while(true){
 				Object objetoRecebido = entradaObjetos.readObject();
 				if (objetoRecebido instanceof Vector<?>){
-					cliente.setListaUsuarios((Vector<String>) objetoRecebido);
+					Vector<String> lista = (Vector<String>) objetoRecebido;
+					lista.remove(cliente.getSelfUser().getLogin());
+					cliente.setListaUsuarios(lista);
 				}
 				else{
 					(new Thread(new Encaminhamento(cliente, objetoRecebido))).start();
 				}
 			}
-
 		}
 		catch(IOException e){
-			// perdeu conexao com servidor
+			System.out.println("perdeu conexao com servidor");
 		} 
 		catch (ClassNotFoundException e) {
 

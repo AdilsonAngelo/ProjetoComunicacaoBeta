@@ -17,7 +17,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JTabbedPane;
 
 /**
@@ -56,7 +55,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         painelPrincipal = new javax.swing.JTabbedPane();
         painelPrincipal.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         
-        getContentPane().setLayout(new MigLayout("", "[102px][5px][370px]", "[20px][400px]"));
+     //   getContentPane().setLayout(new MigLayout("", "[102px][5px][370px]", "[20px][400px]"));
         getContentPane().add(labelPorta, "cell 0 0,alignx left,growy");
         getContentPane().add(campoPorta, "cell 2 0,alignx left,aligny top");
         getContentPane().add(painelPrincipal, "cell 0 1 3 1,alignx left,aligny top");

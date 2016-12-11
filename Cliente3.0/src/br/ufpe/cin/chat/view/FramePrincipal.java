@@ -106,7 +106,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 		pack();
 		(new Thread(new EmissorCliente(cliente, saidaObjetos))).start();
-		(new Thread(new ReceptorCliente(entradaObjetos))).start();
+		(new Thread(new ReceptorCliente(cliente, entradaObjetos))).start();
 		(new Thread(new Atualizador(cliente, jList1))).start();
 	}// </editor-fold>                        
 

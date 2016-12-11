@@ -31,6 +31,7 @@ public class MainServidor implements Runnable {
 				ACK ack = new ACK(0, 0);
 				if (!servidor.isConectado(autenticador.getLogin())){
 					Usuario usuario = new Usuario(autenticador.getLogin(), autenticador.getSenha(), autenticador.getIp());
+					usuario.setLogado(true);
 					if (servidor.contemUsuario(autenticador.getLogin())){
 						servidor.logaUsuario(usuario, entrada, saida);
 					}
@@ -43,6 +44,7 @@ public class MainServidor implements Runnable {
 					ack.setTipo(4);
 				}
 				saida.writeObject(ack);
+				(new Thread(new Broadcast(servidor))).start();
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
@@ -50,5 +52,4 @@ public class MainServidor implements Runnable {
 			}
 		}
 	}
-
 }

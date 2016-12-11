@@ -26,6 +26,7 @@ public class FrameConversa extends javax.swing.JFrame {
 	public FrameConversa(Cliente cliente, String conversandoCom) {
 		super("Chat - "+conversandoCom);
 		this.cliente = cliente;
+		this.conversandoCom = conversandoCom;
 		initComponents();
 	}
 
@@ -254,6 +255,8 @@ public class FrameConversa extends javax.swing.JFrame {
 		}
 		else {
 			Mensagem mensagem = new Mensagem(TokenGenerator.generateToken(), campoMensagem.getText());
+			mensagem.setRemetente(cliente.getSelfUser().getLogin());
+			mensagem.setDestinatario(conversandoCom);
 			cliente.encaminharMsg(mensagem);
 			campoMensagem.setText("");
 		}
