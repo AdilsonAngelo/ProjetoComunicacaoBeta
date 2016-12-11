@@ -9,6 +9,8 @@ import java.awt.Color;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 /**
  *
@@ -66,6 +68,15 @@ public class PainelUsuario extends javax.swing.JPanel {
         nomeUsuario.setEditable(false);
 
         ipUsuario.setEditable(false);
+        
+        JLabel lblNewLabel = new JLabel("Mensagem pendente:");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+        
+        JLabel labelPendente = new JLabel();
+        labelPendente.setToolTipText("");
+        labelPendente.setText("N\u00C3O");
+        labelPendente.setForeground(Color.RED);
+        labelPendente.setFont(new Font("Tahoma", Font.BOLD, 14));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         layout.setHorizontalGroup(
@@ -82,13 +93,19 @@ public class PainelUsuario extends javax.swing.JPanel {
         						.addComponent(ipUsuario)
         						.addComponent(nomeUsuario, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
         				.addGroup(layout.createSequentialGroup()
-        					.addGap(62)
-        					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        						.addComponent(jLabel3, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-        						.addComponent(jLabel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        						.addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
+        					.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGap(62)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        								.addComponent(jLabel3, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+        								.addComponent(jLabel4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        								.addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
+        						.addGroup(layout.createSequentialGroup()
+        							.addContainerGap()
+        							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(labelPendente, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
         						.addComponent(labelConexao, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
         						.addComponent(progressoRecebimento, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
         						.addComponent(progressoEnvio, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE))))
@@ -105,7 +122,11 @@ public class PainelUsuario extends javax.swing.JPanel {
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(labelIP)
         				.addComponent(ipUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addGap(130)
+        			.addGap(75)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(labelPendente, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
         				.addComponent(labelConexao, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
