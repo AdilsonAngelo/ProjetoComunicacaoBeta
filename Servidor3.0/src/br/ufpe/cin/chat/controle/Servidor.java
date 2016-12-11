@@ -19,8 +19,9 @@ public class Servidor {
 	private Vector<Usuario> usuarios;
 	private Map<String, ObjectOutputStream> mapaSaidas;
 	private Map<String, ObjectInputStream> mapaEntradas;
-	private LinkedList<Object> listaSaida;
 	private Map<String, PainelUsuario> listaPanel;
+	private Map<String, Vector<Object>> mapaPendencias;
+	private LinkedList<Object> listaSaida;
 
 	public Servidor(){
 		this.usuarios = new Vector<Usuario>();
@@ -28,6 +29,7 @@ public class Servidor {
 		this.mapaSaidas = new HashMap<String, ObjectOutputStream>();
 		this.listaSaida = new LinkedList<Object>();
 		this.setListaPanel(new HashMap<String, PainelUsuario>());
+		this.mapaPendencias = new HashMap<String, Vector<Object>>();
 	}
 
 	public void addUsuario(Usuario usuario, ObjectInputStream entrada, ObjectOutputStream saida){
@@ -113,6 +115,11 @@ public class Servidor {
 			mapaEntradas.put(usuario.getLogin(), entrada);
 			mapaSaidas.put(usuario.getLogin(), saida);
 			usuarios.add(usuario);
+			if (mapaPendencias.containsKey(usuario.getLogin())){
+				listaSaida.addAll(mapaPendencias.get(usuario.getLogin()));
+				mapaPendencias.remove(usuario.getLogin());
+				listaPanel.get(usuario.getLogin()).setPendente(false);
+			}
 		}
 	}
 
@@ -126,6 +133,7 @@ public class Servidor {
 					break;
 				}
 			}
+			mapaPendencias.put(username, new Vector<Object>());
 			mapaEntradas.remove(usuario.getLogin());
 			mapaSaidas.remove(usuario.getLogin());
 			listaPanel.get(usuario.getLogin()).setConectado(false);
@@ -184,15 +192,24 @@ public class Servidor {
 		return saidas;
 	}
 
-	public Map<String, PainelUsuario> getListaPanel() {
+	public synchronized Map<String, PainelUsuario> getListaPanel() {
 		return listaPanel;
 	}
 
-	public void setListaPanel(Map<String, PainelUsuario> listaPanel) {
+	public synchronized void setListaPanel(Map<String, PainelUsuario> listaPanel) {
 		this.listaPanel = listaPanel;
 	}
 
-	public void addPanelMap(String usuario, PainelUsuario painel){
+	public synchronized void addPanelMap(String usuario, PainelUsuario painel){
 		this.listaPanel.put(usuario, painel);
 	}
+
+	public synchronized Map<String, Vector<Object>> getMapaPendencias() {
+		return mapaPendencias;
+	}
+	
+	public synchronized void setPendencia(String username){
+		listaPanel.get(username).setPendente(true);
+	}
+
 }

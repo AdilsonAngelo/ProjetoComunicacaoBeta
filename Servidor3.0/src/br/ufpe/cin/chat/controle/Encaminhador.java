@@ -58,12 +58,15 @@ public class Encaminhador implements Runnable{
 					System.out.println("(servidor) objeto encaminhado");
 					Thread.sleep(100);
 				} catch (IOException e) {
-					servidor.addListaSaida(objeto);
 					if (objeto instanceof ACK){
 						servidor.deslogaUsuario(((ACK)objeto).getDestinatario());
+						servidor.getMapaPendencias().get(((ACK)objeto).getDestinatario()).add(objeto);
+						servidor.setPendencia(((ACK)objeto).getDestinatario());
 					}
 					else if (objeto instanceof Mensagem){
 						servidor.deslogaUsuario(((Mensagem)objeto).getDestinatario());
+						servidor.getMapaPendencias().get(((Mensagem)objeto).getDestinatario()).add(objeto);
+						servidor.setPendencia(((Mensagem)objeto).getDestinatario());
 					}
 				} catch (InterruptedException e) {
 					e.printStackTrace();
