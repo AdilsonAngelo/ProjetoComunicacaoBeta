@@ -56,7 +56,9 @@ public class Cliente {
 	}
 
 	public synchronized RepositorioConversas getConversas() {
-		return conversas;
+		synchronized (conversas) {
+			return conversas;
+		}
 	}
 
 	public synchronized Usuario getSelfUser() {
@@ -90,7 +92,7 @@ public class Cliente {
 	public void setIpServer(String ipServer) {
 		this.ipServer = ipServer;
 	}
-	
+
 	public void atualizarConexao(Socket socket){
 		frame.atualizaConexao(socket);
 	}
