@@ -10,8 +10,9 @@ public class Armazenador implements Runnable {
 	private Servidor servidor;
 	private ObjectInputStream entrada;
 
-	public Armazenador(Servidor servidor){
+	public Armazenador(Servidor servidor, ObjectInputStream entrada){
 		this.servidor = servidor;
+		this.entrada = entrada;
 	}
 
 	@Override

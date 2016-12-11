@@ -11,7 +11,7 @@ public class Conversa {
 	public Conversa(String meuLogin, String conversandoCom){
 		this.listaMensagens = new LinkedList<Mensagem>();
 		this.conversandoCom = conversandoCom;
-		this.meuLogin = meuLogin;
+		this.setMeuLogin(meuLogin);
 	}
 	
 	public void inserirMensagem(Mensagem msg){
@@ -53,5 +53,13 @@ public class Conversa {
 
 	public LinkedList<Mensagem> getListaMensagens() {
 		return listaMensagens;
+	}
+
+	public String getMeuLogin() {
+		return meuLogin;
+	}
+
+	public void setMeuLogin(String meuLogin) {
+		this.meuLogin = meuLogin;
 	}
 }
