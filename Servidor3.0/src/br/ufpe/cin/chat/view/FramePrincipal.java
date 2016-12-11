@@ -84,7 +84,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         painelPrincipal.addTab("Início", first);
           	
         pack();
-        (new Thread(new MainServidor(server))).start();
+        (new Thread(new MainServidor(server, painelPrincipal))).start();
     }// </editor-fold> 
     
     /**

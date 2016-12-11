@@ -5,6 +5,8 @@
  */
 package br.ufpe.cin.chat.view;
 
+import java.awt.Color;
+
 /**
  *
  * @author Adilson
@@ -12,7 +14,17 @@ package br.ufpe.cin.chat.view;
 public class PainelUsuario extends javax.swing.JPanel {
 
 	private static final long serialVersionUID = -3270484269959487149L;
-	public PainelUsuario() {
+	public PainelUsuario(String nome, String IP, boolean logado) {
+		
+		this.nomeUsuario.setText(nome);
+		this.ipUsuario.setText(IP);
+		if(logado){
+			this.labelConexao.setText("SIM");
+			this.labelConexao.setForeground(Color.green);
+		}else{
+			this.labelConexao.setText("NÃO");
+			this.labelConexao.setForeground(Color.red);
+		}
         initComponents();
     }
 

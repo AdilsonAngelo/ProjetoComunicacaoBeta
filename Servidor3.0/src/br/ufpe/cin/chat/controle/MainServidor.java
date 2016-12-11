@@ -6,18 +6,25 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.JTabbedPane;
+
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Autenticador;
 import br.ufpe.cin.chat.dados.Usuario;
+import br.ufpe.cin.chat.view.PainelUsuario;
 
 public class MainServidor implements Runnable {
 
 	private ServerSocket server;
 	private Servidor servidor;
+	private JTabbedPane painelAbas;
+	private boolean first;
 
-	public MainServidor(ServerSocket server) {
+	public MainServidor(ServerSocket server, JTabbedPane painelPrincipal) {
 		this.server = server;
 		this.servidor = new Servidor();
+		this.painelAbas = painelPrincipal;
+		this.first = true;
 		(new Thread(new Encaminhador(servidor))).start();
 	}
 
@@ -37,7 +44,12 @@ public class MainServidor implements Runnable {
 						servidor.logaUsuario(usuario, entrada, saida);
 					}
 					else{
+						if(first){
+							painelAbas.removeTabAt(0);
+						}
 						servidor.addUsuario(usuario, entrada, saida);
+						PainelUsuario painelUsuario = new PainelUsuario(usuario.getLogin(), usuario.getIP(), true);
+						painelAbas.add(usuario.getLogin(), painelUsuario);
 					}
 					(new Thread(new Armazenador(servidor, entrada))).start();
 					ack.setTipo(3);
