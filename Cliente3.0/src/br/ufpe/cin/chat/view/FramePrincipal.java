@@ -167,8 +167,10 @@ public class FramePrincipal extends javax.swing.JFrame {
 			saida.writeObject(autenticador);
 			ACK ack = (ACK) entrada.readObject();
 			if (ack.getTipo() == 3){
-				initThreads();
 				JOptionPane.showMessageDialog(this, "Reconectado ao servidor com sucesso");
+				this.entradaObjetos = entrada;
+				this.saidaObjetos = saida;
+				initThreads();
 			}
 			else{
 				JOptionPane.showMessageDialog(this, "Erro fatal (Usuario já conectado)");
