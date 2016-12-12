@@ -28,7 +28,7 @@ public class Conversa {
 		if(ack.getTipo() == 2){
 			for(int i = 0; i < listaMensagens.size(); i++){
 				Mensagem msg = listaMensagens.get(i);
-				if(msg.getDestinatario().equals(conversandoCom) && msg.getToken() == ack.getToken()){
+				if(msg.getRemetente().equals(conversandoCom) && msg.getToken() <= ack.getToken()){
 					msg.setRead(true);
 					this.atualiza = true;
 				}
@@ -36,7 +36,7 @@ public class Conversa {
 		}else if(ack.getTipo() == 1){
 			for(int i = 0; i < listaMensagens.size(); i++){
 				Mensagem msg = listaMensagens.get(i);
-				if(msg.getDestinatario().equals(conversandoCom) && msg.getToken() == ack.getToken()){
+				if(msg.getRemetente().equals(conversandoCom) && msg.getToken() == ack.getToken()){
 					msg.setReceived(true);
 					this.atualiza = true;
 				}
