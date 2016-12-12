@@ -6,6 +6,7 @@
 package br.ufpe.cin.chat.view;
 
 import br.ufpe.cin.chat.controle.Apresentador;
+import br.ufpe.cin.chat.controle.FocusThread;
 import br.ufpe.cin.chat.dados.Cliente;
 import br.ufpe.cin.chat.dados.Mensagem;
 import br.ufpe.cin.chat.util.TokenGenerator;
@@ -46,12 +47,6 @@ public class FrameConversa extends javax.swing.JFrame {
 		jScrollPane3 = new javax.swing.JScrollPane();
 		campoConversa = new javax.swing.JTextArea();
 		campoMensagem = new javax.swing.JTextField();
-		campoMensagem.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				gerarAckLido();
-			}
-		});
 		campoMensagem.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
@@ -251,6 +246,7 @@ public class FrameConversa extends javax.swing.JFrame {
 
 		pack();
 		(new Thread(new Apresentador(cliente, campoConversa, conversandoCom))).start();
+		(new Thread(new FocusThread(campoMensagem, cliente, conversandoCom))).start();
 	}// </editor-fold>                        
 
 	private void botaoEnviarMsgActionPerformed(java.awt.event.ActionEvent evt) { 
@@ -268,10 +264,6 @@ public class FrameConversa extends javax.swing.JFrame {
 			cliente.encaminharMsg(mensagem);
 			campoMensagem.setText("");
 		}
-	}
-	
-	private void gerarAckLido() {
-		cliente.gerarAckLido(conversandoCom);
 	}
 
 	/**

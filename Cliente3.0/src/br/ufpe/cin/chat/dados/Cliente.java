@@ -117,17 +117,19 @@ public class Cliente {
 		ack.setDestinatario(mensagem.getRemetente());
 		ack.setRemetente(mensagem.getDestinatario());
 		addFilaEnvio(ack);
+		System.out.println("Gerado ACK de recebido");
 	}
 
 	public void gerarAckLido(String conversandoCom){
 		if (!this.getConversas().procurarConversa(conversandoCom).getListaMensagens().isEmpty()){
 			Mensagem mensagem = this.getConversas().procurarConversa(conversandoCom).getListaMensagens().getLast();
-			if (!mensagem.isRead()){
+			if (!mensagem.isRead() && !mensagem.getRemetente().equals(this.getSelfUser().getLogin())){
 				this.getConversas().procurarConversa(conversandoCom).getListaMensagens().getLast().setRead(true);
 				ACK ack = new ACK(mensagem.getToken(), 2);
 				ack.setDestinatario(mensagem.getRemetente());
 				ack.setRemetente(mensagem.getDestinatario());
 				addFilaEnvio(ack);
+				System.out.println("Gerado ACK de lido");
 			}
 		}
 	}
