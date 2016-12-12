@@ -106,19 +106,24 @@ public class Cliente {
 	public void setFrame(FramePrincipal frame) {
 		this.frame = frame;
 	}
-	
+
 	public void gerarAckRecebido(Mensagem mensagem){
 		ACK ack = new ACK(mensagem.getToken(), 1);
 		ack.setDestinatario(mensagem.getRemetente());
 		ack.setRemetente(mensagem.getDestinatario());
 		addFilaEnvio(ack);
 	}
-	
+
 	public void gerarAckLido(String conversandoCom){
-		Mensagem mensagem = this.getConversas().procurarConversa(conversandoCom).getListaMensagens().getLast();
-		ACK ack = new ACK(mensagem.getToken(), 2);
-		ack.setDestinatario(mensagem.getRemetente());
-		ack.setRemetente(mensagem.getDestinatario());
-		addFilaEnvio(ack);
+		if (!this.getConversas().procurarConversa(conversandoCom).getListaMensagens().isEmpty()){
+			Mensagem mensagem = this.getConversas().procurarConversa(conversandoCom).getListaMensagens().getLast();
+			if (!mensagem.isRead()){
+				this.getConversas().procurarConversa(conversandoCom).getListaMensagens().getLast().setRead(true);
+				ACK ack = new ACK(mensagem.getToken(), 2);
+				ack.setDestinatario(mensagem.getRemetente());
+				ack.setRemetente(mensagem.getDestinatario());
+				addFilaEnvio(ack);
+			}
+		}
 	}
 }
