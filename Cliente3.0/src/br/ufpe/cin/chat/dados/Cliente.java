@@ -44,7 +44,12 @@ public class Cliente {
 	}
 
 	public synchronized void encaminharACK(ACK ack){
-		conversas.tratarACK(ack, ack.getDestinatario());
+		if (ack.getTipo() == 0){
+			conversas.tratarACK(ack, ack.getDestinatario());
+		}
+		else {
+			conversas.tratarACK(ack, ack.getRemetente());
+		}
 	}
 
 	public synchronized void iniciarConversa(String conversandoCom){
