@@ -12,6 +12,8 @@ import br.ufpe.cin.chat.util.TokenGenerator;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /**
  *
@@ -44,6 +46,12 @@ public class FrameConversa extends javax.swing.JFrame {
 		jScrollPane3 = new javax.swing.JScrollPane();
 		campoConversa = new javax.swing.JTextArea();
 		campoMensagem = new javax.swing.JTextField();
+		campoMensagem.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				gerarAckLido();
+			}
+		});
 		campoMensagem.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
@@ -260,6 +268,10 @@ public class FrameConversa extends javax.swing.JFrame {
 			cliente.encaminharMsg(mensagem);
 			campoMensagem.setText("");
 		}
+	}
+	
+	private void gerarAckLido() {
+		cliente.gerarAckLido(conversandoCom);
 	}
 
 	/**

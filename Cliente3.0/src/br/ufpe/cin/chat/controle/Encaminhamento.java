@@ -21,6 +21,7 @@ public class Encaminhamento implements Runnable {
 		}
 		else if (objeto instanceof Mensagem){
 			cliente.encaminharMsg((Mensagem) objeto);
+			cliente.gerarAckRecebido((Mensagem) objeto);
 		}
 	}
 

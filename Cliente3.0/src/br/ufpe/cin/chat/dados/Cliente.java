@@ -53,8 +53,8 @@ public class Cliente {
 		frame.setVisible(true);
 	}
 
-	public synchronized void addFilaEnvio(Mensagem mensagem){
-		filaEnvio.add(mensagem);
+	public synchronized void addFilaEnvio(Object objeto){
+		filaEnvio.add(objeto);
 	}
 
 	public synchronized RepositorioConversas getConversas() {
@@ -105,5 +105,20 @@ public class Cliente {
 
 	public void setFrame(FramePrincipal frame) {
 		this.frame = frame;
+	}
+	
+	public void gerarAckRecebido(Mensagem mensagem){
+		ACK ack = new ACK(mensagem.getToken(), 1);
+		ack.setDestinatario(mensagem.getRemetente());
+		ack.setRemetente(mensagem.getDestinatario());
+		addFilaEnvio(ack);
+	}
+	
+	public void gerarAckLido(String conversandoCom){
+		Mensagem mensagem = this.getConversas().procurarConversa(conversandoCom).getListaMensagens().getLast();
+		ACK ack = new ACK(mensagem.getToken(), 2);
+		ack.setDestinatario(mensagem.getRemetente());
+		ack.setRemetente(mensagem.getDestinatario());
+		addFilaEnvio(ack);
 	}
 }
