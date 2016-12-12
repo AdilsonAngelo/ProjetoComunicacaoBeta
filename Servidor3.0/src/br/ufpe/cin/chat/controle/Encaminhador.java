@@ -56,7 +56,7 @@ public class Encaminhador implements Runnable{
 				try {
 					saida.writeObject(objeto);
 					System.out.println("(servidor) objeto encaminhado");
-					Thread.sleep(100);
+					Thread.sleep(250);
 				} catch (IOException e) {
 					if (objeto instanceof ACK){
 						servidor.deslogaUsuario(((ACK)objeto).getDestinatario());
