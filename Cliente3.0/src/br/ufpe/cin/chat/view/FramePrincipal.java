@@ -116,7 +116,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 	}// </editor-fold>                        
 
 	private void botaoConversaActionPerformed(java.awt.event.ActionEvent evt) {                                              
-		// TODO add your handling code here:
+		cliente.iniciarConversa((String) jList1.getSelectedValue());
 	}                                             
 
 	/**
