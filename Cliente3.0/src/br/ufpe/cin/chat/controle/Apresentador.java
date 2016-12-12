@@ -1,6 +1,7 @@
 package br.ufpe.cin.chat.controle;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import javax.swing.JTextArea;
 
@@ -33,7 +34,8 @@ public class Apresentador implements Runnable {
 				temp = "";
 				Iterator<Mensagem> iterator;
 				synchronized (cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens()){
-					iterator = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens().iterator();
+					LinkedList<Mensagem> temporario = cliente.getConversas().procurarConversa(conversandoCom).getListaMensagens();
+					iterator = temporario.iterator();
 					while(iterator.hasNext()){
 						Mensagem mensagem =  iterator.next();
 
@@ -50,6 +52,7 @@ public class Apresentador implements Runnable {
 					}
 				}
 				campoConversa.setText(temp);
+				campoConversa.setCaretPosition(campoConversa.getDocument().getLength());
 			}
 		}
 	}
