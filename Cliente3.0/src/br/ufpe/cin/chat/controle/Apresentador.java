@@ -38,7 +38,7 @@ public class Apresentador implements Runnable {
 					iterator = temporario.iterator();
 					while(iterator.hasNext()){
 						Mensagem mensagem =  iterator.next();
-
+						
 						if (mensagem.isRead() && !mensagem.getRemetente().equals(conversandoCom)){
 							status = "*** ";
 						}
@@ -49,6 +49,7 @@ public class Apresentador implements Runnable {
 							status = "* ";
 						}
 						temp += (status+mensagem.getRemetente()+" diz: "+mensagem.getContent() + "\n");
+						status = "";
 					}
 				}
 				campoConversa.setText(temp);
