@@ -27,7 +27,6 @@ public class Heartbeat implements Runnable {
 					while(iterator.hasNext()){
 						user = iterator.next();
 						servidor.getMapaSaidas().get(user).writeObject(new ACK(0, -1));
-						System.out.println("Enviando heartbeat");
 					}
 				}
 			}

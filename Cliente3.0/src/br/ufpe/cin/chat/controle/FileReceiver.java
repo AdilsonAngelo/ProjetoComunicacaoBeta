@@ -33,6 +33,7 @@ public class FileReceiver implements Runnable {
 				barraProgresso.setMaximum(pacote.getTamanho());
 				listaPacotes.add(pacote);
 				barraProgresso.setValue((int) pacote.getOffset());
+				System.out.println("Recebi pacote "+pacote.getToken());
 				if(pacote.isLast()){
 					(new Thread(new TratadorArquivo(listaPacotes))).start();
 					barraProgresso.setMaximum(100);
