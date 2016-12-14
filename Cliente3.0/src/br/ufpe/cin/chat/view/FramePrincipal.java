@@ -47,6 +47,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 	public FramePrincipal(Socket socket, Cliente cliente, ObjectInputStream entradaObjetos, ObjectOutputStream saidaObjetos,
 			ObjectOutputStream saidaArquivos, ObjectInputStream entradaArquivos) {
 		super(cliente.getSelfUser().getLogin());
+		setResizable(false);
 		this.socket = socket;
 		this.cliente = cliente;
 		this.entradaObjetos = entradaObjetos;
@@ -195,6 +196,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 	private void initThreads(){
 		(new Thread(new EmissorCliente(cliente, saidaObjetos))).start();
 		(new Thread(new ReceptorCliente(cliente, entradaObjetos))).start();
+		(new Thread(new FileReceiver(cliente, entradaArquivos, progressoDownload))).start();
 	}
 
 	public void atualizaConexao(Socket socket) {

@@ -35,7 +35,8 @@ public class FileReceiver implements Runnable {
 				barraProgresso.setValue((int) pacote.getOffset());
 				if(pacote.isLast()){
 					(new Thread(new TratadorArquivo(listaPacotes))).start();
-					barraProgresso.setMaximum(0);
+					barraProgresso.setMaximum(100);
+					barraProgresso.setValue(100);
 					barraProgresso.setValue(0);
 				}
 			}
