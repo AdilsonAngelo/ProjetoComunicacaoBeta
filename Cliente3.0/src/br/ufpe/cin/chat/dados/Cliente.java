@@ -17,6 +17,7 @@ public class Cliente {
 	private String ipServer;
 	private int portaServer;
 	private FramePrincipal frame;
+	private boolean tentandoReconexao;
 
 	public Cliente(String login, String senha, String IP, int portaServer){
 		this.filaEnvio = new LinkedList<Object>();
@@ -24,6 +25,7 @@ public class Cliente {
 		this.selfUser = new Usuario(login, senha, IP);
 		this.setListaUsuarios(new Vector<String>());
 		this.setPortaServer(portaServer);
+		this.setTentandoReconexao(false);
 	}
 
 	public synchronized void encaminharMsg(Mensagem msg){
@@ -132,5 +134,13 @@ public class Cliente {
 				System.out.println("Gerado ACK de lido");
 			}
 		}
+	}
+
+	public boolean isTentandoReconexao() {
+		return tentandoReconexao;
+	}
+
+	public void setTentandoReconexao(boolean tentandoReconexao) {
+		this.tentandoReconexao = tentandoReconexao;
 	}
 }

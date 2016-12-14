@@ -38,7 +38,10 @@ public class ReceptorCliente implements Runnable {
 		}
 		catch(IOException e){
 			System.out.println("perdeu conexao com servidor");
-			(new Thread(new Reconector(cliente))).start();
+			if (!cliente.isTentandoReconexao()){
+				(new Thread(new Reconector(cliente))).start();
+				cliente.setTentandoReconexao(true);
+			}
 			Thread.currentThread().interrupt();
 		} 
 		catch (ClassNotFoundException e) {

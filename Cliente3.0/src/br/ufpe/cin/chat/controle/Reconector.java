@@ -21,6 +21,7 @@ public class Reconector implements Runnable {
 				System.out.println("Tentando reconexao...");
 				Socket socket = new Socket(cliente.getIpServer(), cliente.getPortaServer());
 				cliente.atualizarConexao(socket);
+				cliente.setTentandoReconexao(false);
 				break;
 			} catch (UnknownHostException e) {
 				e.printStackTrace();

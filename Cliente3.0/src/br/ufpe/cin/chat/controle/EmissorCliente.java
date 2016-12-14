@@ -31,6 +31,10 @@ public class EmissorCliente implements Runnable {
 			}
 			catch(IOException e){
 				cliente.getFilaEnvio().add(objeto);
+				if (!cliente.isTentandoReconexao()){
+					(new Thread(new Reconector(cliente))).start();
+					cliente.setTentandoReconexao(true);
+				}
 				Thread.currentThread().interrupt();
 			}
 		}
