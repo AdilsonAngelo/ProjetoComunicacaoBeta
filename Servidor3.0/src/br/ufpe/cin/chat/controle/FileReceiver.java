@@ -41,7 +41,7 @@ public class FileReceiver implements Runnable {
 				progressBar.setMaximum((int)tamanho);
 				File file = new File("ArquivosRecebidos/"+fileName);
 				FileOutputStream fileOut = new FileOutputStream(file);
-				while((counter = entrada.read(bytes)) > 0){
+				while((counter = entrada.read(bytes)) >= 0){
 					fileOut.write(bytes, 0, counter);
 					contador += counter;
 					progressBar.setValue(contador);
