@@ -37,6 +37,7 @@ public class FileSender implements Runnable {
 				progressBar.setValue(++begin);
 				progressBar.setStringPainted(true);
 			}
+			progressBar.setValue(0);
 		} catch (IOException e) {
 			listaPacotes.addFirst(pacote);
 		}
