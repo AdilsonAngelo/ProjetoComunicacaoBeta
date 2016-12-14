@@ -50,12 +50,16 @@ public class FileSender implements Runnable {
 				contador += counter;
 				progressBar.setValue(contador);
 				progressBar.setStringPainted(true);
+<<<<<<< HEAD
 //				if (diferenca < counter){
 //					bytes = new byte[diferenca];
 //					counter = diferenca;
 //					fileOut.write(bytes, 0, counter);
 //					break;
 //				}
+=======
+				System.out.println(counter);
+>>>>>>> 094d6545e7f5a38d5b9c5ca891891542c5c6115e
 			}
 			progressBar.setValue(100);
 			fileIN.close();
