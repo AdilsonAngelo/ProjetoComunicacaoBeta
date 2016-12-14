@@ -36,7 +36,7 @@ public class FileSender implements Runnable {
 			Path caminho = Paths.get(file.getCanonicalPath());
 			byte[] dados = Files.readAllBytes(caminho);
 			int begin = 0;
-			int offset = begin+(1024);
+			int offset = begin+(1023);
 			int token = 0;
 			progressBar.setValue(0);
 			progressBar.setMaximum(dados.length);;
@@ -51,7 +51,7 @@ public class FileSender implements Runnable {
 				saida.writeObject(pacote);
 				progressBar.setValue(offset);
 				progressBar.setStringPainted(true);
-				begin = offset+1;
+				begin = offset;
 				offset = begin+1024;
 				token++;
 			}
