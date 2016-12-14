@@ -15,6 +15,7 @@ import br.ufpe.cin.chat.util.TokenGenerator;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
@@ -22,6 +23,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -72,9 +76,6 @@ public class FrameConversa extends javax.swing.JFrame {
 		painelTransf = new javax.swing.JTabbedPane();
 		painelUploads = new javax.swing.JPanel();
 		progressoUp = new javax.swing.JProgressBar();
-		iniciarUp = new javax.swing.JButton();
-		pausarUp = new javax.swing.JButton();
-		cancelarUp = new javax.swing.JButton();
 		labelRTTUp = new javax.swing.JLabel();
 		labelTempoUp = new javax.swing.JLabel();
 
@@ -123,53 +124,37 @@ public class FrameConversa extends javax.swing.JFrame {
 						.addContainerGap(16, Short.MAX_VALUE))
 				);
 
-		iniciarUp.setText("Iniciar");
-
-		pausarUp.setText("Pause");
-
-		cancelarUp.setText("Cancelar");
-
 		labelRTTUp.setText("RTT: ");
 
 		labelTempoUp.setText("Tempo estimado: ");
 
 		javax.swing.GroupLayout painelUploadsLayout = new javax.swing.GroupLayout(painelUploads);
-		painelUploads.setLayout(painelUploadsLayout);
 		painelUploadsLayout.setHorizontalGroup(
-				painelUploadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			painelUploadsLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(painelUploadsLayout.createSequentialGroup()
-						.addGap(10, 10, 10)
-						.addGroup(painelUploadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(painelUploadsLayout.createSequentialGroup()
-										.addComponent(iniciarUp, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(6, 6, 6)
-										.addComponent(pausarUp, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(cancelarUp, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(99, 99, 99)
-										.addComponent(labelRTTUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addGroup(painelUploadsLayout.createSequentialGroup()
-										.addComponent(progressoUp, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(labelTempoUp, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
-						.addGap(80, 80, 80))
-				);
+					.addGap(10)
+					.addGroup(painelUploadsLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(painelUploadsLayout.createSequentialGroup()
+							.addGap(398)
+							.addComponent(labelRTTUp, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+						.addGroup(painelUploadsLayout.createSequentialGroup()
+							.addComponent(progressoUp, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(labelTempoUp, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
+					.addGap(80))
+		);
 		painelUploadsLayout.setVerticalGroup(
-				painelUploadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			painelUploadsLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(painelUploadsLayout.createSequentialGroup()
-						.addGap(11, 11, 11)
-						.addGroup(painelUploadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(iniciarUp)
-								.addGroup(painelUploadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(pausarUp)
-										.addComponent(cancelarUp))
-								.addComponent(labelRTTUp))
-						.addGap(11, 11, 11)
-						.addGroup(painelUploadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-								.addComponent(labelTempoUp, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(progressoUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGap(15, 15, 15))
-				);
+					.addGap(11)
+					.addComponent(labelRTTUp)
+					.addGap(20)
+					.addGroup(painelUploadsLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(labelTempoUp, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+						.addComponent(progressoUp, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(15))
+		);
+		painelUploads.setLayout(painelUploadsLayout);
 
 		painelTransf.addTab("Uploads", painelUploads);
 
@@ -206,7 +191,8 @@ public class FrameConversa extends javax.swing.JFrame {
 
 	private void botaoEnviarMsgActionPerformed(java.awt.event.ActionEvent evt) { 
 		addMensagemLista();
-	}                                              
+	}                        
+	
 
 	private void addMensagemLista() {
 		if (campoMensagem.getText().trim().isEmpty()){
@@ -265,15 +251,12 @@ public class FrameConversa extends javax.swing.JFrame {
 	private javax.swing.JButton botaoUpload;
 	private javax.swing.JTextArea campoConversa;
 	private javax.swing.JTextField campoMensagem;
-	private javax.swing.JButton cancelarUp;
-	private javax.swing.JButton iniciarUp;
 	private javax.swing.JScrollPane jScrollPane3;
 	private javax.swing.JLabel labelRTTUp;
 	private javax.swing.JLabel labelTempoUp;
 	private javax.swing.JPanel painelConversa;
 	private javax.swing.JTabbedPane painelTransf;
 	private javax.swing.JPanel painelUploads;
-	private javax.swing.JButton pausarUp;
 	private javax.swing.JProgressBar progressoUp;
 	// End of variables declaration                   
 }
