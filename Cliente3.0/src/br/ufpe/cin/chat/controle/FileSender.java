@@ -51,7 +51,7 @@ public class FileSender implements Runnable {
 				saida.writeObject(pacote);
 				progressBar.setValue(offset);
 				progressBar.setStringPainted(true);
-				begin = offset;
+				begin = offset+1;
 				offset = begin+1024;
 				token++;
 			}

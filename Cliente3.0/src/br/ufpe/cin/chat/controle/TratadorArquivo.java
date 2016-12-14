@@ -26,7 +26,7 @@ public class TratadorArquivo implements Runnable {
 		while(i.hasNext()){
 			Pacote pacote = i.next();
 			
-			for(int j = 0; j < (pacote.getConteudo().length)-1; j++){
+			for(int j = 0; j < (pacote.getConteudo().length); j++){
 				dados[counter] = pacote.getConteudo()[j];
 			}
 			counter++;
@@ -35,6 +35,8 @@ public class TratadorArquivo implements Runnable {
 		try {
 			FileOutputStream fos = new FileOutputStream("ArquivosRecebidos/" + listaPacotes.getLast().getFileName());
 			fos.write(dados);
+			fos.flush();
+			fos.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
