@@ -20,7 +20,7 @@ public class Heartbeat implements Runnable {
 		String user = "";
 		while (true){
 			try{
-				Thread.sleep(1000);
+				Thread.sleep(5000);
 				Vector<String> usuariosOnline = servidor.getUsuariosOnline();
 				if (!usuariosOnline.isEmpty()){
 					Iterator<String> iterator = usuariosOnline.iterator();

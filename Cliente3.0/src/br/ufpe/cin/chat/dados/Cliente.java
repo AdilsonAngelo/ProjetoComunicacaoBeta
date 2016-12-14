@@ -46,7 +46,10 @@ public class Cliente {
 	}
 
 	public synchronized void encaminharACK(ACK ack){
-		if (ack.getTipo() == 0){
+		if (ack.getTipo() == -1){
+			
+		}
+		else if (ack.getTipo() == 0){
 			conversas.tratarACK(ack, ack.getDestinatario());
 		}
 		else {
