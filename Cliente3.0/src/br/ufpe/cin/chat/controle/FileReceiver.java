@@ -31,12 +31,11 @@ public class FileReceiver implements Runnable {
 	public void run() {
 		try{
 			while(true){
-				Thread.sleep(0);
 				String fileName = (String) entrada.readObject();
 				int tamanho = (Integer) entrada.readObject();
 				int counter;
 				int contador = 0;
-				byte[] bytes = new byte[4000];
+				byte[] bytes = new byte[16*1024];
 				barraProgresso.setValue(0);
 				barraProgresso.setMaximum((int)tamanho);
 				FileOutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos/"+fileName));
@@ -55,9 +54,6 @@ public class FileReceiver implements Runnable {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
-
 }

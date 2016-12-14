@@ -36,7 +36,7 @@ public class FileSender implements Runnable {
 			saida.writeObject(new Integer((int) tamanho));
 			FileInputStream fileIN = new FileInputStream(file);
 			BufferedInputStream buffIN = new BufferedInputStream(fileIN);
-			byte[] bytes = new byte[4000];
+			byte[] bytes = new byte[16*1024];
 			int counter;
 			int contador = 0;
 			progressBar.setValue(0);

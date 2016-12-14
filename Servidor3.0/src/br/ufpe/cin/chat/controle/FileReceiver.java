@@ -36,7 +36,7 @@ public class FileReceiver implements Runnable {
 				int tamanho = (Integer) entrada.readObject();
 				int counter;
 				int contador = 0;
-				byte[] bytes = new byte[4000];
+				byte[] bytes = new byte[16*1024];
 				progressBar.setValue(0);
 				progressBar.setMaximum((int)tamanho);
 				File file = new File("ArquivosRecebidos/"+fileName);
