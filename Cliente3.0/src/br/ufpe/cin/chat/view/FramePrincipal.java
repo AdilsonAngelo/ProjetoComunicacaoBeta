@@ -5,6 +5,9 @@
  */
 package br.ufpe.cin.chat.view;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -14,8 +17,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
 import br.ufpe.cin.chat.controle.Atualizador;
 import br.ufpe.cin.chat.controle.EmissorCliente;
@@ -24,11 +29,7 @@ import br.ufpe.cin.chat.controle.ReceptorCliente;
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Autenticador;
 import br.ufpe.cin.chat.dados.Cliente;
-import javax.swing.JProgressBar;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import java.awt.Color;
+import br.ufpe.cin.chat.dados.Heartbeat;
 
 /**
  *
@@ -202,6 +203,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 		(new Thread(new EmissorCliente(cliente, saidaObjetos))).start();
 		(new Thread(new ReceptorCliente(cliente, entradaObjetos))).start();
 		(new Thread(new FileReceiver(cliente, entradaArquivos, progressoDownload))).start();
+		(new Thread(new Heartbeat (cliente))).start();
 	}
 
 	public void atualizaConexao(Socket socket) {
