@@ -5,27 +5,23 @@
  */
 package br.ufpe.cin.chat.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.File;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFileChooser;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
 import br.ufpe.cin.chat.controle.Apresentador;
 import br.ufpe.cin.chat.controle.FileSender;
 import br.ufpe.cin.chat.controle.FocusThread;
 import br.ufpe.cin.chat.dados.Cliente;
 import br.ufpe.cin.chat.dados.Mensagem;
 import br.ufpe.cin.chat.util.TokenGenerator;
-
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.JFileChooser;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
