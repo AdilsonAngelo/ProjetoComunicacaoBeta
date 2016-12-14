@@ -17,6 +17,7 @@ public class Criptografia {
 	
 	static String IV ="ABC45FG8I1KLMZOV";
 	static String chaveArquivo = "0123456789abcdef";
+	static Cipher encript, decript;
 	
 	private static int charToInt(char c){
 		return (int) c;
@@ -68,14 +69,14 @@ public class Criptografia {
 	}
 	
 	public static byte[] encriptaArquivo(byte[] arquivo ) throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException{
-		Cipher encript = Cipher.getInstance("AES/CBC/NoPadding","SunJCE");
+		encript = Cipher.getInstance("AES/CBC/NoPadding","SunJCE");
 		SecretKeySpec key = new SecretKeySpec(chaveArquivo.getBytes("UTF-8"),"AES");
 		encript.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes("UTF-8")));
 		return encript.doFinal(arquivo);
 	}
 	
 	public static byte[] decriptaArquivo(byte[] arquivo) throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException{
-		Cipher decript = Cipher.getInstance("AES/CBC/NoPadding","SunJCE");
+		decript = Cipher.getInstance("AES/CBC/NoPadding","SunJCE");
 		SecretKeySpec key = new SecretKeySpec(chaveArquivo.getBytes("UTF-8"),"AES");
 		decript.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes("UTF-8")));
 		return decript.doFinal(arquivo);
