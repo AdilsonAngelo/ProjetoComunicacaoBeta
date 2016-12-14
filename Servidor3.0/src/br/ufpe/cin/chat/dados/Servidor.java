@@ -14,16 +14,23 @@ import br.ufpe.cin.chat.view.PainelUsuario;
 public class Servidor {
 
 	private Vector<Usuario> usuarios;
+	
 	private Map<String, ObjectOutputStream> mapaSaidas;
 	private Map<String, ObjectInputStream> mapaEntradas;
+	private Map<String, ObjectOutputStream> mapaSaidaArquivos;
+	private Map<String, ObjectInputStream> mapaEntradaArquivos;
+	
 	private Map<String, PainelUsuario> listaPanel;
 	private Map<String, Vector<Object>> mapaPendencias;
+
 	private LinkedList<Object> listaSaida;
 
 	public Servidor(){
 		this.usuarios = new Vector<Usuario>();
 		this.mapaEntradas = new HashMap<String, ObjectInputStream>();
 		this.mapaSaidas = new HashMap<String, ObjectOutputStream>();
+		this.mapaSaidaArquivos = new HashMap<String, ObjectOutputStream>();
+		this.mapaEntradaArquivos = new HashMap<String, ObjectInputStream>();
 		this.listaSaida = new LinkedList<Object>();
 		this.setListaPanel(new HashMap<String, PainelUsuario>());
 		this.mapaPendencias = new HashMap<String, Vector<Object>>();
@@ -207,6 +214,22 @@ public class Servidor {
 	
 	public synchronized void setPendencia(String username){
 		listaPanel.get(username).setPendente(true);
+	}
+
+	public Map<String, ObjectOutputStream> getMapaSaidaArquivos() {
+		return mapaSaidaArquivos;
+	}
+
+	public void setMapaSaidaArquivos(Map<String, ObjectOutputStream> mapaSaidaArquivos) {
+		this.mapaSaidaArquivos = mapaSaidaArquivos;
+	}
+
+	public Map<String, ObjectInputStream> getMapaEntradaArquivos() {
+		return mapaEntradaArquivos;
+	}
+
+	public void setMapaEntradaArquivos(Map<String, ObjectInputStream> mapaEntradaArquivos) {
+		this.mapaEntradaArquivos = mapaEntradaArquivos;
 	}
 
 }

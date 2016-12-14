@@ -7,16 +7,19 @@ package br.ufpe.cin.chat.view;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import br.ufpe.cin.chat.controle.Atualizador;
 import br.ufpe.cin.chat.controle.EmissorCliente;
+import br.ufpe.cin.chat.controle.FileSender;
 import br.ufpe.cin.chat.controle.ReceptorCliente;
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Autenticador;
@@ -32,14 +35,19 @@ public class FramePrincipal extends javax.swing.JFrame {
 	private Cliente cliente;
 	private ObjectInputStream entradaObjetos;
 	private ObjectOutputStream saidaObjetos;
+	private ObjectInputStream entradaArquivos;
+	private ObjectOutputStream saidaArquivos;
 	private static final long serialVersionUID = -1413926017169968935L;
 
-	public FramePrincipal(Socket socket, Cliente cliente, ObjectInputStream entradaObjetos, ObjectOutputStream saidaObjetos) {
+	public FramePrincipal(Socket socket, Cliente cliente, ObjectInputStream entradaObjetos, ObjectOutputStream saidaObjetos,
+			ObjectOutputStream saidaArquivos, ObjectInputStream entradaArquivos) {
 		super(cliente.getSelfUser().getLogin());
 		this.socket = socket;
 		this.cliente = cliente;
 		this.entradaObjetos = entradaObjetos;
 		this.saidaObjetos = saidaObjetos;
+		this.entradaArquivos = entradaArquivos;
+		this.saidaArquivos = saidaArquivos;
 		initComponents();
 	}
 
@@ -118,9 +126,15 @@ public class FramePrincipal extends javax.swing.JFrame {
 	}// </editor-fold>                        
 
 	private void botaoConversaActionPerformed(java.awt.event.ActionEvent evt) {                                              
-		if ((String) jList1.getSelectedValue() != null){
-			cliente.iniciarConversa((String) jList1.getSelectedValue());
+		JFileChooser chooser = new JFileChooser();
+		int retorno = chooser.showDialog(this, "Escolha o arquivo");
+		if (retorno == JFileChooser.APPROVE_OPTION){
+			File file = chooser.getSelectedFile();
+			(new Thread(new FileSender(cliente, null, file, null))).start();
 		}
+		/*if ((String) jList1.getSelectedValue() != null){
+			cliente.iniciarConversa((String) jList1.getSelectedValue());
+		}*/
 	}                                             
 
 	/**
@@ -153,7 +167,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new FramePrincipal(null, null, null, null).setVisible(true);
+				new FramePrincipal(null, null, null, null, null, null).setVisible(true);
 			}
 		});
 	}
@@ -187,6 +201,22 @@ public class FramePrincipal extends javax.swing.JFrame {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public ObjectInputStream getEntradaArquivos() {
+		return entradaArquivos;
+	}
+
+	public void setEntradaArquivos(ObjectInputStream entradaArquivos) {
+		this.entradaArquivos = entradaArquivos;
+	}
+
+	public ObjectOutputStream getSaidaArquivos() {
+		return saidaArquivos;
+	}
+
+	public void setSaidaArquivos(ObjectOutputStream saidaArquivos) {
+		this.saidaArquivos = saidaArquivos;
 	}
 
 	// Variables declaration - do not modify                     

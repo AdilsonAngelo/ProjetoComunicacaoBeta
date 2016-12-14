@@ -6,6 +6,7 @@
 package br.ufpe.cin.chat.view;
 
 import br.ufpe.cin.chat.controle.Apresentador;
+import br.ufpe.cin.chat.controle.FileSender;
 import br.ufpe.cin.chat.controle.FocusThread;
 import br.ufpe.cin.chat.dados.Cliente;
 import br.ufpe.cin.chat.dados.Mensagem;
@@ -13,8 +14,14 @@ import br.ufpe.cin.chat.util.TokenGenerator;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -57,6 +64,11 @@ public class FrameConversa extends javax.swing.JFrame {
 		});
 		botaoEnviarMsg = new javax.swing.JButton();
 		botaoUpload = new javax.swing.JButton();
+		botaoUpload.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				chooseFile();
+			}
+		});
 		painelTransf = new javax.swing.JTabbedPane();
 		painelDownloads = new javax.swing.JPanel();
 		progressoDown = new javax.swing.JProgressBar();
@@ -263,6 +275,16 @@ public class FrameConversa extends javax.swing.JFrame {
 			mensagem.setDestinatario(conversandoCom);
 			cliente.encaminharMsg(mensagem);
 			campoMensagem.setText("");
+		}
+	}
+
+	private void chooseFile(){
+		JFileChooser chooser = new JFileChooser();
+		int retorno = chooser.showDialog(this, "Escolha o arquivo");
+		if (retorno == JFileChooser.APPROVE_OPTION){
+			File file = chooser.getSelectedFile();
+			System.out.println(file.getName());
+			(new Thread(new FileSender(cliente, cliente.getFrame().getSaidaArquivos(), file, progressoUp))).start();
 		}
 	}
 

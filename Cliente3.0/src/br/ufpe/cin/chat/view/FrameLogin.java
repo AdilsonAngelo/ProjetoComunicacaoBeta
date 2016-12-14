@@ -167,10 +167,14 @@ public class FrameLogin extends javax.swing.JFrame {
 			ACK ack = (ACK) input.readObject();
 			int status = ack.getTipo();
 			if(status == 3){
+				Socket socketTransf = new Socket(ip, ++porta);
+				ObjectOutputStream out = new ObjectOutputStream(socketTransf.getOutputStream());
+				ObjectInputStream in = new ObjectInputStream(socketTransf.getInputStream());
+				out.writeObject(autenticador);
 				JOptionPane.showMessageDialog(this, "Autenticado com sucesso!");
 				Cliente cliente = new Cliente(login, senha, getLanIP(), socket.getPort());
 				cliente.setIpServer(ip);
-				FramePrincipal frame = new FramePrincipal(socket, cliente, input, output);
+				FramePrincipal frame = new FramePrincipal(socket, cliente, input, output, out, in);
 				frame.setVisible(true);
 				this.dispose();
 			}

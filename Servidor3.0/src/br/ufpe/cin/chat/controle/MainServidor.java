@@ -21,10 +21,10 @@ public class MainServidor implements Runnable {
 	private JTabbedPane painelAbas;
 	private boolean first;
 
-	public MainServidor(ServerSocket server, JTabbedPane painelPrincipal) {
+	public MainServidor(ServerSocket server, Servidor servidor,JTabbedPane painelPrincipal) {
 		this.server = server;
-		this.servidor = new Servidor();
 		this.painelAbas = painelPrincipal;
+		this.servidor = servidor;
 		this.first = true;
 		(new Thread(new Encaminhador(servidor))).start();
 	}

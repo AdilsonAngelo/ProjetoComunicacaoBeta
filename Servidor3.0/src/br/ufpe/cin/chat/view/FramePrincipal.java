@@ -4,20 +4,17 @@
  * and open the template in the editor.
  */
 package br.ufpe.cin.chat.view;
-import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import br.ufpe.cin.chat.controle.MainServidor;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JTextField;
-import javax.swing.GroupLayout;
-import javax.swing.JPanel;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTabbedPane;
+
+import br.ufpe.cin.chat.controle.MainServidor;
+import br.ufpe.cin.chat.controle.ServidorTransferencia;
+import br.ufpe.cin.chat.dados.Servidor;
 
 /**
  *
@@ -26,13 +23,17 @@ import javax.swing.JTabbedPane;
 public class FramePrincipal extends javax.swing.JFrame {
 	
 	private static final long serialVersionUID = 6325280011615059594L;
+	private Servidor servidor;
 	private ServerSocket server;
+	private ServerSocket serverTransferencia;
 	private int porta;
 	
     public FramePrincipal(int porta) throws IOException {
     	setResizable(false);
     	server = new ServerSocket(porta);
     	this.porta = porta;
+    	serverTransferencia = new ServerSocket(++porta);
+    	servidor = new Servidor();
         initComponents();
     }
 
@@ -79,7 +80,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         this.labelPorta.setText(this.labelPorta.getText() + " " + this.porta);
         
         pack();
-        (new Thread(new MainServidor(server, painelPrincipal))).start();
+        (new Thread(new MainServidor(server, servidor, painelPrincipal))).start();
+        (new Thread(new ServidorTransferencia(servidor, serverTransferencia))).start();
     }// </editor-fold> 
     
     /**
