@@ -96,7 +96,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 		GridBagConstraints gbc_progressoDownload = new GridBagConstraints();
 		gbc_progressoDownload.fill = GridBagConstraints.BOTH;
 		gbc_progressoDownload.insets = new Insets(0, 0, 5, 0);
-		gbc_progressoDownload.gridx = 3;
+		gbc_progressoDownload.gridx = 4;
 		gbc_progressoDownload.gridy = 0;
 		getContentPane().add(progressoDownload, gbc_progressoDownload);
 
@@ -106,7 +106,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridwidth = 4;
+		gridBagConstraints.gridwidth = 5;
 		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = 417;
 		gridBagConstraints.ipady = 313;
@@ -122,8 +122,22 @@ public class FramePrincipal extends javax.swing.JFrame {
 				botaoConversaActionPerformed(evt);
 			}
 		});
+		
+		lblRtt = new JLabel("RTT: ");
+		GridBagConstraints gbc_lblRtt = new GridBagConstraints();
+		gbc_lblRtt.insets = new Insets(0, 0, 0, 5);
+		gbc_lblRtt.gridx = 2;
+		gbc_lblRtt.gridy = 2;
+		getContentPane().add(lblRtt, gbc_lblRtt);
+		
+		lblXx = new JLabel("xx");
+		GridBagConstraints gbc_lblXx = new GridBagConstraints();
+		gbc_lblXx.insets = new Insets(0, 0, 0, 5);
+		gbc_lblXx.gridx = 3;
+		gbc_lblXx.gridy = 2;
+		getContentPane().add(lblXx, gbc_lblXx);
 		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 3;
+		gridBagConstraints.gridx = 4;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.ipadx = 100;
 		gridBagConstraints.ipady = 15;
@@ -238,5 +252,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 	private javax.swing.JScrollPane jScrollPane1;
 	private JProgressBar progressoDownload;
 	private JLabel lblDownloads;
+	private JLabel lblRtt;
+	private JLabel lblXx;
 	// End of variables declaration                   
 }

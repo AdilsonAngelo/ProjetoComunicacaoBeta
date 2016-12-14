@@ -47,6 +47,7 @@ public class FileSender implements Runnable {
 				contador += counter;
 				progressBar.setValue(contador);
 				progressBar.setStringPainted(true);
+				System.out.println(counter);
 			}
 			progressBar.setValue(100);
 			buffIN.close();

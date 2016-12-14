@@ -72,8 +72,6 @@ public class FrameConversa extends javax.swing.JFrame {
 		painelTransf = new javax.swing.JTabbedPane();
 		painelUploads = new javax.swing.JPanel();
 		progressoUp = new javax.swing.JProgressBar();
-		labelRTTUp = new javax.swing.JLabel();
-		labelTempoUp = new javax.swing.JLabel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setResizable(false);
@@ -120,35 +118,20 @@ public class FrameConversa extends javax.swing.JFrame {
 						.addContainerGap(16, Short.MAX_VALUE))
 				);
 
-		labelRTTUp.setText("RTT: ");
-
-		labelTempoUp.setText("Tempo estimado: ");
-
 		javax.swing.GroupLayout painelUploadsLayout = new javax.swing.GroupLayout(painelUploads);
 		painelUploadsLayout.setHorizontalGroup(
 			painelUploadsLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(painelUploadsLayout.createSequentialGroup()
-					.addGap(10)
-					.addGroup(painelUploadsLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(painelUploadsLayout.createSequentialGroup()
-							.addGap(398)
-							.addComponent(labelRTTUp, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
-						.addGroup(painelUploadsLayout.createSequentialGroup()
-							.addComponent(progressoUp, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(labelTempoUp, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
-					.addGap(80))
+					.addContainerGap()
+					.addComponent(progressoUp, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(223, Short.MAX_VALUE))
 		);
 		painelUploadsLayout.setVerticalGroup(
 			painelUploadsLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(painelUploadsLayout.createSequentialGroup()
-					.addGap(11)
-					.addComponent(labelRTTUp)
-					.addGap(20)
-					.addGroup(painelUploadsLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(labelTempoUp, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-						.addComponent(progressoUp, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(15))
+					.addGap(45)
+					.addComponent(progressoUp, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		painelUploads.setLayout(painelUploadsLayout);
 
@@ -248,8 +231,6 @@ public class FrameConversa extends javax.swing.JFrame {
 	private javax.swing.JTextArea campoConversa;
 	private javax.swing.JTextField campoMensagem;
 	private javax.swing.JScrollPane jScrollPane3;
-	private javax.swing.JLabel labelRTTUp;
-	private javax.swing.JLabel labelTempoUp;
 	private javax.swing.JPanel painelConversa;
 	private javax.swing.JTabbedPane painelTransf;
 	private javax.swing.JPanel painelUploads;
