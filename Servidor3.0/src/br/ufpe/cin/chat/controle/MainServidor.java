@@ -10,6 +10,7 @@ import javax.swing.JTabbedPane;
 
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Autenticador;
+import br.ufpe.cin.chat.dados.Servidor;
 import br.ufpe.cin.chat.dados.Usuario;
 import br.ufpe.cin.chat.view.PainelUsuario;
 
@@ -54,6 +55,7 @@ public class MainServidor implements Runnable {
 						servidor.addPanelMap(usuario.getLogin(), painelUsuario);
 					}
 					(new Thread(new Armazenador(servidor, entrada, usuario.getLogin()))).start();
+					(new Thread(new Heartbeat(servidor))).start();
 					ack.setTipo(3);
 				}
 				else{

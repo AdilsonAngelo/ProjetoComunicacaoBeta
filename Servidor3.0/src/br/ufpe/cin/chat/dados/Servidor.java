@@ -1,4 +1,4 @@
-package br.ufpe.cin.chat.controle;
+package br.ufpe.cin.chat.dados;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,9 +9,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import br.ufpe.cin.chat.dados.ACK;
-import br.ufpe.cin.chat.dados.Mensagem;
-import br.ufpe.cin.chat.dados.Usuario;
 import br.ufpe.cin.chat.view.PainelUsuario;
 
 public class Servidor {

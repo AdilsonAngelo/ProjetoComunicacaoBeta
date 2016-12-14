@@ -61,7 +61,9 @@ public class FramePrincipal extends javax.swing.JFrame {
 			public void mouseClicked(MouseEvent event) {
 				JList<String> list = (JList<String>)event.getSource();
 				if (event.getClickCount() == 2) {
-					cliente.iniciarConversa((String) list.getSelectedValue());
+					if ((String) list.getSelectedValue() != null){
+						cliente.iniciarConversa((String) list.getSelectedValue());
+					}
 				}
 			}
 		});
@@ -116,7 +118,9 @@ public class FramePrincipal extends javax.swing.JFrame {
 	}// </editor-fold>                        
 
 	private void botaoConversaActionPerformed(java.awt.event.ActionEvent evt) {                                              
-		cliente.iniciarConversa((String) jList1.getSelectedValue());
+		if ((String) jList1.getSelectedValue() != null){
+			cliente.iniciarConversa((String) jList1.getSelectedValue());
+		}
 	}                                             
 
 	/**

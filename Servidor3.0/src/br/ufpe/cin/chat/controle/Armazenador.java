@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import br.ufpe.cin.chat.dados.Mensagem;
+import br.ufpe.cin.chat.dados.Servidor;
 
 public class Armazenador implements Runnable {
 

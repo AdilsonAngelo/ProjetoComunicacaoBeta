@@ -5,6 +5,8 @@ import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Vector;
 
+import br.ufpe.cin.chat.dados.Servidor;
+
 public class Broadcast implements Runnable {
 
 	private Servidor servidor;

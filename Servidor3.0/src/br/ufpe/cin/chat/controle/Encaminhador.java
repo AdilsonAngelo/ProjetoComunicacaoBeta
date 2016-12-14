@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Mensagem;
+import br.ufpe.cin.chat.dados.Servidor;
 
 public class Encaminhador implements Runnable{
 
