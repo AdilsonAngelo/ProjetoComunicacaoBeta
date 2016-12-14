@@ -1,7 +1,9 @@
 package br.ufpe.cin.chat.dados;
 
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Vector;
 
@@ -14,12 +16,14 @@ public class Cliente {
 	private RepositorioConversas conversas;
 	private Usuario selfUser;
 	private Vector<String> listaUsuarios;
+	private Map<String, FrameConversa> mapaFrameConversas;
 	private String ipServer;
 	private int portaServer;
 	private FramePrincipal frame;
 	private boolean tentandoReconexao;
 
 	public Cliente(String login, String senha, String IP, int portaServer){
+		this.mapaFrameConversas = new HashMap<String, FrameConversa>();
 		this.filaEnvio = new LinkedList<Object>();
 		this.conversas = new RepositorioConversas();
 		this.selfUser = new Usuario(login, senha, IP);
@@ -60,6 +64,7 @@ public class Cliente {
 	public synchronized void iniciarConversa(String conversandoCom){
 		conversas.criarConversa(selfUser.getLogin(), conversandoCom);
 		FrameConversa frame = new FrameConversa(this, conversandoCom);
+		mapaFrameConversas.put(conversandoCom, frame);
 		frame.setVisible(true);
 	}
 
@@ -145,5 +150,9 @@ public class Cliente {
 
 	public void setTentandoReconexao(boolean tentandoReconexao) {
 		this.tentandoReconexao = tentandoReconexao;
+	}
+
+	public Map<String, FrameConversa> getMapaFrameConversas() {
+		return mapaFrameConversas;
 	}
 }

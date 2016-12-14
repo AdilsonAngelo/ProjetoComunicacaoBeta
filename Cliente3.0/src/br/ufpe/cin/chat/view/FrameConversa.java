@@ -70,13 +70,6 @@ public class FrameConversa extends javax.swing.JFrame {
 			}
 		});
 		painelTransf = new javax.swing.JTabbedPane();
-		painelDownloads = new javax.swing.JPanel();
-		progressoDown = new javax.swing.JProgressBar();
-		iniciarDown = new javax.swing.JButton();
-		pausarDown = new javax.swing.JButton();
-		cancelarDown = new javax.swing.JButton();
-		labelRTTDown = new javax.swing.JLabel();
-		labelTempoDown = new javax.swing.JLabel();
 		painelUploads = new javax.swing.JPanel();
 		progressoUp = new javax.swing.JProgressBar();
 		iniciarUp = new javax.swing.JButton();
@@ -129,56 +122,6 @@ public class FrameConversa extends javax.swing.JFrame {
 								.addComponent(campoMensagem))
 						.addContainerGap(16, Short.MAX_VALUE))
 				);
-
-		iniciarDown.setText("Iniciar");
-
-		pausarDown.setText("Pause");
-
-		cancelarDown.setText("Cancelar");
-
-		labelRTTDown.setText("RTT: ");
-
-		labelTempoDown.setText("Tempo estimado: ");
-
-		javax.swing.GroupLayout painelDownloadsLayout = new javax.swing.GroupLayout(painelDownloads);
-		painelDownloads.setLayout(painelDownloadsLayout);
-		painelDownloadsLayout.setHorizontalGroup(
-				painelDownloadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(painelDownloadsLayout.createSequentialGroup()
-						.addGap(10, 10, 10)
-						.addGroup(painelDownloadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(painelDownloadsLayout.createSequentialGroup()
-										.addComponent(iniciarDown, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(6, 6, 6)
-										.addComponent(pausarDown, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(cancelarDown, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addGap(99, 99, 99)
-										.addComponent(labelRTTDown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addGroup(painelDownloadsLayout.createSequentialGroup()
-										.addComponent(progressoDown, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(labelTempoDown, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
-						.addGap(80, 80, 80))
-				);
-		painelDownloadsLayout.setVerticalGroup(
-				painelDownloadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(painelDownloadsLayout.createSequentialGroup()
-						.addGap(11, 11, 11)
-						.addGroup(painelDownloadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(iniciarDown)
-								.addGroup(painelDownloadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(pausarDown)
-										.addComponent(cancelarDown))
-								.addComponent(labelRTTDown))
-						.addGap(11, 11, 11)
-						.addGroup(painelDownloadsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-								.addComponent(labelTempoDown, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(progressoDown, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGap(15, 15, 15))
-				);
-
-		painelTransf.addTab("Downloads", painelDownloads);
 
 		iniciarUp.setText("Iniciar");
 
@@ -322,22 +265,15 @@ public class FrameConversa extends javax.swing.JFrame {
 	private javax.swing.JButton botaoUpload;
 	private javax.swing.JTextArea campoConversa;
 	private javax.swing.JTextField campoMensagem;
-	private javax.swing.JButton cancelarDown;
 	private javax.swing.JButton cancelarUp;
-	private javax.swing.JButton iniciarDown;
 	private javax.swing.JButton iniciarUp;
 	private javax.swing.JScrollPane jScrollPane3;
-	private javax.swing.JLabel labelRTTDown;
 	private javax.swing.JLabel labelRTTUp;
-	private javax.swing.JLabel labelTempoDown;
 	private javax.swing.JLabel labelTempoUp;
 	private javax.swing.JPanel painelConversa;
-	private javax.swing.JPanel painelDownloads;
 	private javax.swing.JTabbedPane painelTransf;
 	private javax.swing.JPanel painelUploads;
-	private javax.swing.JButton pausarDown;
 	private javax.swing.JButton pausarUp;
-	private javax.swing.JProgressBar progressoDown;
 	private javax.swing.JProgressBar progressoUp;
 	// End of variables declaration                   
 }

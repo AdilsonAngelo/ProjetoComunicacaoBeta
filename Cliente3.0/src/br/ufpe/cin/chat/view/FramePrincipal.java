@@ -19,11 +19,16 @@ import javax.swing.JOptionPane;
 
 import br.ufpe.cin.chat.controle.Atualizador;
 import br.ufpe.cin.chat.controle.EmissorCliente;
-import br.ufpe.cin.chat.controle.FileSender;
+import br.ufpe.cin.chat.controle.FileReceiver;
 import br.ufpe.cin.chat.controle.ReceptorCliente;
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Autenticador;
 import br.ufpe.cin.chat.dados.Cliente;
+import javax.swing.JProgressBar;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JLabel;
+import java.awt.Color;
 
 /**
  *
@@ -85,8 +90,23 @@ public class FramePrincipal extends javax.swing.JFrame {
 		gridBagConstraints.ipadx = 79;
 		gridBagConstraints.ipady = 26;
 		gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-		gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 0);
+		gridBagConstraints.insets = new Insets(11, 10, 5, 5);
 		getContentPane().add(nomeUsuario, gridBagConstraints);
+		
+		lblDownloads = new JLabel("Downloads");
+		GridBagConstraints gbc_lblDownloads = new GridBagConstraints();
+		gbc_lblDownloads.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDownloads.gridx = 2;
+		gbc_lblDownloads.gridy = 0;
+		getContentPane().add(lblDownloads, gbc_lblDownloads);
+		
+		progressoDownload = new JProgressBar();
+		progressoDownload.setForeground(Color.MAGENTA);
+		GridBagConstraints gbc_progressoDownload = new GridBagConstraints();
+		gbc_progressoDownload.insets = new Insets(0, 0, 5, 0);
+		gbc_progressoDownload.gridx = 3;
+		gbc_progressoDownload.gridy = 0;
+		getContentPane().add(progressoDownload, gbc_progressoDownload);
 
 		jList1.setSelectionBackground(new java.awt.Color(204, 51, 255));
 		jScrollPane1.setViewportView(jList1);
@@ -94,14 +114,14 @@ public class FramePrincipal extends javax.swing.JFrame {
 		gridBagConstraints = new java.awt.GridBagConstraints();
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
-		gridBagConstraints.gridwidth = 2;
+		gridBagConstraints.gridwidth = 4;
 		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
 		gridBagConstraints.ipadx = 417;
 		gridBagConstraints.ipady = 313;
 		gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
 		gridBagConstraints.weightx = 1.0;
 		gridBagConstraints.weighty = 1.0;
-		gridBagConstraints.insets = new java.awt.Insets(6, 10, 0, 10);
+		gridBagConstraints.insets = new Insets(6, 10, 5, 10);
 		getContentPane().add(jScrollPane1, gridBagConstraints);
 
 		botaoConversa.setText("Iniciar conversa");
@@ -111,7 +131,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 			}
 		});
 		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridx = 3;
 		gridBagConstraints.gridy = 2;
 		gridBagConstraints.ipadx = 100;
 		gridBagConstraints.ipady = 15;
@@ -224,5 +244,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 	private javax.swing.JList<String> jList1;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JLabel nomeUsuario;
+	private JProgressBar progressoDownload;
+	private JLabel lblDownloads;
 	// End of variables declaration                   
 }

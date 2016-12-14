@@ -15,12 +15,14 @@ public class FileReceiver implements Runnable {
 	private ObjectInputStream entrada;
 	private JProgressBar barraProgresso;
 	private LinkedList<Pacote> listaPacotes;
+	private int begin;
 	
 	public FileReceiver(Cliente cliente, ObjectInputStream entrada, JProgressBar barraProgresso) {
 		this.cliente = cliente;
 		this.entrada = entrada;
 		this.barraProgresso = barraProgresso;
 		this.listaPacotes = new LinkedList<Pacote>();
+		this.begin = 0;
 	}
 
 	@Override
@@ -28,9 +30,13 @@ public class FileReceiver implements Runnable {
 		try{
 			while(true){
 				Pacote pacote = (Pacote) entrada.readObject();
+				barraProgresso.setMaximum(pacote.getTamanho());
 				listaPacotes.add(pacote);
+				barraProgresso.setValue((int) pacote.getOffset());
 				if(pacote.isLast()){
 					(new Thread(new TratadorArquivo(listaPacotes))).start();
+					barraProgresso.setMaximum(0);
+					barraProgresso.setValue(0);
 				}
 			}
 		}
