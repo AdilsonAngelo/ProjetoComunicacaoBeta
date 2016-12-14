@@ -39,7 +39,8 @@ public class FileReceiver implements Runnable {
 				byte[] bytes = new byte[4000];
 				progressBar.setValue(0);
 				progressBar.setMaximum((int)tamanho);
-				FileOutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos/"+fileName));
+				File file = new File("ArquivosRecebidos/"+fileName);
+				FileOutputStream fileOut = new FileOutputStream(file);
 				while((counter = entrada.read(bytes)) > 0){
 					fileOut.write(bytes, 0, counter);
 					contador += counter;
@@ -49,7 +50,7 @@ public class FileReceiver implements Runnable {
 				progressBar.setValue(100);
 				fileOut.flush();
 				fileOut.close();
-				(new Thread(new FileSender(servidor, servidor.getMapaSaidaArquivos().get(destinatario), servidor.getListaPanel().get(destinatario).getProgressoEnvio(), new File("ArquivosRecebidos"+fileName)))).start();
+				(new Thread(new FileSender(servidor, servidor.getMapaSaidaArquivos().get(destinatario), servidor.getListaPanel().get(destinatario).getProgressoEnvio(), file))).start();
 			}
 		}
 		catch(IOException e){

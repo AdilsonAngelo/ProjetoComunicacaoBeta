@@ -42,6 +42,7 @@ public class FileSender implements Runnable {
 			progressBar.setValue(0);
 			progressBar.setMaximum((int)tamanho);
 			while((counter = buffIN.read(bytes)) > 0){
+				Thread.sleep(0);
 				saida.write(bytes, 0, counter);
 				contador += counter;
 				progressBar.setValue(contador);
@@ -50,6 +51,8 @@ public class FileSender implements Runnable {
 			progressBar.setValue(100);
 			buffIN.close();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
