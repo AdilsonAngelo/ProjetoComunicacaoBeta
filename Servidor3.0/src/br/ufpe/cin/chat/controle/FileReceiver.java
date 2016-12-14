@@ -1,5 +1,6 @@
 package br.ufpe.cin.chat.controle;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,36 +18,46 @@ public class FileReceiver implements Runnable {
 	private ObjectInputStream entrada;
 	private JProgressBar progressBar;
 	private int progresso;
-	private LinkedList<Pacote> listaPacotes;
 
 	public FileReceiver(Servidor servidor, ObjectInputStream entrada, JProgressBar progressBar) {
 		this.servidor = servidor;
 		this.entrada = entrada;
 		this.progressBar = progressBar;
 		this.progresso = 0;
-		this.listaPacotes = new LinkedList<Pacote>();
 	}
 
 	@Override
 	public void run() {
 		try{
 			while(true){
-				Pacote pacote = (Pacote) entrada.readObject();
-				listaPacotes.add(pacote);
-				progressBar.setMaximum(pacote.getTamanho());
-				progresso += pacote.getConteudo().length;
-				progressBar.setValue(progresso);
-				progressBar.setStringPainted(true);
-				System.out.println("Recebi pacote "+pacote.getToken());
-				if(pacote.isLast()){
-					(new Thread(new FileSender(listaPacotes, servidor, servidor.getMapaSaidaArquivos().get(pacote.getDestinatario()), servidor.getListaPanel().get(pacote.getDestinatario()).getProgressoEnvio()))).start();
+				Thread.sleep(0);
+				String destinatario = (String) entrada.readObject();
+				String fileName = (String) entrada.readObject();
+				int tamanho = (Integer) entrada.readObject();
+				int counter;
+				int contador = 0;
+				byte[] bytes = new byte[4000];
+				progressBar.setValue(0);
+				progressBar.setMaximum((int)tamanho);
+				FileOutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos/"+fileName));
+				while((counter = entrada.read(bytes)) > 0){
+					fileOut.write(bytes, 0, counter);
+					contador += counter;
+					progressBar.setValue(contador);
+					progressBar.setStringPainted(true);
 				}
+				progressBar.setValue(100);
+				fileOut.flush();
+				fileOut.close();
+				(new Thread(new FileSender(servidor, servidor.getMapaSaidaArquivos().get(destinatario), servidor.getListaPanel().get(destinatario).getProgressoEnvio(), new File("ArquivosRecebidos"+fileName)))).start();
 			}
 		}
 		catch(IOException e){
 			e.printStackTrace();
 		} 
 		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

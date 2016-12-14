@@ -1,5 +1,7 @@
 package br.ufpe.cin.chat.controle;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.LinkedList;
@@ -29,23 +31,31 @@ public class FileReceiver implements Runnable {
 	public void run() {
 		try{
 			while(true){
-				Pacote pacote = (Pacote) entrada.readObject();
-				barraProgresso.setMaximum(pacote.getTamanho());
-				listaPacotes.add(pacote);
-				barraProgresso.setValue((int) pacote.getOffset());
-				System.out.println("Recebi pacote "+pacote.getToken());
-				if(pacote.isLast()){
-					(new Thread(new TratadorArquivo(listaPacotes))).start();
-					barraProgresso.setMaximum(100);
-					barraProgresso.setValue(100);
-					barraProgresso.setValue(0);
+				Thread.sleep(0);
+				String fileName = (String) entrada.readObject();
+				int tamanho = (Integer) entrada.readObject();
+				int counter;
+				int contador = 0;
+				byte[] bytes = new byte[4000];
+				barraProgresso.setValue(0);
+				barraProgresso.setMaximum((int)tamanho);
+				FileOutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos"+fileName));
+				while((counter = entrada.read(bytes)) > 0){
+					fileOut.write(bytes, 0, counter);
+					contador += counter;
+					barraProgresso.setValue(contador);
+					barraProgresso.setStringPainted(true);
 				}
+				barraProgresso.setValue(100);
+				fileOut.flush();
+				fileOut.close();
 			}
 		}
 		catch (IOException e){
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

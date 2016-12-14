@@ -1,45 +1,53 @@
 package br.ufpe.cin.chat.controle;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.LinkedList;
 
 import javax.swing.JProgressBar;
 
-import br.ufpe.cin.chat.dados.Pacote;
 import br.ufpe.cin.chat.dados.Servidor;
 
 public class FileSender implements Runnable {
 
 	private Servidor servidor;
-	private ObjectOutputStream output;
+	private ObjectOutputStream saida;
 	private JProgressBar progressBar;
-	private LinkedList<Pacote> listaPacotes;
+	private File file;
 	
-	public FileSender(LinkedList<Pacote> listaPacotes, Servidor servidor, ObjectOutputStream output, JProgressBar progressBar){
+	public FileSender(Servidor servidor, ObjectOutputStream saida, JProgressBar progressBar, File file){
 		this.servidor = servidor;
-		this.output = output;
+		this.saida = saida;
 		this.progressBar = progressBar;
-		this.listaPacotes = listaPacotes;
+		this.file = file;
 	}
 	
 	@Override
 	public void run() {
-		Pacote pacote = null;
 		try {
 			System.out.println("startando file sender");
-			int begin = 0;
+			saida.writeObject(file.getName());
+			long tamanho = file.length();
+			saida.writeObject(new Integer((int) tamanho));
+			FileInputStream fileIN = new FileInputStream(file);
+			BufferedInputStream buffIN = new BufferedInputStream(fileIN);
+			byte[] bytes = new byte[4000];
+			int counter;
+			int contador = 0;
 			progressBar.setValue(0);
-			progressBar.setMaximum(listaPacotes.size()-1);
-			while (!listaPacotes.isEmpty()){
-				pacote = listaPacotes.poll();
-				output.writeObject(pacote);
-				progressBar.setValue(++begin);
+			progressBar.setMaximum((int)tamanho);
+			while((counter = buffIN.read(bytes)) > 0){
+				saida.write(bytes, 0, counter);
+				contador += counter;
+				progressBar.setValue(contador);
 				progressBar.setStringPainted(true);
 			}
-			progressBar.setValue(0);
+			progressBar.setValue(100);
+			buffIN.close();
 		} catch (IOException e) {
-			listaPacotes.addFirst(pacote);
+			e.printStackTrace();
 		}
 	}
 

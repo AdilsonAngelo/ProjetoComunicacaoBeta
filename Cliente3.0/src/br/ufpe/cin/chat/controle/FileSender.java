@@ -1,17 +1,14 @@
 package br.ufpe.cin.chat.controle;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 
 import javax.swing.JProgressBar;
 
 import br.ufpe.cin.chat.dados.Cliente;
-import br.ufpe.cin.chat.dados.Pacote;
 
 public class FileSender implements Runnable {
 
@@ -33,39 +30,25 @@ public class FileSender implements Runnable {
 	public void run() {
 		try {
 			System.out.println("startando file sender");
-			Path caminho = Paths.get(file.getCanonicalPath());
-			byte[] dados = Files.readAllBytes(caminho);
-			int begin = 0;
-			int offset = begin+(1023);
-			int token = 0;
+			saida.writeObject(conversandoCom);
+			saida.writeObject(file.getName());
+			long tamanho = file.length();
+			saida.writeObject(new Integer((int) tamanho));
+			FileInputStream fileIN = new FileInputStream(file);
+			BufferedInputStream buffIN = new BufferedInputStream(fileIN);
+			byte[] bytes = new byte[4000];
+			int counter;
+			int contador = 0;
 			progressBar.setValue(0);
-			progressBar.setMaximum(dados.length);;
-			while (offset < dados.length){
-				byte[] janela = Arrays.copyOfRange(dados, begin, offset);
-				Pacote pacote = new Pacote(token, janela, offset);
-				pacote.setFileName(file.getName());
-				pacote.setTamanho(dados.length);
-				pacote.setRemetente(cliente.getSelfUser().getLogin());
-				pacote.setDestinatario(conversandoCom);
-				System.out.println("enviando pacotes");
-				saida.writeObject(pacote);
-				progressBar.setValue(offset);
+			progressBar.setMaximum((int)tamanho);
+			while((counter = buffIN.read(bytes)) > 0){
+				saida.write(bytes, 0, counter);
+				contador += counter;
+				progressBar.setValue(contador);
 				progressBar.setStringPainted(true);
-				begin = offset;
-				offset = begin+1024;
-				token++;
 			}
-			offset = dados.length-1;
-			byte[] janela = Arrays.copyOfRange(dados, begin, dados.length-1);
-			Pacote pacote = new Pacote(token, janela, offset);
-			pacote.setLast(true);
-			pacote.setDestinatario(conversandoCom);
-			pacote.setFileName(file.getName());
-			pacote.setRemetente(cliente.getSelfUser().getLogin());
-			System.out.println("enviando ultimo pacote");
-			saida.writeObject(pacote);
 			progressBar.setValue(100);
-
+			buffIN.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

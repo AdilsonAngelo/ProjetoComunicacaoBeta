@@ -3,6 +3,8 @@ package br.ufpe.cin.chat.controle;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -18,7 +20,7 @@ public class TratadorArquivo implements Runnable {
 	
 	@Override
 	public void run() {
-
+		
 		Iterator<Pacote> i = listaPacotes.iterator();
 		
 		byte[] dados = new byte[listaPacotes.peek().getTamanho()];
