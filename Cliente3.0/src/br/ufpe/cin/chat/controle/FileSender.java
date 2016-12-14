@@ -59,6 +59,8 @@ public class FileSender implements Runnable {
 			byte[] janela = Arrays.copyOfRange(dados, begin, dados.length-1);
 			Pacote pacote = new Pacote(token, janela, offset);
 			pacote.setLast(true);
+			pacote.setDestinatario(conversandoCom);
+			pacote.setRemetente(cliente.getSelfUser().getLogin());
 			System.out.println("enviando ultimo pacote");
 			saida.writeObject(pacote);
 			progressBar.setValue(100);
