@@ -18,7 +18,6 @@ public class Encaminhamento implements Runnable {
 	public void run() {
 		if (objeto instanceof ACK){
 			cliente.encaminharACK((ACK) objeto);
-			System.out.println("ACK recebido ("+((ACK) objeto).getTipo()+")");
 		}
 		else if (objeto instanceof Mensagem){
 			cliente.encaminharMsg((Mensagem) objeto);

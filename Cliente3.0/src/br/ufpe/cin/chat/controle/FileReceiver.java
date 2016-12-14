@@ -35,15 +35,24 @@ public class FileReceiver implements Runnable {
 				int tamanho = (Integer) entrada.readObject();
 				int counter;
 				int contador = 0;
-				byte[] bytes = new byte[16*1024];
+				int diferenca = 0;
+				byte[] bytes = new byte[4000];
 				barraProgresso.setValue(0);
 				barraProgresso.setMaximum((int)tamanho);
 				FileOutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos/"+fileName));
 				while((counter = entrada.read(bytes)) >= 0){
+					System.out.println("recebendo arquivo");
 					fileOut.write(bytes, 0, counter);
 					contador += counter;
+					diferenca = tamanho - contador;
 					barraProgresso.setValue(contador);
 					barraProgresso.setStringPainted(true);
+					if (diferenca < counter){
+						bytes = new byte[diferenca];
+						counter = diferenca;
+						fileOut.write(bytes, 0, counter);
+						break;
+					}
 				}
 				barraProgresso.setValue(100);
 				fileOut.flush();
