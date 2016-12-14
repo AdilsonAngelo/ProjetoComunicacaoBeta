@@ -66,8 +66,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 	// <editor-fold defaultstate="collapsed" desc="Generated Code">                          
 	private void initComponents() {
 		java.awt.GridBagConstraints gridBagConstraints;
-
-		nomeUsuario = new javax.swing.JLabel();
 		jScrollPane1 = new javax.swing.JScrollPane();
 		jList1 = new javax.swing.JList<>();
 		jList1.addMouseListener(new MouseAdapter() {
@@ -85,14 +83,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new java.awt.GridBagLayout());
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.ipadx = 79;
-		gridBagConstraints.ipady = 26;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-		gridBagConstraints.insets = new Insets(11, 10, 5, 5);
-		getContentPane().add(nomeUsuario, gridBagConstraints);
 		
 		lblDownloads = new JLabel("Downloads");
 		GridBagConstraints gbc_lblDownloads = new GridBagConstraints();
@@ -104,6 +94,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 		progressoDownload = new JProgressBar();
 		progressoDownload.setForeground(Color.MAGENTA);
 		GridBagConstraints gbc_progressoDownload = new GridBagConstraints();
+		gbc_progressoDownload.fill = GridBagConstraints.BOTH;
 		gbc_progressoDownload.insets = new Insets(0, 0, 5, 0);
 		gbc_progressoDownload.gridx = 3;
 		gbc_progressoDownload.gridy = 0;
@@ -245,7 +236,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 	private javax.swing.JButton botaoConversa;
 	private javax.swing.JList<String> jList1;
 	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JLabel nomeUsuario;
 	private JProgressBar progressoDownload;
 	private JLabel lblDownloads;
 	// End of variables declaration                   
