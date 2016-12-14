@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.OutputStream;
 import java.util.LinkedList;
 
 import javax.swing.JProgressBar;
@@ -31,6 +32,7 @@ public class FileReceiver implements Runnable {
 	public void run() {
 		try{
 			while(true){
+				Thread.sleep(0);
 				String fileName = (String) entrada.readObject();
 				int tamanho = (Integer) entrada.readObject();
 				int counter;
@@ -39,29 +41,25 @@ public class FileReceiver implements Runnable {
 				byte[] bytes = new byte[4000];
 				barraProgresso.setValue(0);
 				barraProgresso.setMaximum((int)tamanho);
-				FileOutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos/"+fileName));
-				while((counter = entrada.read(bytes)) >= 0){
-					System.out.println("recebendo arquivo");
+				OutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos/"+fileName));
+				while((counter = entrada.read(bytes)) > 0){
 					fileOut.write(bytes, 0, counter);
 					contador += counter;
-					diferenca = tamanho - contador;
 					barraProgresso.setValue(contador);
 					barraProgresso.setStringPainted(true);
-					if (diferenca < counter){
-						bytes = new byte[diferenca];
-						counter = diferenca;
-						fileOut.write(bytes, 0, counter);
-						break;
-					}
+
 				}
 				barraProgresso.setValue(100);
-				fileOut.flush();
+//				fileOut.flush();
+				entrada.close();
 				fileOut.close();
 			}
 		}
 		catch (IOException e){
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

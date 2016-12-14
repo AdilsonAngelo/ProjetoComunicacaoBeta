@@ -32,13 +32,13 @@ public class FileSender implements Runnable {
 			long tamanho = file.length();
 			saida.writeObject(new Integer((int) tamanho));
 			FileInputStream fileIN = new FileInputStream(file);
-			BufferedInputStream buffIN = new BufferedInputStream(fileIN);
+//			BufferedInputStream buffIN = new BufferedInputStream(fileIN);
 			byte[] bytes = new byte[4000];
 			int counter;
 			int contador = 0;
 			progressBar.setValue(0);
 			progressBar.setMaximum((int)tamanho);
-			while((counter = buffIN.read(bytes)) >= 0){
+			while((counter = fileIN.read(bytes)) > 0){
 				System.out.println("enviando arquivos");
 				System.out.println(counter);
 				saida.write(bytes, 0, counter);
@@ -47,7 +47,8 @@ public class FileSender implements Runnable {
 				progressBar.setStringPainted(true);
 			}
 			progressBar.setValue(100);
-			buffIN.close();
+			fileIN.close();
+			saida.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
