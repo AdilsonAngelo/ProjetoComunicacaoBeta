@@ -1,10 +1,7 @@
 package br.ufpe.cin.chat.dados;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class RepositorioConversas {
 
@@ -40,6 +37,10 @@ public class RepositorioConversas {
 		synchronized (mapaConversas) {
 			mapaConversas.get(conversandoCom).tratarACK(ack);
 		}
+	}
+	
+	public synchronized boolean contemConversa(String conversandoCom){
+		return this.mapaConversas.containsKey(conversandoCom);
 	}
 
 	/**

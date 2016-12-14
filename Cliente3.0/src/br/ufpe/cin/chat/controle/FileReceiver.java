@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
+import javax.swing.JTextField;
 
 import br.ufpe.cin.chat.dados.Cliente;
 import br.ufpe.cin.chat.dados.Pacote;
@@ -20,13 +21,15 @@ public class FileReceiver implements Runnable {
 	private JProgressBar barraProgresso;
 	private LinkedList<Pacote> listaPacotes;
 	private int begin;
+	private JTextField campoTempoEstimado;
 
-	public FileReceiver(Cliente cliente, ObjectInputStream entrada, JProgressBar barraProgresso) {
+	public FileReceiver(Cliente cliente, ObjectInputStream entrada, JProgressBar barraProgresso, JTextField campoTempoEstimado) {
 		this.cliente = cliente;
 		this.entrada = entrada;
 		this.barraProgresso = barraProgresso;
 		this.listaPacotes = new LinkedList<Pacote>();
 		this.begin = 0;
+		this.campoTempoEstimado = campoTempoEstimado;
 	}
 
 	@Override
@@ -38,7 +41,6 @@ public class FileReceiver implements Runnable {
 			System.out.println("TAMANHO DO ARQUIVO: " + tamanho + " bytes");
 			int counter;
 			int contador = 0;
-			int diferenca = 0;
 			byte[] bytes = new byte[4000];
 			barraProgresso.setValue(0);
 			barraProgresso.setMaximum((int)tamanho);
@@ -46,13 +48,20 @@ public class FileReceiver implements Runnable {
 			JOptionPane.showMessageDialog(cliente.getFrame(), "Voce tem um novo arquivo disponivel para download!");
 			cliente.getFrame().getBotaoInicio().setEnabled(true);
 			cliente.getFrame().getBotaoCancelar().setEnabled(true);
+			Long startTime = System.nanoTime();
 			while((counter = entrada.read(bytes)) > 0){
 				fileOut.write(bytes, 0, counter);
 				contador += counter;
 				barraProgresso.setValue(contador);
 				barraProgresso.setStringPainted(true);
-
+				Long elapsedTime = System.nanoTime() - startTime;
+				Long allTimeForDownloading = (elapsedTime * tamanho / contador);
+				Long remainingTime = allTimeForDownloading - elapsedTime;
+				remainingTime = remainingTime/1000;
+				campoTempoEstimado.setText(String.valueOf((int)(remainingTime/10000000)+3));
 			}
+			campoTempoEstimado.setText(String.valueOf(1));
+			campoTempoEstimado.setText(String.valueOf(0));
 			barraProgresso.setValue(100);
 			fileOut.flush();
 			fileOut.close();

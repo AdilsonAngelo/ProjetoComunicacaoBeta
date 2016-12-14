@@ -240,7 +240,7 @@ public class Servidor {
 		this.mapaEntradaArquivos = mapaEntradaArquivos;
 	}
 
-	public File getFile(String fileName) {
+	public synchronized File getFile(String fileName) {
 		File folder = new File("ArquivosRecebidos\\");
 		File[] fileList = folder.listFiles();
 		for(int i = 0; folder.exists() && i < fileList.length; i++){

@@ -42,6 +42,7 @@ public class Armazenador implements Runnable {
 				else if (objetoRecebido instanceof ACK && ((ACK)objetoRecebido).getTipo() == 8){
 					ACK ack = (ACK) objetoRecebido;
 					//servidor.getMapaSaidaArquivos().put(ack.getRemetente(), new ObjectOutputStream());
+					System.out.println(ack.getFileName());
 					(new Thread(new FileSender(servidor, ack.getRemetente(), servidor.getListaPanel().get(ack.getRemetente()).getProgressoEnvio(), servidor.getFile(ack.getFileName())))).start();
 					RIParauto = false;
 				}

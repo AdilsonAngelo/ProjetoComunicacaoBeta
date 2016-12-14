@@ -10,10 +10,10 @@ import br.ufpe.cin.chat.dados.Autenticador;
 import br.ufpe.cin.chat.dados.Cliente;
 
 public class ConectorDownload implements Runnable {
-	
+
 	private Cliente cliente;
 	private ACK ack;
-	
+
 	public ConectorDownload(Cliente cliente, ACK ack) {
 		this.cliente = cliente;
 		this.ack = ack;
@@ -31,14 +31,14 @@ public class ConectorDownload implements Runnable {
 			Autenticador autenticador = new Autenticador(cliente.getSelfUser().getLogin(), cliente.getSelfUser().getSenha(), cliente.getSelfUser().getIP());
 			out.writeObject(autenticador);
 			System.out.println("AUTENTICADOR DO SEGUNDO CLIENTE ENVIADO AO SERVIDOR");
-		//	ACK ack = (ACK) in.readObject();
+			//	ACK ack = (ACK) in.readObject();
 			System.out.println("\nINICIANDO FILERECEIVER CLIENTE");
-			(new Thread(new FileReceiver(cliente, in, cliente.getFrame().getProgressoDownload()))).start();
+			(new Thread(new FileReceiver(cliente, in, cliente.getFrame().getProgressoDownload(), cliente.getFrame().getCampoTempoEstimado()))).start();
 		}
 		catch(IOException e){
-			
+
 		}
-		
+
 	}
 
 }

@@ -23,6 +23,7 @@ public class SenderCaller implements Runnable {
 		ACK ack = new ACK(0, 8);
 		ack.setDestinatario(destinatario);
 		ack.setFileName(fileName);
+		System.out.println(ack.getFileName());
 		servidor.addListaSaida(ack);
 	}
 
