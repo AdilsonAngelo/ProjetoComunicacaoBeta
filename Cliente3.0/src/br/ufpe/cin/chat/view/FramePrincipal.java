@@ -130,7 +130,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 		int retorno = chooser.showDialog(this, "Escolha o arquivo");
 		if (retorno == JFileChooser.APPROVE_OPTION){
 			File file = chooser.getSelectedFile();
-			(new Thread(new FileSender(cliente, null, file, null))).start();
+			//(new Thread(new FileSender(cliente, null, file, null))).start();
 		}
 		/*if ((String) jList1.getSelectedValue() != null){
 			cliente.iniciarConversa((String) jList1.getSelectedValue());

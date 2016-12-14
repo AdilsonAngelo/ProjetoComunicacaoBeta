@@ -19,9 +19,11 @@ public class FileSender implements Runnable {
 	private ObjectOutputStream saida;
 	private File file;
 	private JProgressBar progressBar;
+	private String conversandoCom;
 
-	public FileSender(Cliente cliente, ObjectOutputStream saida, File file, JProgressBar progressBar) {
+	public FileSender(String conversandoCom, Cliente cliente, ObjectOutputStream saida, File file, JProgressBar progressBar) {
 		this.cliente = cliente;
+		this.conversandoCom = conversandoCom;
 		this.saida = saida;
 		this.file = file;
 		this.progressBar = progressBar;
@@ -43,6 +45,8 @@ public class FileSender implements Runnable {
 				Pacote pacote = new Pacote(token, janela, offset);
 				pacote.setFileName(file.getName());
 				pacote.setTamanho(dados.length);
+				pacote.setRemetente(cliente.getSelfUser().getLogin());
+				pacote.setDestinatario(conversandoCom);
 				System.out.println("enviando pacotes");
 				saida.writeObject(pacote);
 				progressBar.setValue(offset);

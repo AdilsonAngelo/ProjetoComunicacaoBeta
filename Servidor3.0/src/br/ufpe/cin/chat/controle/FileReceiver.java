@@ -7,7 +7,6 @@ import java.util.LinkedList;
 
 import javax.swing.JProgressBar;
 
-import org.apache.commons.lang3.SerializationUtils;
 
 import br.ufpe.cin.chat.dados.Pacote;
 import br.ufpe.cin.chat.dados.Servidor;

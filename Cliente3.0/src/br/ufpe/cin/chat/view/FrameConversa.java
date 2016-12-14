@@ -284,7 +284,7 @@ public class FrameConversa extends javax.swing.JFrame {
 		if (retorno == JFileChooser.APPROVE_OPTION){
 			File file = chooser.getSelectedFile();
 			System.out.println(file.getName());
-			(new Thread(new FileSender(cliente, cliente.getFrame().getSaidaArquivos(), file, progressoUp))).start();
+			(new Thread(new FileSender(conversandoCom, cliente, cliente.getFrame().getSaidaArquivos(), file, progressoUp))).start();
 		}
 	}
 
