@@ -49,7 +49,7 @@ public class FileReceiver implements Runnable {
 
 				}
 				progressBar.setValue(100);
-				//S(new Thread(new SenderCaller(servidor, destinatario, servidor.getListaPanel().get(destinatario).getProgressoEnvio(), file))).start();
+				(new Thread(new SenderCaller(servidor, destinatario, file.getName()))).start();
 				fileOut.flush();
 				fileOut.close();
 			}

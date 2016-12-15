@@ -40,7 +40,11 @@ public class ReceptorCliente implements Runnable {
 						JOptionPane.showMessageDialog(cliente.getFrame(), "Novo Arquivo dispon�vel para Download");
 						cliente.getFrame().getBotaoPause().setEnabled(true);
 						cliente.getFrame().getBotaoCancelar().setEnabled(true);
-					}else{
+					}
+					else if (objetoRecebido instanceof ACK && ((ACK)objetoRecebido).getTipo() == 8){
+						//chama o conector de download
+					}
+					else{
 						(new Thread(new Encaminhamento(cliente, objetoRecebido))).start();
 					}
 				}

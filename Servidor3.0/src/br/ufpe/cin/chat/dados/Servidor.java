@@ -1,5 +1,6 @@
 package br.ufpe.cin.chat.dados;
 
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
@@ -237,6 +238,18 @@ public class Servidor {
 
 	public void setMapaEntradaArquivos(Map<String, ObjectInputStream> mapaEntradaArquivos) {
 		this.mapaEntradaArquivos = mapaEntradaArquivos;
+	}
+
+	public File getFile(String fileName) {
+		File folder = new File("ArquivosRecebidos\\");
+		File[] fileList = folder.listFiles();
+		for(int i = 0; folder.exists() && i < fileList.length; i++){
+			File file = fileList[i];
+			if(file.getName().equals(fileName)){
+				return file;
+			}
+		}
+		return null;
 	}
 
 }
