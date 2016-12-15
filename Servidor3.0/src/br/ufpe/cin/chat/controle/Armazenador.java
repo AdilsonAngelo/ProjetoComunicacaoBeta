@@ -24,14 +24,23 @@ public class Armazenador implements Runnable {
 		Object objetoRecebido = null;
 		while(true){
 			try {
+				boolean RIParauto = true;
 				objetoRecebido = entrada.readObject();
 				System.out.println("(servidor) objeto recebido");
 				if (objetoRecebido instanceof Mensagem){
 					servidor.gerarAck((Mensagem) objetoRecebido);
 				}
 				else if(objetoRecebido instanceof ACK && ((ACK)objetoRecebido).getTipo() == -1){
+					RIParauto = false;
 				}
-				servidor.addListaSaida(objetoRecebido);
+				else if(objetoRecebido instanceof ACK && ((ACK)objetoRecebido).getTipo() == 7){
+					ACK ack = (ACK) objetoRecebido;
+					servidor.getMapaPause().put(ack.getRemetente(), !servidor.getMapaPause().get(ack.getRemetente()));
+					RIParauto = false;
+				}
+				
+				if(RIParauto)
+					servidor.addListaSaida(objetoRecebido);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

@@ -60,7 +60,6 @@ public class FileSender implements Runnable {
 			}
 			progressBar.setValue(100);
 			fileIN.close();
-			saida.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

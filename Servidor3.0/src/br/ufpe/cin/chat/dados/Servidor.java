@@ -20,6 +20,8 @@ public class Servidor {
 	private Map<String, ObjectOutputStream> mapaSaidaArquivos;
 	private Map<String, ObjectInputStream> mapaEntradaArquivos;
 	
+	private Map<String, Boolean> mapaPause;
+	
 	private Map<String, PainelUsuario> listaPanel;
 	private Map<String, Vector<Object>> mapaPendencias;
 
@@ -27,6 +29,7 @@ public class Servidor {
 
 	public Servidor(){
 		this.usuarios = new Vector<Usuario>();
+		this.mapaPause = new HashMap<String, Boolean>();
 		this.mapaEntradas = new HashMap<String, ObjectInputStream>();
 		this.mapaSaidas = new HashMap<String, ObjectOutputStream>();
 		this.mapaSaidaArquivos = new HashMap<String, ObjectOutputStream>();
@@ -125,6 +128,10 @@ public class Servidor {
 				listaPanel.get(usuario.getLogin()).setPendente(false);
 			}
 		}
+	}
+
+	public Map<String, Boolean> getMapaPause() {
+		return mapaPause;
 	}
 
 	public synchronized void deslogaUsuario(String username){

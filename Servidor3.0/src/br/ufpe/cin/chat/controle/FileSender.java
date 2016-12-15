@@ -16,14 +16,16 @@ public class FileSender implements Runnable {
 	private ObjectOutputStream saida;
 	private JProgressBar progressBar;
 	private File file;
-	
-	public FileSender(Servidor servidor, ObjectOutputStream saida, JProgressBar progressBar, File file){
+	private String destinatario;
+
+	public FileSender(Servidor servidor, String destinatario, JProgressBar progressBar, File file){
 		this.servidor = servidor;
-		this.saida = saida;
+		this.destinatario = destinatario;
+		this.saida = servidor.getMapaSaidaArquivos().get(destinatario);
 		this.progressBar = progressBar;
 		this.file = file;
 	}
-	
+
 	@Override
 	public void run() {
 		try {
@@ -32,23 +34,26 @@ public class FileSender implements Runnable {
 			long tamanho = file.length();
 			saida.writeObject(new Integer((int) tamanho));
 			FileInputStream fileIN = new FileInputStream(file);
-//			BufferedInputStream buffIN = new BufferedInputStream(fileIN);
+			//			BufferedInputStream buffIN = new BufferedInputStream(fileIN);
 			byte[] bytes = new byte[4000];
 			int counter;
 			int contador = 0;
 			progressBar.setValue(0);
 			progressBar.setMaximum((int)tamanho);
-			while((counter = fileIN.read(bytes)) > 0){
-				System.out.println("enviando arquivos");
-				System.out.println(counter);
-				saida.write(bytes, 0, counter);
-				contador += counter;
-				progressBar.setValue(contador);
-				progressBar.setStringPainted(true);
+			counter = fileIN.read(bytes);
+			while(counter > 0){
+				if(!servidor.getMapaPause().get(destinatario)){
+					System.out.println("enviando arquivos");
+					System.out.println(counter);
+					saida.write(bytes, 0, counter);
+					contador += counter;
+					progressBar.setValue(contador);
+					progressBar.setStringPainted(true);
+					counter = fileIN.read(bytes);
+				}
 			}
 			progressBar.setValue(100);
 			fileIN.close();
-			saida.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
