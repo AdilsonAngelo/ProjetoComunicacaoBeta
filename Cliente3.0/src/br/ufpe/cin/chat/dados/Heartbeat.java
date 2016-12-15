@@ -15,7 +15,7 @@ public class Heartbeat implements Runnable {
 		String user = "";
 		while (true){
 			try{
-				Thread.sleep(5000);
+				Thread.sleep(3000);
 				cliente.addFilaEnvio(new ACK(0, -1));
 			}
 			catch (InterruptedException e) {

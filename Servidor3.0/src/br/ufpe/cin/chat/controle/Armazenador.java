@@ -3,6 +3,7 @@ package br.ufpe.cin.chat.controle;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Mensagem;
 import br.ufpe.cin.chat.dados.Servidor;
 
@@ -27,6 +28,8 @@ public class Armazenador implements Runnable {
 				System.out.println("(servidor) objeto recebido");
 				if (objetoRecebido instanceof Mensagem){
 					servidor.gerarAck((Mensagem) objetoRecebido);
+				}
+				else if(objetoRecebido instanceof ACK && ((ACK)objetoRecebido).getTipo() == -1){
 				}
 				servidor.addListaSaida(objetoRecebido);
 			} catch (ClassNotFoundException e) {
