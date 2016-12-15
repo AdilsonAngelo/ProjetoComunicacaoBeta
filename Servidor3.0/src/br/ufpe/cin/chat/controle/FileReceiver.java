@@ -50,6 +50,7 @@ public class FileReceiver implements Runnable {
 				}
 				progressBar.setValue(100);
 				(new Thread(new SenderCaller(servidor, destinatario, file.getName()))).start();
+				System.out.println("STARTANDO SENDERCALLER ARQUIVO: " + file.getName());
 				fileOut.flush();
 				fileOut.close();
 			}

@@ -43,6 +43,8 @@ public class ReceptorCliente implements Runnable {
 					}
 					else if (objetoRecebido instanceof ACK && ((ACK)objetoRecebido).getTipo() == 8){
 						//chama o conector de download
+						ACK ack = (ACK) objetoRecebido;
+						(new Thread(new ConectorDownload(cliente, ack))).start();
 					}
 					else{
 						(new Thread(new Encaminhamento(cliente, objetoRecebido))).start();
