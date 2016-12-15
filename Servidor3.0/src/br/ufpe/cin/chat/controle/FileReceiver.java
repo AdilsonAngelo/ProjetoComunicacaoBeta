@@ -43,14 +43,13 @@ public class FileReceiver implements Runnable {
 				while((counter = entrada.read(bytes)) > 0){
 					fileOut.write(bytes, 0, counter);
 					contador += counter;
-					System.out.println("conta: "+contador);
+			//		System.out.println("conta: "+contador);
 					progressBar.setValue(contador);
 					progressBar.setStringPainted(true);
 
 				}
 				progressBar.setValue(100);
 				(new Thread(new SenderCaller(servidor, destinatario, file.getName()))).start();
-				System.out.println("STARTANDO SENDERCALLER ARQUIVO: " + file.getName());
 				fileOut.flush();
 				fileOut.close();
 			}

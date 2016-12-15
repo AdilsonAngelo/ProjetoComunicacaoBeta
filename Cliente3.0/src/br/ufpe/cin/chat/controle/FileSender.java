@@ -59,8 +59,12 @@ public class FileSender implements Runnable {
 			progressBar.setValue(100);
 			fileIN.close();
 			saida.flush();
+			Thread.sleep(100);
 			saida.close();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -32,7 +32,9 @@ public class FileReceiver implements Runnable {
 	public void run() {
 		try{
 			String fileName = (String) entrada.readObject();
+			System.out.println("RECEBENDO ARQUIVO NOVO: " + fileName);
 			int tamanho = (Integer) entrada.readObject();
+			System.out.println("TAMANHO DO ARQUIVO: " + tamanho + " bytes");
 			int counter;
 			int contador = 0;
 			int diferenca = 0;

@@ -246,6 +246,7 @@ public class Servidor {
 		for(int i = 0; folder.exists() && i < fileList.length; i++){
 			File file = fileList[i];
 			if(file.getName().equals(fileName)){
+				System.out.println("Lendo arquivos da pasta. ARQUIVO: " + file.getName());
 				return file;
 			}
 		}

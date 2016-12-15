@@ -2,6 +2,7 @@ package br.ufpe.cin.chat.controle;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Mensagem;
@@ -26,7 +27,7 @@ public class Armazenador implements Runnable {
 			try {
 				boolean RIParauto = true;
 				objetoRecebido = entrada.readObject();
-				System.out.println("(servidor) objeto recebido");
+		//		System.out.println("(servidor) objeto recebido");
 				if (objetoRecebido instanceof Mensagem){
 					servidor.gerarAck((Mensagem) objetoRecebido);
 				}
@@ -40,6 +41,7 @@ public class Armazenador implements Runnable {
 				}
 				else if (objetoRecebido instanceof ACK && ((ACK)objetoRecebido).getTipo() == 8){
 					ACK ack = (ACK) objetoRecebido;
+					//servidor.getMapaSaidaArquivos().put(ack.getRemetente(), new ObjectOutputStream());
 					(new Thread(new FileSender(servidor, ack.getRemetente(), servidor.getListaPanel().get(ack.getRemetente()).getProgressoEnvio(), servidor.getFile(ack.getFileName())))).start();
 					RIParauto = false;
 				}

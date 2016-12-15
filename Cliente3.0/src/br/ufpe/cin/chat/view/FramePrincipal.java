@@ -212,7 +212,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         pack();
         (new Thread(new Atualizador(cliente, jList1))).start();
 		initThreads();
-		cliente.setFrame(null);
+		cliente.setFrame(this);
     }// </editor-fold>                        
     
     private void initThreads(){

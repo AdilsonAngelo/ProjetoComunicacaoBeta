@@ -29,9 +29,10 @@ public class FileSender implements Runnable {
 	@Override
 	public void run() {
 		try {
+			Thread.sleep(1500);
 			System.out.println("startando file sender");
-			System.out.println("ARQUIVO NOME: " + file.getName());
-			saida.writeObject(file.getName());
+			String nomeDoArquivo = file.getName();
+			saida.writeObject(nomeDoArquivo);
 			long tamanho = file.length();
 			saida.writeObject(new Integer((int) tamanho));
 			FileInputStream fileIN = new FileInputStream(file);
@@ -55,7 +56,11 @@ public class FileSender implements Runnable {
 			}
 			progressBar.setValue(100);
 			fileIN.close();
+			saida.close();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

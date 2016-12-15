@@ -1,4 +1,4 @@
-package br.ufpe.cin.chat.controle;
+	package br.ufpe.cin.chat.controle;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,7 +31,7 @@ public class ServidorTransferencia implements Runnable {
 				servidor.getMapaSaidaArquivos().put(autenticador.getLogin(), saida);
 				servidor.getMapaEntradaArquivos().put(autenticador.getLogin(), entrada);
 				servidor.getMapaPause().put(autenticador.getLogin(), false);
-				System.out.println("inserido"+autenticador.getLogin());
+				System.out.println("inserido "+autenticador.getLogin()+ " no MAPA SAIDA/ENTRADA ARQUIVOS");
 				(new Thread(new FileReceiver(servidor, entrada, servidor.getListaPanel().get(autenticador.getLogin()).getProgressoRecebimento()))).start();
 				System.out.println("Novo caminho de transferencia inserido");
 			} catch (IOException e) {
