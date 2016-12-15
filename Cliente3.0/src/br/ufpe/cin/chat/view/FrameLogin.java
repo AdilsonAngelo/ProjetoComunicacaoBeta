@@ -145,7 +145,8 @@ public class FrameLogin extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>                        
 
-	private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {                                           
+	private void botaoLoginActionPerformed(java.awt.event.ActionEvent evt) {   
+		botaoLogin.setEnabled(false);
 		conectar();
 	}                                          
 
@@ -180,16 +181,20 @@ public class FrameLogin extends javax.swing.JFrame {
 			}
 			else if(status == 4){
 				JOptionPane.showMessageDialog(this, "Senha incorreta");
+				botaoLogin.setEnabled(true);
 			}
 			else if(status == 5){
 				JOptionPane.showMessageDialog(this, "Este usuário já está conectado ao servidor");
+				botaoLogin.setEnabled(true);
 			}
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(this, "Insira uma porta válida");
+			botaoLogin.setEnabled(true);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(this, "Falha ao estabelecer conexão");
+			botaoLogin.setEnabled(true);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
