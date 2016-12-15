@@ -49,13 +49,14 @@ public class FileReceiver implements Runnable {
 
 				}
 				progressBar.setValue(100);
-				(new Thread(new SenderCaller(servidor, destinatario, servidor.getListaPanel().get(destinatario).getProgressoEnvio(), file))).start();
+				//S(new Thread(new SenderCaller(servidor, destinatario, servidor.getListaPanel().get(destinatario).getProgressoEnvio(), file))).start();
 				fileOut.flush();
 				fileOut.close();
 			}
 		}
 		catch(IOException e){
-			e.printStackTrace();
+			System.out.println("conexao finalizada");
+			Thread.currentThread().interrupt();
 		} 
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();

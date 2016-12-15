@@ -48,7 +48,7 @@ public class FileReceiver implements Runnable {
 
 			}
 			barraProgresso.setValue(100);
-			//				fileOut.flush();
+			fileOut.flush();
 			fileOut.close();
 		}
 		catch (IOException e){

@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Autenticador;
 import br.ufpe.cin.chat.dados.Servidor;
 

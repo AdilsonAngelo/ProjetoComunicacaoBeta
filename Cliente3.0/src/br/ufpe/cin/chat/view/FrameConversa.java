@@ -10,15 +10,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFileChooser;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JOptionPane;
 
 import br.ufpe.cin.chat.controle.Apresentador;
 import br.ufpe.cin.chat.controle.FileSender;
 import br.ufpe.cin.chat.controle.FocusThread;
+import br.ufpe.cin.chat.dados.ACK;
+import br.ufpe.cin.chat.dados.Autenticador;
 import br.ufpe.cin.chat.dados.Cliente;
 import br.ufpe.cin.chat.dados.Mensagem;
 import br.ufpe.cin.chat.util.TokenGenerator;
@@ -115,24 +121,24 @@ public class FrameConversa extends javax.swing.JFrame {
 								.addComponent(botaoEnviarMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
 								.addComponent(botaoUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(campoMensagem))
-						.addContainerGap(16, Short.MAX_VALUE))
+								.addContainerGap(16, Short.MAX_VALUE))
 				);
 
 		javax.swing.GroupLayout painelUploadsLayout = new javax.swing.GroupLayout(painelUploads);
 		painelUploadsLayout.setHorizontalGroup(
-			painelUploadsLayout.createParallelGroup(Alignment.LEADING)
+				painelUploadsLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(painelUploadsLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(progressoUp, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(223, Short.MAX_VALUE))
-		);
+						.addContainerGap()
+						.addComponent(progressoUp, GroupLayout.PREFERRED_SIZE, 394, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(223, Short.MAX_VALUE))
+				);
 		painelUploadsLayout.setVerticalGroup(
-			painelUploadsLayout.createParallelGroup(Alignment.LEADING)
+				painelUploadsLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(painelUploadsLayout.createSequentialGroup()
-					.addGap(45)
-					.addComponent(progressoUp, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+						.addGap(45)
+						.addComponent(progressoUp, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+						.addContainerGap())
+				);
 		painelUploads.setLayout(painelUploadsLayout);
 
 		painelTransf.addTab("Uploads", painelUploads);
@@ -146,10 +152,10 @@ public class FrameConversa extends javax.swing.JFrame {
 								.addGroup(layout.createSequentialGroup()
 										.addGap(15, 15, 15)
 										.addComponent(painelTransf))
-								.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-										.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(painelConversa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap())
+										.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+												.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(painelConversa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+												.addContainerGap())
 				);
 		layout.setVerticalGroup(
 				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,7 +177,7 @@ public class FrameConversa extends javax.swing.JFrame {
 	private void botaoEnviarMsgActionPerformed(java.awt.event.ActionEvent evt) { 
 		addMensagemLista();
 	}                        
-	
+
 
 	private void addMensagemLista() {
 		if (campoMensagem.getText().trim().isEmpty()){
@@ -192,7 +198,20 @@ public class FrameConversa extends javax.swing.JFrame {
 		if (retorno == JFileChooser.APPROVE_OPTION){
 			File file = chooser.getSelectedFile();
 			System.out.println(file.getName());
-			(new Thread(new FileSender(conversandoCom, cliente, cliente.getFrame().getSaidaArquivos(), file, progressoUp))).start();
+			conectaServidorDownload(file);
+		}
+	}
+
+	private void conectaServidorDownload(File file){
+		try{
+			Socket socketTransf = new Socket(cliente.getIpServer(), cliente.getPortaServer()+1);
+			ObjectOutputStream out = new ObjectOutputStream(socketTransf.getOutputStream());
+			Autenticador autenticador = new Autenticador(cliente.getSelfUser().getLogin(), cliente.getSelfUser().getSenha(), cliente.getSelfUser().getIP());
+			out.writeObject(autenticador);
+			(new Thread(new FileSender(conversandoCom, cliente, out, file, progressoUp))).start();
+		}
+		catch(IOException e){
+			JOptionPane.showMessageDialog(this, "Não foi possivel conectar ao servidor de download");
 		}
 	}
 

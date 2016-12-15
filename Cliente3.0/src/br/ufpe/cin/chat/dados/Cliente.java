@@ -22,11 +22,12 @@ public class Cliente {
 	private FramePrincipal frame;
 	private boolean tentandoReconexao;
 
-	public Cliente(String login, String senha, String IP, int portaServer){
+	public Cliente(String login, String senha, String IP, String ipServer,int portaServer){
 		this.mapaFrameConversas = new HashMap<String, FrameConversa>();
 		this.filaEnvio = new LinkedList<Object>();
 		this.conversas = new RepositorioConversas();
 		this.selfUser = new Usuario(login, senha, IP);
+		this.setIpServer(ipServer);
 		this.setListaUsuarios(new Vector<String>());
 		this.setPortaServer(portaServer);
 		this.setTentandoReconexao(false);

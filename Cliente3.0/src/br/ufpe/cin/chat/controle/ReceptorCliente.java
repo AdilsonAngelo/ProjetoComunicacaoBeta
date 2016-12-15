@@ -36,8 +36,8 @@ public class ReceptorCliente implements Runnable {
 				}
 				else{
 					if(objetoRecebido instanceof ACK && ((ACK)objetoRecebido).getTipo() == 7){
-						(new Thread(new FileReceiver(cliente, cliente.getFrame().getEntradaArquivos(), cliente.getFrame().getProgressoDownload()))).start();
-						JOptionPane.showMessageDialog(cliente.getFrame(), "Novo Arquivo disponível para Download");
+					//	(new Thread(new FileReceiver(cliente, cliente.getFrame().getEntradaArquivos(), cliente.getFrame().getProgressoDownload()))).start();
+						JOptionPane.showMessageDialog(cliente.getFrame(), "Novo Arquivo disponï¿½vel para Download");
 						cliente.getFrame().getBotaoPause().setEnabled(true);
 						cliente.getFrame().getBotaoCancelar().setEnabled(true);
 					}else{

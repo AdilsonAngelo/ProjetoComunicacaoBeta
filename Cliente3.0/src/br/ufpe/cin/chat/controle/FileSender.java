@@ -1,11 +1,9 @@
 package br.ufpe.cin.chat.controle;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 
 import javax.swing.JProgressBar;
 
@@ -61,6 +59,7 @@ public class FileSender implements Runnable {
 			progressBar.setValue(100);
 			fileIN.close();
 			saida.flush();
+			saida.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

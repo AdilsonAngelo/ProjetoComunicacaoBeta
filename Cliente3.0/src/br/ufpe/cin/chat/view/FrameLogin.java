@@ -168,14 +168,10 @@ public class FrameLogin extends javax.swing.JFrame {
 			ACK ack = (ACK) input.readObject();
 			int status = ack.getTipo();
 			if(status == 3){
-				Socket socketTransf = new Socket(ip, ++porta);
-				ObjectOutputStream out = new ObjectOutputStream(socketTransf.getOutputStream());
-				ObjectInputStream in = new ObjectInputStream(socketTransf.getInputStream());
-				out.writeObject(autenticador);
 				JOptionPane.showMessageDialog(this, "Autenticado com sucesso!");
-				Cliente cliente = new Cliente(login, senha, getLanIP(), socket.getPort());
+				Cliente cliente = new Cliente(login, senha, getLanIP(), ip, socket.getPort());
 				cliente.setIpServer(ip);
-				FramePrincipal frame = new FramePrincipal(socket, cliente, input, output, out, in);
+				FramePrincipal frame = new FramePrincipal(socket, cliente, input, output);
 				frame.setVisible(true);
 				this.dispose();
 			}
@@ -184,16 +180,16 @@ public class FrameLogin extends javax.swing.JFrame {
 				botaoLogin.setEnabled(true);
 			}
 			else if(status == 5){
-				JOptionPane.showMessageDialog(this, "Este usuário já está conectado ao servidor");
+				JOptionPane.showMessageDialog(this, "Este usuï¿½rio jï¿½ estï¿½ conectado ao servidor");
 				botaoLogin.setEnabled(true);
 			}
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this, "Insira uma porta válida");
+			JOptionPane.showMessageDialog(this, "Insira uma porta vï¿½lida");
 			botaoLogin.setEnabled(true);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "Falha ao estabelecer conexão");
+			JOptionPane.showMessageDialog(this, "Falha ao estabelecer conexï¿½o");
 			botaoLogin.setEnabled(true);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

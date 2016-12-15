@@ -37,20 +37,15 @@ public class FramePrincipal extends javax.swing.JFrame {
 	private Cliente cliente;
 	private ObjectInputStream entradaObjetos;
 	private ObjectOutputStream saidaObjetos;
-	private ObjectInputStream entradaArquivos;
-	private ObjectOutputStream saidaArquivos;
 	private static final long serialVersionUID = -1413926017169968935L;
 	
-    public FramePrincipal(Socket socket, Cliente cliente, ObjectInputStream entradaObjetos, ObjectOutputStream saidaObjetos,
-			ObjectOutputStream saidaArquivos, ObjectInputStream entradaArquivos) {
+    public FramePrincipal(Socket socket, Cliente cliente, ObjectInputStream entradaObjetos, ObjectOutputStream saidaObjetos) {
     	super(cliente.getSelfUser().getLogin());
 		setResizable(false);
 		this.socket = socket;
 		this.cliente = cliente;
 		this.entradaObjetos = entradaObjetos;
 		this.saidaObjetos = saidaObjetos;
-		this.entradaArquivos = entradaArquivos;
-		this.saidaArquivos = saidaArquivos;
         initComponents();
     }
 
@@ -219,46 +214,10 @@ public class FramePrincipal extends javax.swing.JFrame {
 		initThreads();
 		cliente.setFrame(null);
     }// </editor-fold>                        
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FramePrincipal(null, null, null, null, null, null).setVisible(true);
-            }
-        });
-    }
     
     private void initThreads(){
 		(new Thread(new EmissorCliente(cliente, saidaObjetos))).start();
 		(new Thread(new ReceptorCliente(cliente, entradaObjetos))).start();
-		(new Thread(new FileReceiver(cliente, entradaArquivos, progressoDownload))).start();
 		(new Thread(new Heartbeat (cliente))).start();
 	}
     
@@ -277,7 +236,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 				initThreads();
 			}
 			else{
-				JOptionPane.showMessageDialog(this, "Erro fatal (Usuario já conectado)");
+				JOptionPane.showMessageDialog(this, "Erro fatal (Usuario jï¿½ conectado)");
 				System.exit(0);
 			}
 		}
@@ -286,22 +245,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public ObjectInputStream getEntradaArquivos() {
-		return entradaArquivos;
-	}
-
-	public void setEntradaArquivos(ObjectInputStream entradaArquivos) {
-		this.entradaArquivos = entradaArquivos;
-	}
-
-	public ObjectOutputStream getSaidaArquivos() {
-		return saidaArquivos;
-	}
-
-	public void setSaidaArquivos(ObjectOutputStream saidaArquivos) {
-		this.saidaArquivos = saidaArquivos;
 	}
 
     public javax.swing.JButton getBotaoInicio() {
