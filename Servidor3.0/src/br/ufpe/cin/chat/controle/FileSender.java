@@ -32,7 +32,7 @@ public class FileSender implements Runnable {
 			Thread.sleep(1500);
 			System.out.println("startando file sender");
 			String nomeDoArquivo = file.getName();
-			Thread.sleep(0);
+			Thread.sleep(150);
 			saida.writeObject(nomeDoArquivo);
 			long tamanho = file.length();
 			saida.writeObject(new Integer((int) tamanho));
@@ -56,6 +56,7 @@ public class FileSender implements Runnable {
 				}
 			}
 			progressBar.setValue(100);
+			servidor.getMapaSaidaArquivos().remove(destinatario);
 			fileIN.close();
 			file.delete();
 			saida.close();

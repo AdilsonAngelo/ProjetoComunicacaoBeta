@@ -65,6 +65,7 @@ public class FileReceiver implements Runnable {
 			barraProgresso.setValue(100);
 			fileOut.flush();
 			fileOut.close();
+			cliente.getFrame().getBotaoPause().setEnabled(false);
 		}
 		catch (IOException e){
 			e.printStackTrace();
