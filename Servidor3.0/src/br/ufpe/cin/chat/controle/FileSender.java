@@ -29,7 +29,7 @@ public class FileSender implements Runnable {
 	@Override
 	public void run() {
 		try {
-			Thread.sleep(1500);
+			Thread.sleep(3500);
 			System.out.println("startando file sender");
 			String nomeDoArquivo = file.getName();
 			Thread.sleep(150);
