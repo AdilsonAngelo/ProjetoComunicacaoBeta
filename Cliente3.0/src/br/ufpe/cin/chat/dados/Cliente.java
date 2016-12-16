@@ -41,7 +41,6 @@ public class Cliente {
 					if(!mapaFrameConversas.get(msg.getRemetente()).isVisible()){
 						mapaFrameConversas.get(msg.getRemetente()).setVisible(true);
 					}
-					msg.setContent(Criptografia.decripta(msg.getContent(), msg.getRemetente()));
 					conversas.addMsgRecebida(msg);
 				}else if(msg.getRemetente().equals(selfUser.getLogin())){
 					addFilaEnvio(msg);
@@ -79,10 +78,6 @@ public class Cliente {
 	}
 
 	public synchronized void addFilaEnvio(Object objeto){
-		if (objeto instanceof Mensagem){
-			((Mensagem)objeto).setContent(Criptografia.encripta(((Mensagem)objeto).getContent(), getSelfUser().getLogin()));
-			System.out.println(((Mensagem)objeto).getContent());
-		}
 		filaEnvio.add(objeto);
 	}
 

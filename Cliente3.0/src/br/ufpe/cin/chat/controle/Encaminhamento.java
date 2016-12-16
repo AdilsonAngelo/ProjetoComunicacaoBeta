@@ -3,6 +3,7 @@ package br.ufpe.cin.chat.controle;
 import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Cliente;
 import br.ufpe.cin.chat.dados.Mensagem;
+import br.ufpe.cin.chat.util.Criptografia;
 
 public class Encaminhamento implements Runnable {
 
@@ -20,9 +21,9 @@ public class Encaminhamento implements Runnable {
 			cliente.encaminharACK((ACK) objeto);
 		}
 		else if (objeto instanceof Mensagem){
+			((Mensagem)objeto).setContent(Criptografia.decripta(((Mensagem)objeto).getContent(), ((Mensagem)objeto).getRemetente()));
 			cliente.encaminharMsg((Mensagem) objeto);
 			cliente.gerarAckRecebido((Mensagem) objeto);
 		}
 	}
-
 }
