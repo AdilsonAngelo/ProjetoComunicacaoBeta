@@ -32,12 +32,12 @@ public class ThreadRTT implements Runnable {
 					break;
 				}
 				Thread.sleep(500);
-				long tempo1 = System.currentTimeMillis();
+				long tempo1 = System.nanoTime();
 				saida.writeObject("oi");
 				String recebido = (String) entrada.readObject();
-				long tempo2 = System.currentTimeMillis();
+				long tempo2 = System.nanoTime();
 				long RTT = tempo2-tempo1;
-				campoRTT.setText(String.valueOf(RTT));
+				campoRTT.setText(String.valueOf(RTT/1000));
 			}
 		}
 		catch(IOException e){

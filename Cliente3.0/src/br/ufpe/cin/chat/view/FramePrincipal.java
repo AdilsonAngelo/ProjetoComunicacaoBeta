@@ -26,6 +26,9 @@ import br.ufpe.cin.chat.dados.ACK;
 import br.ufpe.cin.chat.dados.Autenticador;
 import br.ufpe.cin.chat.dados.Cliente;
 import br.ufpe.cin.chat.dados.Heartbeat;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.GroupLayout;
 
 /**
  *
@@ -123,7 +126,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 		campoRTT.setEditable(false);
 
-		jLabel3.setText("ms");
+		jLabel3.setText("µs");
 
 		lblTempo.setText("Tempo estimado:");
 
@@ -134,50 +137,50 @@ public class FramePrincipal extends javax.swing.JFrame {
 		botaoCancelar.setText("Cancelar");
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-		jPanel1.setLayout(jPanel1Layout);
 		jPanel1Layout.setHorizontalGroup(
-				jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			jPanel1Layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(jPanel1Layout.createSequentialGroup()
-						.addComponent(botaoInicio)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(botaoPause)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(botaoCancelar)
-						.addGap(0, 0, Short.MAX_VALUE))
+					.addComponent(botaoInicio)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(botaoPause)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(botaoCancelar)
+					.addGap(0, 103, Short.MAX_VALUE))
 				.addGroup(jPanel1Layout.createSequentialGroup()
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addGroup(jPanel1Layout.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(lblRTT)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(campoRTT, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jLabel3)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-										.addComponent(lblTempo)
-										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(campoTempoEstimado, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addComponent(progressoDownload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addContainerGap())
-				);
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(jPanel1Layout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblRTT)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(campoRTT, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(jLabel3)
+							.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+							.addComponent(lblTempo)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(campoTempoEstimado, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
+						.addComponent(progressoDownload, GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))
+					.addContainerGap())
+		);
 		jPanel1Layout.setVerticalGroup(
-				jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(botaoInicio)
-								.addComponent(botaoPause)
-								.addComponent(botaoCancelar))
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(progressoDownload, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-						.addGap(18, 18, 18)
-						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(lblRTT)
-								.addComponent(campoRTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabel3)
-								.addComponent(lblTempo)
-								.addComponent(campoTempoEstimado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addContainerGap())
-				);
+			jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(jPanel1Layout.createSequentialGroup()
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(botaoInicio)
+						.addComponent(botaoPause)
+						.addComponent(botaoCancelar))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(progressoDownload, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+					.addGap(18)
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblRTT)
+						.addComponent(campoRTT, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jLabel3)
+						.addComponent(lblTempo)
+						.addComponent(campoTempoEstimado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+		jPanel1.setLayout(jPanel1Layout);
 
 		jLabel1.setText("Contatos");
 
