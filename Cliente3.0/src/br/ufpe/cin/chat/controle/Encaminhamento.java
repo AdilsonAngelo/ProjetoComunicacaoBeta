@@ -21,9 +21,9 @@ public class Encaminhamento implements Runnable {
 			cliente.encaminharACK((ACK) objeto);
 		}
 		else if (objeto instanceof Mensagem){
-			((Mensagem)objeto).setContent(Criptografia.decripta(((Mensagem)objeto).getContent(), ((Mensagem)objeto).getRemetente()));
-			cliente.encaminharMsg((Mensagem) objeto);
-			cliente.gerarAckRecebido((Mensagem) objeto);
+			Mensagem mensagem = new Mensagem(((Mensagem) objeto).getToken(), Criptografia.decripta(((Mensagem) objeto).getContent(), ((Mensagem) objeto).getRemetente()));
+			cliente.encaminharMsg(mensagem);
+			cliente.gerarAckRecebido(mensagem);
 		}
 	}
 }

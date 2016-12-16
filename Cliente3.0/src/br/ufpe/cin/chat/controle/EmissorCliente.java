@@ -29,8 +29,9 @@ public class EmissorCliente implements Runnable {
 				if (!cliente.getFilaEnvio().isEmpty()){
 					objeto = cliente.getFilaEnvio().poll();
 					if (objeto instanceof Mensagem){
-						Mensagem mensagem = (Mensagem) objeto;
-						mensagem.setContent(Criptografia.encripta(mensagem.getContent(), cliente.getSelfUser().getLogin()));
+						System.out.println(((Mensagem)objeto).getContent());
+						Mensagem mensagem = new Mensagem(((Mensagem)objeto).getToken(), Criptografia.encripta(((Mensagem)objeto).getContent(), cliente.getSelfUser().getLogin()));
+						System.out.println(mensagem.getContent());
 						objeto = mensagem;
 					}
 					saidaObjetos.writeObject(objeto);
