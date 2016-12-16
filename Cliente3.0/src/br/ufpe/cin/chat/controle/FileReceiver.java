@@ -80,7 +80,6 @@ public class FileReceiver implements Runnable {
 				
 				double tempoRestante = diff/vMedia;
 				
-
 				cliente.getFrame().getCampoTempoEstimado().setText((int)(tempoRestante/1000) + " s");
 			}
 		/*	campoTempoEstimado.setText(String.valueOf(1));
