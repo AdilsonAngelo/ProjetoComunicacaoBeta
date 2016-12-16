@@ -62,6 +62,7 @@ public class FileSender implements Runnable {
 			saida.flush();
 			Thread.sleep(100);
 			saida.close();
+			cliente.setEnviando(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
