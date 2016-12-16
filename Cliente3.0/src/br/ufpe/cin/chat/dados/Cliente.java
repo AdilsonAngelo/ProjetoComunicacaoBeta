@@ -37,6 +37,8 @@ public class Cliente {
 		synchronized(conversas){
 			try{
 				if(msg.getDestinatario().equals(selfUser.getLogin())){
+					if(!mapaFrameConversas.get(msg.getRemetente()).isVisible())
+						mapaFrameConversas.get(msg.getRemetente()).setVisible(true);
 					conversas.addMsgRecebida(msg);
 				}else if(msg.getRemetente().equals(selfUser.getLogin())){
 					addFilaEnvio(msg);

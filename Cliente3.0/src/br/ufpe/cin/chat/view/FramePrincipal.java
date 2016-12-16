@@ -78,6 +78,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 		jLabel3 = new javax.swing.JLabel();
 		lblTempo = new javax.swing.JLabel();
 		campoTempoEstimado = new javax.swing.JTextField();
+		campoTempoEstimado.setEditable(false);
 		botaoInicio = new javax.swing.JButton();
 		botaoInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -108,7 +109,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 		});
 		botaoCancelar.setEnabled(false);
 		progressoDownload = new javax.swing.JProgressBar();
-		progressoDownload.setForeground(Color.MAGENTA);
+		progressoDownload.setForeground(Color.BLUE);
 		jSeparator1 = new javax.swing.JSeparator();
 		jLabel1 = new javax.swing.JLabel();
 
