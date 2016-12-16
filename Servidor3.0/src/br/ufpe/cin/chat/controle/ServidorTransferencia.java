@@ -30,7 +30,7 @@ public class ServidorTransferencia implements Runnable {
 				Autenticador autenticador = (Autenticador) entrada.readObject();
 				servidor.getMapaSaidaArquivos().put(autenticador.getLogin(), saida);
 				servidor.getMapaEntradaArquivos().put(autenticador.getLogin(), entrada);
-				servidor.getMapaPause().put(autenticador.getLogin(), false);
+				servidor.getMapaPause().put(autenticador.getLogin(), true);
 				System.out.println("inserido "+autenticador.getLogin()+ " no MAPA SAIDA/ENTRADA ARQUIVOS");
 				(new Thread(new FileReceiver(servidor, entrada, servidor.getListaPanel().get(autenticador.getLogin()).getProgressoRecebimento()))).start();
 				System.out.println("Novo caminho de transferencia inserido");

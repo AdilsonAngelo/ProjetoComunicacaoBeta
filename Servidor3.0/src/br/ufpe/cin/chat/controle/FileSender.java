@@ -32,6 +32,7 @@ public class FileSender implements Runnable {
 			Thread.sleep(1500);
 			System.out.println("startando file sender");
 			String nomeDoArquivo = file.getName();
+			Thread.sleep(0);
 			saida.writeObject(nomeDoArquivo);
 			long tamanho = file.length();
 			saida.writeObject(new Integer((int) tamanho));

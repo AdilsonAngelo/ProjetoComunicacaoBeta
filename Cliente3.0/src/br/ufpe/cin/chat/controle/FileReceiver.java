@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 import br.ufpe.cin.chat.dados.Cliente;
@@ -42,6 +43,9 @@ public class FileReceiver implements Runnable {
 			barraProgresso.setValue(0);
 			barraProgresso.setMaximum((int)tamanho);
 			OutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos/"+fileName));
+			JOptionPane.showMessageDialog(cliente.getFrame(), "Voce tem um novo arquivo disponivel para download!");
+			cliente.getFrame().getBotaoInicio().setEnabled(true);
+			cliente.getFrame().getBotaoCancelar().setEnabled(true);
 			while((counter = entrada.read(bytes)) > 0){
 				fileOut.write(bytes, 0, counter);
 				contador += counter;
