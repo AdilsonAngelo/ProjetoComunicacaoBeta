@@ -54,7 +54,7 @@ public class Cliente {
 
 	public synchronized void encaminharACK(ACK ack){
 		if (ack.getTipo() == -1){
-			
+
 		}
 		else if (ack.getTipo() == 0){
 			conversas.tratarACK(ack, ack.getDestinatario());
@@ -65,10 +65,14 @@ public class Cliente {
 	}
 
 	public synchronized void iniciarConversa(String conversandoCom){
-		conversas.criarConversa(selfUser.getLogin(), conversandoCom);
-		FrameConversa frame = new FrameConversa(this, conversandoCom);
-		mapaFrameConversas.put(conversandoCom, frame);
-		frame.setVisible(true);
+		if(!mapaFrameConversas.containsKey(conversandoCom)){
+			conversas.criarConversa(selfUser.getLogin(), conversandoCom);
+			FrameConversa frame = new FrameConversa(this, conversandoCom);
+			mapaFrameConversas.put(conversandoCom, frame);
+			frame.setVisible(true);
+		}else{
+			mapaFrameConversas.get(conversandoCom).setVisible(true);
+		}
 	}
 
 	public synchronized void addFilaEnvio(Object objeto){
