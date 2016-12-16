@@ -1,6 +1,5 @@
 package br.ufpe.cin.chat.controle;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -67,6 +66,10 @@ public class FileSender implements Runnable {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		catch (NullPointerException e) {
+			(new Thread(new FileSender(servidor, destinatario, progressBar, file))).start();
+			Thread.currentThread().interrupt();
 		}
 	}
 
