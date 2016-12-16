@@ -107,7 +107,11 @@ public class FramePrincipal extends javax.swing.JFrame {
 		botaoCancelar = new javax.swing.JButton();
 		botaoCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				ACK ack = new ACK(-1, 9);
+				ack.setRemetente(cliente.getSelfUser().getLogin());
+				cliente.addFilaEnvio(ack);
+				botaoPause.setEnabled(false);
+				botaoInicio.setEnabled(false);
 			}
 		});
 		botaoCancelar.setEnabled(false);
