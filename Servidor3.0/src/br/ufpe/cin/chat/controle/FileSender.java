@@ -61,7 +61,8 @@ public class FileSender implements Runnable {
 			file.delete();
 			saida.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("SOQUETE FEXADU");
+			servidor.getMapaSaidaArquivos().remove(destinatario);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

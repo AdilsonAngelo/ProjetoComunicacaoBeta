@@ -31,9 +31,22 @@ public class FileReceiver implements Runnable {
 		this.begin = 0;
 		this.campoTempoEstimado = campoTempoEstimado;
 	}
+	
+	private void desconectar(OutputStream fileOut, File file){
+		try {
+			fileOut.flush();
+			fileOut.close();
+			file.delete();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void run() {
+		OutputStream fileOut = null;
+		File file = null;
 		try{
 			String fileName = (String) entrada.readObject();
 			System.out.println("RECEBENDO ARQUIVO NOVO: " + fileName);
@@ -44,7 +57,8 @@ public class FileReceiver implements Runnable {
 			byte[] bytes = new byte[4000];
 			barraProgresso.setValue(0);
 			barraProgresso.setMaximum((int)tamanho);
-			OutputStream fileOut = new FileOutputStream(new File("ArquivosRecebidos/"+fileName));
+			file = new File("ArquivosRecebidos/"+fileName);
+			fileOut = new FileOutputStream(file);
 			JOptionPane.showMessageDialog(cliente.getFrame(), "Voce tem um novo arquivo disponivel para download!");
 			cliente.getFrame().getBotaoInicio().setEnabled(true);
 			cliente.getFrame().getBotaoCancelar().setEnabled(true);
@@ -68,7 +82,7 @@ public class FileReceiver implements Runnable {
 			cliente.getFrame().getBotaoPause().setEnabled(false);
 		}
 		catch (IOException e){
-			e.printStackTrace();
+			desconectar(fileOut, file);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
