@@ -37,6 +37,7 @@ public class FileReceiver implements Runnable {
 			fileOut.flush();
 			fileOut.close();
 			file.delete();
+			cliente.setEnviando(false);
 			barraProgresso.setValue(0);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -80,6 +81,7 @@ public class FileReceiver implements Runnable {
 			barraProgresso.setValue(100);
 			fileOut.flush();
 			fileOut.close();
+			cliente.setEnviando(false);
 			cliente.getFrame().getBotaoPause().setEnabled(false);
 		}
 		catch (IOException e){

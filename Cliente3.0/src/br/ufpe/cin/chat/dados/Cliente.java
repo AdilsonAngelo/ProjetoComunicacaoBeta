@@ -22,6 +22,7 @@ public class Cliente {
 	private int portaServer;
 	private FramePrincipal frame;
 	private boolean tentandoReconexao;
+	private boolean isEnviando;
 
 	public Cliente(String login, String senha, String IP, String ipServer,int portaServer){
 		this.mapaFrameConversas = new HashMap<String, FrameConversa>();
@@ -32,6 +33,7 @@ public class Cliente {
 		this.setListaUsuarios(new Vector<String>());
 		this.setPortaServer(portaServer);
 		this.setTentandoReconexao(false);
+		this.setEnviando(false);
 	}
 
 	public synchronized void encaminharMsg(Mensagem msg){
@@ -163,5 +165,13 @@ public class Cliente {
 
 	public Map<String, FrameConversa> getMapaFrameConversas() {
 		return mapaFrameConversas;
+	}
+
+	public boolean isEnviando() {
+		return isEnviando;
+	}
+
+	public void setEnviando(boolean isEnviando) {
+		this.isEnviando = isEnviando;
 	}
 }

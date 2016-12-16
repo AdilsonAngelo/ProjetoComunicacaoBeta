@@ -72,7 +72,12 @@ public class FrameConversa extends javax.swing.JFrame {
 		botaoUpload = new javax.swing.JButton();
 		botaoUpload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				chooseFile();
+				if (cliente.isEnviando()){
+					JOptionPane.showMessageDialog(cliente.getFrame(), "Já esta transferindo um arquivo");
+				}
+				else{
+					chooseFile();
+				}
 			}
 		});
 		painelTransf = new javax.swing.JTabbedPane();
@@ -121,7 +126,7 @@ public class FrameConversa extends javax.swing.JFrame {
 								.addComponent(botaoEnviarMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
 								.addComponent(botaoUpload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(campoMensagem))
-								.addContainerGap(16, Short.MAX_VALUE))
+						.addContainerGap(16, Short.MAX_VALUE))
 				);
 
 		javax.swing.GroupLayout painelUploadsLayout = new javax.swing.GroupLayout(painelUploads);
@@ -152,10 +157,10 @@ public class FrameConversa extends javax.swing.JFrame {
 								.addGroup(layout.createSequentialGroup()
 										.addGap(15, 15, 15)
 										.addComponent(painelTransf))
-										.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-												.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(painelConversa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-												.addContainerGap())
+								.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+										.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(painelConversa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap())
 				);
 		layout.setVerticalGroup(
 				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,6 +218,14 @@ public class FrameConversa extends javax.swing.JFrame {
 		catch(IOException e){
 			JOptionPane.showMessageDialog(this, "NÃ£o foi possivel conectar ao servidor de download");
 		}
+	}
+
+	public javax.swing.JButton getBotaoUpload() {
+		return botaoUpload;
+	}
+
+	public void setBotaoUpload(javax.swing.JButton botaoUpload) {
+		this.botaoUpload = botaoUpload;
 	}
 
 	/**

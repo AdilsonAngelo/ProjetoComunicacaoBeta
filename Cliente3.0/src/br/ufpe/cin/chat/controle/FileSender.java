@@ -28,6 +28,7 @@ public class FileSender implements Runnable {
 	@Override
 	public void run() {
 		try {
+			cliente.setEnviando(true);
 			System.out.println("startando file sender");
 			saida.writeObject(conversandoCom);
 			saida.writeObject(file.getName());
