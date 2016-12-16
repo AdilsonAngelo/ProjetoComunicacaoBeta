@@ -63,6 +63,7 @@ public class FileSender implements Runnable {
 		} catch (IOException e) {
 			System.out.println("SOQUETE FEXADU");
 			servidor.getMapaSaidaArquivos().remove(destinatario);
+			progressBar.setValue(0);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -112,6 +112,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 				cliente.addFilaEnvio(ack);
 				botaoPause.setEnabled(false);
 				botaoInicio.setEnabled(false);
+				JOptionPane.showMessageDialog(cliente.getFrame(), "Download cancelado");
 			}
 		});
 		botaoCancelar.setEnabled(false);

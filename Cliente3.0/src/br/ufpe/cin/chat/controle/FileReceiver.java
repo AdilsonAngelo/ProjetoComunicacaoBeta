@@ -37,6 +37,7 @@ public class FileReceiver implements Runnable {
 			fileOut.flush();
 			fileOut.close();
 			file.delete();
+			barraProgresso.setValue(0);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
