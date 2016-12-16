@@ -64,20 +64,27 @@ public class FileReceiver implements Runnable {
 			JOptionPane.showMessageDialog(cliente.getFrame(), "Voce tem um novo arquivo disponivel para download!");
 			cliente.getFrame().getBotaoInicio().setEnabled(true);
 			cliente.getFrame().getBotaoCancelar().setEnabled(true);
-			Long startTime = System.nanoTime();
+			long tempo1 = System.nanoTime();
 			while((counter = entrada.read(bytes)) > 0){
+				
 				fileOut.write(bytes, 0, counter);
 				contador += counter;
 				barraProgresso.setValue(contador);
 				barraProgresso.setStringPainted(true);
-				Long elapsedTime = System.nanoTime() - startTime;
-				Long allTimeForDownloading = (elapsedTime * tamanho / contador);
-				Long remainingTime = allTimeForDownloading - elapsedTime;
-				remainingTime = remainingTime/1000;
-				campoTempoEstimado.setText(String.valueOf((int)(remainingTime/10000000)+3));
+				
+				long tempo2 = System.nanoTime();
+				
+				double vMedia = contador/((tempo2-tempo1)/1000000);
+				
+				long diff = tamanho - contador;
+				
+				double tempoRestante = diff/vMedia;
+				
+
+				cliente.getFrame().getCampoTempoEstimado().setText((int)(tempoRestante/1000) + " s");
 			}
-			campoTempoEstimado.setText(String.valueOf(1));
-			campoTempoEstimado.setText(String.valueOf(0));
+		/*	campoTempoEstimado.setText(String.valueOf(1));
+			campoTempoEstimado.setText(String.valueOf(0));*/
 			barraProgresso.setValue(100);
 			fileOut.flush();
 			fileOut.close();
